@@ -11,6 +11,10 @@ import React, { useState } from "react";
 import Menubar from './components/Menubar';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
+import Analytics from './components/Analytics';
+import Orders from './components/Orders';
+import Export from './components/Export';
+import Settings from './components/Settings';
 import Activation from './components/Activation';
 
 
@@ -30,9 +34,27 @@ const renderPage = (page) => {
     let content = null;
 
     switch (String(page).toLowerCase()) {
-        case "home": {
+        case "dashboard": {
             content = (
                 <Dashboard />
+            );
+            break;
+        };
+        case "orders": {
+            content = (
+                <Orders />
+            );
+            break;
+        };
+        case "analytics": {
+            content = (
+                <Analytics />
+            );
+            break;
+        };
+        case "export": {
+            content = (
+                <Export />
             );
             break;
         };

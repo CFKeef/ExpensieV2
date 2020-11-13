@@ -184,7 +184,119 @@ body {
 }
 
 .sidebar-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
   background: #181825;
+}
+.sidebar-container .profile-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+  width: 100%;
+  border-bottom: 1px solid #1F1F2E;
+}
+.sidebar-container .profile-container h1 {
+  margin: 1REM 10px;
+  color: white;
+  font-size: 18px;
+  letter-spacing: 0.08rem;
+  font-weight: bold;
+}
+.sidebar-container .nav-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  border-bottom: 1px solid #1F1F2E;
+}
+.sidebar-container .nav-container .header {
+  margin: 0.5REM 0 0 0;
+  width: 100%;
+}
+.sidebar-container .nav-container .header h4 {
+  margin-left: 10px;
+  width: 100%;
+  font-size: 14px;
+  color: #6775F0;
+  letter-spacing: 0.08rem;
+  font-weight: bold;
+}
+.sidebar-container .nav-container ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin: 0.5REM 0 0 0;
+}
+.sidebar-container .nav-container ul li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  height: 45px;
+  width: 90%;
+  margin: 5px 10px;
+}
+.sidebar-container .nav-container ul li button {
+  margin-left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+.sidebar-container .nav-container ul li button img {
+  width: 25px;
+  height: 25px;
+}
+.sidebar-container .nav-container ul li button img:hover {
+  cursor: pointer;
+}
+.sidebar-container .nav-container ul li button h2 {
+  text-align: left;
+  line-height: 45px;
+  width: 100%;
+  margin-left: 10px;
+  letter-spacing: 0.08REM;
+  font-size: 12px;
+  color: #9797AF;
+}
+.sidebar-container .nav-container ul li button h2:hover {
+  cursor: pointer;
+}
+.sidebar-container .nav-container ul li button:hover {
+  cursor: pointer;
+}
+.sidebar-container .nav-container ul li:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+.sidebar-container .nav-container ul li:active {
+  transform: translateY(0.5px);
+  filter: brightness(150%);
+}
+.sidebar-container .nav-container ul .selected {
+  border-radius: 8px;
+  background: #6775F0;
+}
+.sidebar-container .nav-container ul .selected h2 {
+  color: white;
+}
+.sidebar-container .nav-container ul .selected img {
+  filter: brightness(0) invert(1);
+}
+.sidebar-container .nav-container ul .selected:hover {
+  cursor: pointer;
+  filter: none !important;
+}
+.sidebar-container .nav-container ul:last-child {
+  padding-bottom: 5px;
 }
 
 /*# sourceMappingURL=theme.css.map */
