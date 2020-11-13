@@ -10,6 +10,7 @@ import React, { useState } from "react";
 // import components
 import Menubar from './components/Menubar';
 import Sidebar from './components/Sidebar';
+import Dashboard from './components/Dashboard';
 import Activation from './components/Activation';
 
 
@@ -31,7 +32,7 @@ const renderPage = (page) => {
     switch (String(page).toLowerCase()) {
         case "home": {
             content = (
-                <Activation />
+                <Dashboard />
             );
             break;
         };

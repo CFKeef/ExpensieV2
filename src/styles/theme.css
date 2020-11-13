@@ -98,8 +98,6 @@ body {
   height: 40px;
   width: 100%;
   -webkit-app-region: drag;
-  background: #181825;
-  border-bottom: 1px solid #1F1F2E;
 }
 
 .app-container {
@@ -114,12 +112,79 @@ body {
 .sidebar-container {
   height: 100%;
   width: 250px;
-  background: #181825;
 }
 
 .content-container {
   height: 100%;
   width: 100%;
+}
+
+.menubar-container {
+  background: #181825;
+  border-bottom: 1px solid #1F1F2E;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.menubar-container .logo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  width: 50%;
+}
+.menubar-container .logo img {
+  margin-left: 20px;
+  height: 14px;
+  width: auto;
+}
+.menubar-container .logo h1 {
+  margin-left: 15px;
+  font-size: 14px;
+  letter-spacing: 0.05rem;
+  line-height: 14px;
+  font-weight: bold;
+  color: #b9bcc0;
+}
+.menubar-container .controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 50%;
+}
+.menubar-container .controls div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-app-region: no-drag;
+}
+.menubar-container .controls div button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menubar-container .controls div button img {
+  width: 14px;
+  height: 14px;
+}
+.menubar-container .controls div button img:hover {
+  cursor: pointer;
+}
+.menubar-container .controls div button img:active {
+  transform: translateY(0.5px);
+  filter: brightness(150%);
+}
+.menubar-container .controls div .minimize {
+  margin-right: 15px;
+}
+.menubar-container .controls div .close {
+  margin-right: 20px;
+}
+
+.sidebar-container {
+  background: #181825;
 }
 
 /*# sourceMappingURL=theme.css.map */
