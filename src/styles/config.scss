@@ -1,0 +1,79 @@
+// Color Presets
+// --------------------------------------------------
+$background-primary: #15151F;
+$background-secondary: #181825;
+$background-secondary-active: #212131;
+$background-third: #1a1a29;
+$background-third-active: #252537;
+$background-border: #1F1F2E;
+$text-grey: #9797AF;
+$text-grey-1: #A2A0C5;
+$text-normal: #ffffff;
+$text-offwhite: #e6eefe;
+$purple-primary: #5B3EEF;
+$purple-light: #a39eff;
+$green-primary: #97FDF1;
+$red-primary: #FF5C5C;
+
+// Typography
+// --------------------------------------------------
+$font-family: "ProximaNova";
+$font-family-bold: "ProximaNovaBold";
+$font-weight-normal: normal;
+$font-weight-bold: bold;
+$font-ls-normal: 0.072em;
+$font-ls-header: 0.118em;
+$font-ls-small: 0.015em;
+$font-size-normal: 0.850em;
+$font-size-small: 0.750em;
+$font-size-medium: 0.900em;
+$font-size-header: 1.075em;
+$font-size-big: 1.275em;
+$font-size-extra-big: 1.475em;
+
+// Spacing
+// --------------------------------------------------
+$sidebar-width: 299px;
+$border-radius: 8px;
+$b-margin: 25px;
+$s-margin: 15px;
+
+// Layers
+// --------------------------------------------------
+$zIndex-1  : 100;
+$zIndex-2  : 200;
+$zIndex-3  : 300;
+$zIndex-4  : 400;
+$zIndex-5  : 500;
+$zIndex-6  : 600;
+$zIndex-7  : 700;
+$zIndex-8  : 800;
+$zIndex-9  : 900;
+$zIndex-10 : 1000;
+
+// Mixins
+// --------------------------------------------------
+@mixin transition($args...) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+};
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+    background-clip: padding-box;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    -o-border-radius: $radius;
+};
+
+@mixin animate($val){
+    animation:$val;
+    -moz-animation:$val;  
+    -webkit-animation:$val;
+    -o-animation:$val;
+    -ms-animation:$val;  
+};

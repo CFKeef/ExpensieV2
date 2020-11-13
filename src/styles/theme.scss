@@ -1,0 +1,121 @@
+// theme.scss
+// renders the css for the entire app
+
+// import the helper scss files
+@import "config.scss";
+@import "fontface.scss";
+
+// Psuedo Elements
+// --------------------------------------------------
+::-webkit-input-placeholder {
+    color: #a8adc3;
+}
+
+::-moz-placeholder {
+    color: #a8adc3;
+}
+
+:-ms-input-placeholder {
+    color: #a8adc3;
+}
+
+:-moz-placeholder {
+    color: #a8adc3;
+}
+
+*::selection {
+    color: #fff;
+    background: #5b3eef;
+}
+
+*::-moz-selection {
+    color: #fff;
+    background: #5b3eef;
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none !important;
+}
+
+::-webkit-scrollbar {
+    @media screen and (min-width: 641px) {
+        background-color: transparent;
+        width: 10px;
+        height: 10px;
+        cursor: pointer;
+        position: relative;
+        top: 20px;
+        left: 20px;
+    }
+}
+
+::-webkit-scrollbar-thumb {
+    @media screen and (min-width: 641px) {
+        background: rgba(163, 158, 255, 0.1);
+        position: relative;
+        top: 20px;
+        left: 20px;
+        @include border-radius($border-radius);
+    }
+}
+
+// HTML Elements
+// --------------------------------------------------
+body {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    color: $text-grey;
+    font-weight: $font-weight-normal;
+    font-family: $font-family;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden !important;
+    position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: $background-primary;
+    border: 1px solid $background-border;
+    overflow: hidden;
+}
+
+.menubar-container {
+    height: 40px;
+    width: 100%;
+    -webkit-app-region: drag;
+    background: $background-secondary;
+    border-bottom: 1px solid $background-border;
+}
+
+.app-container {
+    height: calc(900px - 40px);
+    width: 1600px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.sidebar-container {
+    height: 100%;
+    width: 250px;
+    background: $background-secondary;
+}
+
+.content-container {
+    height: 100%;
+    width: 100%;
+}
