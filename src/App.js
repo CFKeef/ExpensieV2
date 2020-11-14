@@ -22,14 +22,6 @@ import Activation from './components/Activation';
 import "./styles/reset.css";
 import "./styles/theme.css";
 
-/**
- * # renderPage
- * renders the content based on the selected page
- * 
- * @param {String} page
- * 
- * @returns markdown
- */
 const renderPage = (page) => {
     let content = null;
 
@@ -69,12 +61,10 @@ const renderPage = (page) => {
     return content;
 };
 
-/**
- * # App
- */
+
 function App() {
     // sidebar state
-    const [page, setPage] = useState("home");
+    const [page, setPage] = useState("dashboard");
 
     // generate the markdown
     let content = renderPage(page);

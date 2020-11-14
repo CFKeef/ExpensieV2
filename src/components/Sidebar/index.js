@@ -11,7 +11,7 @@ const Sidebar = (props) => {
 
     const generateProfileTab = () => {
         return (
-            <div class="profile-container">
+            <div className="profile-container">
                 <h1 className="greeting">Hi Isabel</h1>
             </div>
         )
@@ -20,9 +20,9 @@ const Sidebar = (props) => {
     const generateList = (list) => {
         return (
             <ul>
-                {list.map(element => {
+                {list.map( (element,index) => {
                    return (
-                        <li key={element.title} className={"entry " + handleSelected(element.key)}>
+                        <li key={"sideBar" + index} className={"entry " + handleSelected(element.key)}>
                             <button onClick={() => handleClick(element.key, element.name)}>
                                 <img src={element.image} />
                                 <h2>{element.name}</h2>

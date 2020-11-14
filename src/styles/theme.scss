@@ -25,12 +25,12 @@
 
 *::selection {
     color: #fff;
-    background: #5b3eef;
+    background: #6775F0;
 }
 
 *::-moz-selection {
     color: #fff;
-    background: #5b3eef;
+    background: #6775F0;
 }
 
 button:focus,
@@ -40,27 +40,15 @@ textarea:focus {
     outline: none !important;
 }
 
-::-webkit-scrollbar {
-    @media screen and (min-width: 641px) {
-        background-color: transparent;
-        width: 10px;
-        height: 10px;
-        cursor: pointer;
-        position: relative;
-        top: 20px;
-        left: 20px;
-    }
+tbody::-webkit-scrollbar {
+    width: 4px;
 }
 
-::-webkit-scrollbar-thumb {
-    @media screen and (min-width: 641px) {
-        background: rgba(163, 158, 255, 0.1);
-        position: relative;
-        top: 20px;
-        left: 20px;
-        @include border-radius($border-radius);
-    }
+tbody::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid #6775F0;
 }
+
 
 // HTML Elements
 // --------------------------------------------------
@@ -114,7 +102,7 @@ body {
 
 .content-container {
     height: 100%;
-    width: 100%;
+    width: 1350px;
 }
 
 // Component styling
@@ -326,5 +314,204 @@ body {
                 padding-bottom: 5px;
             }
         }
+    }
+}
+
+.dashboard-container {
+    width: 100%;
+    height: 100%;
+    
+    .dashboard {
+        margin: 0 2REM;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+
+        .top {
+            height: 280px;
+            width: 100%;
+            margin: 2REM 0 0 0;
+
+            .pos {
+                position: relative;
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+            
+                .tag {
+                    position: absolute;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 200px;
+                    background-color: #6775F0;
+                    height: 30px;
+
+                    border-radius: 8px;
+
+                    h1 {
+                        text-align: center;
+                        font-size: 16px;
+                        line-height: 30px;
+                        color: white;
+                        font-weight: bold;
+                        letter-spacing: .1REM;
+                    }
+                }
+            }
+            
+            .overview {
+                width: 100%;
+                height: 100%;
+                border-radius: 8px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-direction: column;
+            }
+        }
+
+        .bot {
+            height: 450px;
+            width: 100%;
+            margin: 0 0 2REM 0;
+
+            .pos {
+                position: relative;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            
+                .tag {
+                    position: absolute;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 200px;
+                    background-color: #6775F0;
+                    height: 30px;
+
+                    border-radius: 8px;
+
+                    h1 {
+                        text-align: center;
+                        font-size: 16px;
+                        line-height: 30px;
+                        color: white;
+                        font-weight: bold;
+                        letter-spacing: .1REM;
+                    }
+                }
+            }
+
+            .order-list {
+                width: 100%;
+                height: 100%;
+                border-radius: 8px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-direction: column;
+
+                
+                table {
+                    margin: 2REM 0 0 0;
+                    height: 450px;
+                    width: 1200px;
+                    border-spacing: 0;
+                    border-collapse: collapse;
+
+                    thead {
+                        display: block;
+                        width: 100%;
+                        
+                        tr {
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-evenly;
+                            align-items: center;
+                            flex-direction: row;
+
+                            th {
+                                width: 240px;
+                                height: 40px;
+                                font-size: 14px;
+                                line-height: 40px;
+                                letter-spacing: .56px;
+                                color: $text-grey;
+                                font-weight: bold;
+                                text-align: center;
+                            }
+                        }
+                    }
+
+                    tbody {
+                        border: 4px solid $background-border;
+                        border-radius: 8px;
+                        display: block;
+                        width: 1200px;
+                        height: 300px;
+                        overflow-y: auto;
+                        overflow-x: hidden;
+
+                        tr {
+                            height: 30px;
+                            width: 100%;
+                            margin: .5REM;
+
+                            td {
+                                width: 240px;
+                                height: 30px;
+
+                                p {
+                                    width: 100%;
+                                    text-align: center;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    color: white;
+                                    font-size: 14px;
+                                    line-height: 40px;
+                                }
+
+                                button {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    flex-direction: row;
+                                    width: 100%;
+                                    height: 100%;
+
+                                    img {
+                                        height: 20px;
+                                        width: auto;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .even {
+                            background: $background-primary;
+                        }
+    
+                        .odd {
+                            background: $background-secondary;
+                        }
+                    }
+                }
+            }
+        }
+
+       
     }
 }
