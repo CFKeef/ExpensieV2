@@ -29,6 +29,7 @@
         "react-sizeme": "^2.6.12",
         "react-tooltip": "^4.2.10",
         "react-vis": "^1.11.7",
+        "recharts": "^1.8.5",
         "redux": "^4.0.5",
         "redux-devtools-extension": "^2.13.8",
         "redux-thunk": "^2.3.0",

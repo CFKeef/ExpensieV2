@@ -1,62 +1,36 @@
 import React from 'react';
 
+import Chart from '../Chart';
+
 import ShowMore from '../../assets/options.svg';
 import Logo from '../../assets/expensieLogo.png';
 
 const Dashboard = () => {
 
-    const generateCards = () => {
-        let cards = [
-            {title: "Not Sold", value: 55},
-            {title: "Active", value: 32},
-            {title: "Shipped", value: 16},
-            {title: "Completed", value: 16},
-        ]
+    const orders = [
+        {id: 1, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
+        {id: 2, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
+        {id: 3, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
+        {id: 4, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
+        {id: 5, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
+        {id: 6, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
+        {id: 7, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
+        {id: 8, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
+        {id: 9, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
+        {id: 10, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
+    ]
 
-        return (
-            <ul>
-                {cards.map( (card,index) => {
-                    return (
-                        <li key={"card" + index}>
-                            <div className={"card card" + index}>
-                                <div className="card-top">
-                                    <p>{card.title}</p>
-                                </div>
-                                <div className="card-bot">
-                                    <p>{card.value}</p>
-                                </div>
-                            </div>
-                        </li>
-                    )
-                })}
-            </ul>
-        )
-    }
+    const salesSummary = [
+        {name: "Total", value: 55625},
+        {name: "Expenses", value: 12000},
+        {name: "Profit", value: 13000}
+    ]
 
     const handleShowMoreInfo = (order) => {
         console.log(order);
     }
 
     const generateTable = () => {
-        let orders = [
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-            {date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-
-        ]
-
-
         // Determines if the row is odd or even and applies the correct class for the row's color
         function determineRowStyling(index) {
             if( (index + 1) % 2 == 0 ) return "even";
@@ -82,7 +56,7 @@ const Dashboard = () => {
                                     <p>{order.status}</p>
                                 </td>
                                 <td>
-                                    <button onClick={order => {handleShowMoreInfo(order)}}>
+                                    <button onClick={() => handleShowMoreInfo(order.id)}>
                                         <img src={ShowMore} />
                                     </button>
                                 </td>
@@ -109,7 +83,14 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <div className="overview">
-                        
+                        <div className="left">
+                            <p>tbd</p>
+                        </div>
+                        <div className="right">
+                            <Chart 
+                                salesSummary={salesSummary}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="bot">
@@ -123,7 +104,7 @@ const Dashboard = () => {
                             <thead>
                                 <tr>
                                     <th>DATE</th>
-                                    <th>NAME</th>
+                                    <th>CUSTOMER</th>
                                     <th>AMOUNT</th>
                                     <th>STATUS</th>
                                     <th>ACTIONS</th>
