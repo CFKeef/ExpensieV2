@@ -314,6 +314,7 @@ body {
   width: 200px;
   background-color: #6775F0;
   height: 30px;
+  top: -2px;
   border-radius: 8px;
 }
 .dashboard-container .dashboard .top .pos .tag h1 {
@@ -327,6 +328,7 @@ body {
 .dashboard-container .dashboard .top .overview {
   width: 100%;
   height: 100%;
+  position: relative;
   border-radius: 8px;
   display: flex;
   justify-content: flex-start;
@@ -335,11 +337,86 @@ body {
 }
 .dashboard-container .dashboard .top .overview .left {
   height: 100%;
+  width: 70%;
+}
+.dashboard-container .dashboard .top .overview .left ul {
+  margin-top: 30px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.dashboard-container .dashboard .top .overview .left ul li {
   width: 50%;
+  height: 125px;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card {
+  height: calc(100% - 20px);
+  width: calc(100% - 20px);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card .left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  width: 80%;
+  height: 100%;
+  border-radius: 8px 0 0 8px;
+  z-index: 2;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card .left p {
+  color: white;
+  margin-left: 2REM;
+  font-weight: bold;
+  letter-spacing: 0.56px;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 100%;
+  background: white;
+  border-radius: 0 8px 8px 0;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card .right p {
+  width: 80%;
+  text-align: center;
+  color: black;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card p {
+  font-size: 24px;
+  margin: 0;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card0 {
+  margin: 10px 0;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card0 .left {
+  background: #0088FE;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card1 {
+  margin: 10px 0;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card1 .left {
+  background: #f05454;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card2 .left {
+  background: #00C49F;
+}
+.dashboard-container .dashboard .top .overview .left ul li .card3 .left {
+  background: #FFBB28;
 }
 .dashboard-container .dashboard .top .overview .right {
   height: 100%;
-  width: 50%;
+  width: 30%;
   display: flex;
   justify-content: flex-end;
   align-items: center;

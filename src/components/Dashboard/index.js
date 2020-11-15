@@ -73,6 +73,32 @@ const Dashboard = () => {
         )
     }
 
+    const generateCards = () => {
+        let cards = [];
+        salesSummary.map(stat => cards.push(stat));
+        cards.push({name: "Sales Count", value: 1543});
+
+        return (
+            <ul>
+                {cards.map((card, index) => {
+                    return (
+                        <li key={"cardlist" + index}>
+                            <div className={"card card" + index}>
+                                <div className="left">
+                                    <p>{card.name}</p>
+                                </div>
+                                <div className="right">
+                                    <p>{card.value}</p>
+                                </div>
+                            </div>
+                        </li>
+                    )
+                })}
+            </ul>
+        )
+
+    }
+
     return (
         <div className="dashboard-container">
             <div className="dashboard">
@@ -84,7 +110,7 @@ const Dashboard = () => {
                     </div>
                     <div className="overview">
                         <div className="left">
-                            <p>tbd</p>
+                            {generateCards()}
                         </div>
                         <div className="right">
                             <Chart 
