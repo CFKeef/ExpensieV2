@@ -22,7 +22,6 @@ let orders = [
 ]
 
 let chartData = [
-  {name: "Gross", value: 72000},
   {name: "Expenses", value: 24440},
   {name: "Profit", value: 44444}
 ]

@@ -259,7 +259,7 @@ const Dashboard = () => {
                                 <thead>
                                     <tr>
                                         <th>PERIOD</th>
-                                        <th>TOTAL</th>
+                                        <th>GROSS</th>
                                         <th>EXPENSES</th>
                                         <th>PROFIT</th>
                                         <th>SALES COUNT</th>
