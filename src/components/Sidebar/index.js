@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import Dash from '../../assets/home.svg';
 import Analytics from '../../assets/pie-chart.svg';
 import Orders from '../../assets/history.svg';
-import Export from '../../assets/print.svg';
+import Export from '../../assets/export.svg';
 import Settings from '../../assets/settings.svg';
 
 const Sidebar = (props) => {
