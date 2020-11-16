@@ -670,6 +670,24 @@ body {
 .dashboard-container .dashboard .bot .order-list table tbody .odd {
   background: #181825;
 }
+.dashboard-container .dashboard .bot .order-list table .empty-table {
+  height: 300px;
+  width: 1282px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.dashboard-container .dashboard .bot .order-list table .empty-table img {
+  height: 86px;
+  width: auto;
+}
+.dashboard-container .dashboard .bot .order-list table .empty-table h4 {
+  font-size: 16px;
+  color: white;
+  letter-spacing: 0.56px;
+  margin-top: 1REM;
+}
 .dashboard-container .dashboard .bot .buttons {
   display: flex;
   justify-content: center;

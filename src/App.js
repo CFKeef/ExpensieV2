@@ -64,7 +64,7 @@ const renderPage = (page) => {
 
 function App() {
     // sidebar state
-    const [page, setPage] = useState("dashboard");
+    const [page, setPage] = useState("orders");
 
     // generate the markdown
     let content = renderPage(page);

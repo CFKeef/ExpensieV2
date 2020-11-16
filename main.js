@@ -8,6 +8,32 @@ const {
   REACT_DEVELOPER_TOOLS
 } = require('electron-devtools-installer');
 
+let orders = [
+  {id: 1, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+  {id: 2, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+  {id: 3, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+  {id: 4, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+  {id: 5, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+  {id: 6, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+  {id: 7, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+  {id: 8, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+  {id: 9, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+  {id: 10, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+]
+
+let chartData = [
+  {name: "Gross", value: 72000},
+  {name: "Expenses", value: 24440},
+  {name: "Profit", value: 44444}
+]
+
+let stats = [
+  {name: "Gross", past30Days: 2550, pastYear: 10560, lifetime: 20000},
+  {name: "Expenses", past30Days: 2550, pastYear: 10560, lifetime: 20000},
+  {name: "Profit", past30Days: 2550, pastYear: 10560, lifetime: 20000},
+  {name: "Sales Count", past30Days: 2550, pastYear: 10560, lifetime: 20000},
+]
+
 let mainWindow;
 
 process.env.NODE_ENV = 'dev';
@@ -49,3 +75,21 @@ function init() {
 }
 
 app.on('ready', init);
+
+
+// IPC STUFF
+
+// Returns orders list for dashboard page
+ipcMain.on("retrieveOrders", (event, arg) => {
+  event.reply("ordersResponse", orders);
+})
+
+// Returns stats list for dashboard page
+ipcMain.on("retrieveStats", (event, arg) => {
+  event.reply("statsResponse", stats);
+})
+
+// Returns chart data for chart on dashboard page
+ipcMain.on("retrieveChartData", (event,arg) => {
+  event.reply("chartDataResponse", chartData);
+})
