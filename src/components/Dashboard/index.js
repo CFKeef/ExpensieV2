@@ -37,6 +37,8 @@ const Dashboard = () => {
         if( (index + 1) % 2 == 0 ) return "even";
         else return "odd";
     }
+
+    // Will handle the actions of interacting with the drop down
     const handleDropDown = () => {
         const handleClick = (option) => {
             setDropDownSelection(option);
@@ -73,6 +75,7 @@ const Dashboard = () => {
         }
     }
 
+    // Sets the last option in the select with a specific styling to make it prettier
     const handleDropDownRestyling = () => {
         if(dropDownShowing) {
             return "showing";
@@ -80,16 +83,32 @@ const Dashboard = () => {
         else return "";
     }
 
-    const handleActionsShown = (order) => {
+    // Handles clicking the action button on an order
+    const handleActionsClick = (key) => {
+        setActionsShowing(!actionsShowing);
+        if(actionsShowing) {
+            handleActionsShown(key);
+        }
+    }
+
+    // Handles interacting with the order the user pressed on
+    const handleActionsShown = (key) => {
+        const orderToEdit = orders.find(order => order.id == key);
+
+        console.log(orderToEdit)
+
         if(actionsShowing) {
             return (
                 <div className="actioncontent">
-                    <p>sdadasASDAD</p>
+                    <p>
+                        console.log(orderToEdit)
+                    </p>
                 </div>  
             )
         }
     }
 
+    // Generates the orders table
     const generateTable = () => {
         const styleId = (id) => {
             if(id < 10) return "0" + id;
@@ -118,7 +137,7 @@ const Dashboard = () => {
                                     <p>{order.status}</p>
                                 </td>
                                 <td className="actions">
-                                    <button onClick={() => setActionsShowing(!actionsShowing)}>
+                                    <button onClick={() => handleActionsClick(order.id)}>
                                         <img src={ShowMore} />
                                     </button>
                                 </td>
@@ -135,6 +154,7 @@ const Dashboard = () => {
         )
     }
 
+    // Generates the stats table
     const generateStats = () => {
         let stats = [
             {name: "Total", past30Days: 2550, pastYear: 10560, lifetime: 20000},
