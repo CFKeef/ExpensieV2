@@ -12,7 +12,7 @@ const Sidebar = (props) => {
     const generateProfileTab = () => {
         return (
             <div className="profile-container">
-                <h1 className="greeting">Hi Isabel</h1>
+                <h1 className="greeting">Hi CS Discord</h1>
             </div>
         )
     }

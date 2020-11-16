@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Chart from '../Chart';
 
 import ShowMore from '../../assets/options.svg';
 import Logo from '../../assets/expensieLogo.png';
+import Plus from '../../assets/plus.svg';
+import Arrow from '../../assets/right-arrow.svg';
+import DownChevron from '../../assets/down-chevron.svg';
 
 const Dashboard = () => {
+    const [dropDownSelection, setDropDownSelection] = useState("Lifetime");
+    const [dropDownShowing, setDropDownShowing] = useState(false);
+    const [actionsShowing, setActionsShowing] = useState(false);
 
     const orders = [
-        {id: 1, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-        {id: 2, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-        {id: 3, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-        {id: 4, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-        {id: 5, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-        {id: 6, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-        {id: 7, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-        {id: 8, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-        {id: 9, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
-        {id: 10, date: "08/01/20", name: "Patryck Golebiewski", amount: "$150", status: "Shipped"},
+        {id: 1, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+        {id: 2, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+        {id: 3, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+        {id: 4, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+        {id: 5, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+        {id: 6, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+        {id: 7, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+        {id: 8, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+        {id: 9, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+        {id: 10, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
     ]
 
     const salesSummary = [
@@ -26,15 +32,68 @@ const Dashboard = () => {
         {name: "Profit", value: 13000}
     ]
 
-    const handleShowMoreInfo = (order) => {
-        console.log(order);
+    // Determines if the row is odd or even and applies the correct class for the row's color
+    const determineRowStyling = (index) => {
+        if( (index + 1) % 2 == 0 ) return "even";
+        else return "odd";
+    }
+    const handleDropDown = () => {
+        const handleClick = (option) => {
+            setDropDownSelection(option);
+            setDropDownShowing(!dropDownShowing);
+        }
+        const setLast = (index) => {
+            if(index == options.length - 1) return "last";
+            else return "";
+        }
+
+        const options = [
+            "Lifetime",
+            "Past 30 Days",
+            "Past Year"
+        ]
+
+
+        if(dropDownShowing) {
+            return (
+                <div className="dropdown">
+                    <ul>
+                        {options.map( (option, index) => {
+                            if(option != dropDownSelection) {
+                                return (
+                                    <li key={"dropdown" + index}>
+                                        <button onClick={()=>handleClick(option) } className={setLast(index)}>{option}</button>
+                                    </li>
+                                )
+                            }
+                        })}
+                    </ul>
+                </div>
+            )
+        }
+    }
+
+    const handleDropDownRestyling = () => {
+        if(dropDownShowing) {
+            return "showing";
+        }
+        else return "";
+    }
+
+    const handleActionsShown = (order) => {
+        if(actionsShowing) {
+            return (
+                <div className="actioncontent">
+                    <p>sdadasASDAD</p>
+                </div>  
+            )
+        }
     }
 
     const generateTable = () => {
-        // Determines if the row is odd or even and applies the correct class for the row's color
-        function determineRowStyling(index) {
-            if( (index + 1) % 2 == 0 ) return "even";
-            else return "odd";
+        const styleId = (id) => {
+            if(id < 10) return "0" + id;
+            else return id;
         }
 
         if(orders.length > 0) {
@@ -43,20 +102,23 @@ const Dashboard = () => {
                     {orders.map( (order, index) => {
                         return(
                             <tr key={"orders" + index} className={determineRowStyling(index)}>
-                                <td>
+                                <td className="id">
+                                    <p>{styleId(order.id)}</p>
+                                </td>
+                                <td className="date">
                                     <p>{order.date}</p>
                                 </td>
-                                <td>
+                                <td className="name">
                                     <p>{order.name}</p>
                                 </td>
-                                <td>
+                                <td className="amount">
                                     <p>{order.amount}</p>
                                 </td>
-                                <td>
+                                <td className="status">
                                     <p>{order.status}</p>
                                 </td>
-                                <td>
-                                    <button onClick={() => handleShowMoreInfo(order.id)}>
+                                <td className="actions">
+                                    <button onClick={() => setActionsShowing(!actionsShowing)}>
                                         <img src={ShowMore} />
                                     </button>
                                 </td>
@@ -73,30 +135,69 @@ const Dashboard = () => {
         )
     }
 
-    const generateCards = () => {
-        let cards = [];
-        salesSummary.map(stat => cards.push(stat));
-        cards.push({name: "Sales Count", value: 1543});
+    const generateStats = () => {
+        let stats = [
+            {name: "Total", past30Days: 2550, pastYear: 10560, lifetime: 20000},
+            {name: "Expenses", past30Days: 2550, pastYear: 10560, lifetime: 20000},
+            {name: "Profit", past30Days: 2550, pastYear: 10560, lifetime: 20000},
+            {name: "Sales Count", past30Days: 2550, pastYear: 10560, lifetime: 20000},
+        ]
 
         return (
-            <ul>
-                {cards.map((card, index) => {
-                    return (
-                        <li key={"cardlist" + index}>
-                            <div className={"card card" + index}>
-                                <div className="left">
-                                    <p>{card.name}</p>
-                                </div>
-                                <div className="right">
-                                    <p>{card.value}</p>
-                                </div>
-                            </div>
-                        </li>
-                    )
-                })}
-            </ul>
+            <tbody>
+                <tr className={determineRowStyling(0)}>
+                    <td>
+                        <p className="title">Past 30 Days</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                </tr>
+                <tr className={determineRowStyling(1)}>
+                    <td>
+                    <p className="title">Past Year</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                </tr>
+                    <tr className={determineRowStyling(2)}>
+                    <td>
+                    <p className="title">Lifetime</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                    <td>
+                        <p className="value">25555</p>
+                    </td>
+                </tr>
+            </tbody>
         )
-
     }
 
     return (
@@ -110,12 +211,36 @@ const Dashboard = () => {
                     </div>
                     <div className="overview">
                         <div className="left">
-                            {generateCards()}
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>PERIOD</th>
+                                        <th>TOTAL</th>
+                                        <th>EXPENSES</th>
+                                        <th>PROFIT</th>
+                                        <th>SALES COUNT</th>
+                                    </tr>
+                                </thead>
+                                {generateStats()}
+                            </table>
+                            <div className="button">
+                                <button className="defaultbtn" >
+                                    <img src={Arrow} />
+                                    <p>View More</p>
+                                </button>
+                            </div>
                         </div>
                         <div className="right">
                             <Chart 
                                 salesSummary={salesSummary}
                             />
+                            <div className="button">
+                                <button onClick={() => {setDropDownShowing(!dropDownShowing)}} className={"defaultDropdown " + handleDropDownRestyling()}>
+                                    <img src={DownChevron} />
+                                    <p>{dropDownSelection}</p>
+                                </button>
+                                {handleDropDown()}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,15 +254,30 @@ const Dashboard = () => {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>DATE</th>
-                                    <th>CUSTOMER</th>
-                                    <th>AMOUNT</th>
-                                    <th>STATUS</th>
-                                    <th>ACTIONS</th>
+                                    <th className="id" >ID</th>
+                                    <th className="date">DATE</th>
+                                    <th className="name">CUSTOMER</th>
+                                    <th className="amount">AMOUNT</th>
+                                    <th className="status">STATUS</th>
+                                    <th className="actions">ACTIONS</th>
                                 </tr>
                             </thead>
                             {generateTable()}
                         </table>
+                    </div>
+                    <div className="buttons">
+                        <div className="viewall">
+                            <button className="defaultbtn">
+                                <img src={Arrow} />
+                                <p>View More</p>
+                            </button>
+                        </div>
+                        <div className="addsale">
+                            <button className="defaultbtn">
+                                <img src={Plus} />
+                                <p>Add Sale</p>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
