@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import Search from '../../assets/search.svg';
-import Reset from '../../assets/refresh.svg';
 import Plus from '../../assets/plus.svg';
 import ShowMore from '../../assets/options.svg';
 import Logo from '../../assets/expensieLogo.png';
