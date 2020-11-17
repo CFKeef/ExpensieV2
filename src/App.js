@@ -63,8 +63,6 @@ const renderPage = (page, orders, setOrder, expenses, setExpenses, stats, setSta
         case "analytics": {
             content = (
                 <Analytics 
-                    orders={orders}
-                    setOrder={setOrder}
                     data={data}
                     setData={setData}
                     stats={stats}
@@ -103,7 +101,7 @@ function App() {
     const [expenses, setExpenses] = useState([]);
     const [stats, setStats] = useState([]);
     const [data, setData] = useState([]);
-    const [page, setPage] = useState("sales");
+    const [page, setPage] = useState("analytics");
 
 
     useEffect(()=> {

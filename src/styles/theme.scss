@@ -451,7 +451,7 @@ body {
                     align-items: center;
                     width: 250px;
                     height: 30px;
-                    top: -6px;
+                    top: -7px;
 
 
                     h1 {
@@ -1164,6 +1164,36 @@ body {
 
         li {
             margin-left: 24px;
+        }
+    }
+}
+
+.analytics-container {
+    width: 100%;
+    height: 100%;
+
+    .analytics {
+        margin: 0 2REM;
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        position: relative;
+
+        .header {
+            .tag {
+                top: 25px;
+            }
+        }
+
+        .top {
+            margin-top: 55px;
+            height: 30%;
+            width: 100%;
+            .chart {
+                
+            }
         }
     }
 }
