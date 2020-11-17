@@ -16,7 +16,6 @@ import Orders from './components/Orders';
 import Expenses from './components/Expenses';
 import Export from './components/Export';
 import Settings from './components/Settings';
-import Activation from './components/Activation';
 
 
 // import stylesheet

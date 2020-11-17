@@ -2,7 +2,7 @@ import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const Chart = (props) => {
-    
+
     const colors= ['#FD5E53', '#21BF73'];
 
     const generateChart = () => {
@@ -11,7 +11,7 @@ const Chart = (props) => {
                 <ResponsiveContainer >
                     <PieChart width={500} height={500} >
                         <Pie
-                            data={props.salesSummary} 
+                            data={props.salesSummary.filter(summary => summary.name !== "Total")} 
                             nameKey="name"
                             dataKey="value"
                             innerRadius={60}
