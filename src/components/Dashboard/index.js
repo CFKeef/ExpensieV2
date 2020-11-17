@@ -108,7 +108,7 @@ const Dashboard = (props) => {
                         return(
                             <tr key={"orders" + index} className={determineRowStyling(index)}>
                                 <td className="id">
-                                    <p>{styleId(order.id)}</p>
+                                    <p>{order.id}</p>
                                 </td>
                                 <td className="date">
                                     <p>{order.date}</p>
@@ -261,10 +261,10 @@ const Dashboard = (props) => {
                         </div>
                     </div>
                     <div className="order-list">
-                        <table>
+                        <table className="thefuckedone">
                             <thead>
                                 <tr>
-                                    <th className="id" >ID</th>
+                                    <th className="id">ID</th>
                                     <th className="date">DATE</th>
                                     <th className="name">CUSTOMER</th>
                                     <th className="amount">AMOUNT</th>
