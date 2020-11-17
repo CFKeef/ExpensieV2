@@ -3,19 +3,12 @@ import React, {useState} from 'react';
 import Dash from '../../assets/home.svg';
 import Analytics from '../../assets/pie-chart.svg';
 import Orders from '../../assets/history.svg';
+import Expenses from '../../assets/expensive.svg';
 import Export from '../../assets/export.svg';
 import Settings from '../../assets/settings.svg';
 
 const Sidebar = (props) => {
     const [selected, setSelected] = useState(0);
-
-    const generateProfileTab = () => {
-        return (
-            <div className="profile-container">
-                <h1 className="greeting">Hi CS Discord</h1>
-            </div>
-        )
-    }
 
     const generateList = (list) => {
         return (
@@ -45,7 +38,8 @@ const Sidebar = (props) => {
 
     const generalList = [
         {key: 0, image: Dash, name: "Dashboard"},
-        {key: 1, image: Orders, name: "Orders"},
+        {key: 1, image: Orders, name: "Sales"},
+        {key: 5, image: Expenses, name: "Expenses"},
         {key: 2, image: Analytics, name: "Analytics"},
     ]
 
@@ -56,7 +50,6 @@ const Sidebar = (props) => {
 
     return (
         <div className="sidebar-container">
-            {generateProfileTab()}
             <div className="nav-container">
                 <div className="header">
                     <h4>General</h4>

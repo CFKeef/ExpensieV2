@@ -13,6 +13,7 @@ import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
 import Analytics from './components/Analytics';
 import Orders from './components/Orders';
+import Expenses from './components/Expenses';
 import Export from './components/Export';
 import Settings from './components/Settings';
 import Activation from './components/Activation';
@@ -24,7 +25,7 @@ import "./styles/theme.css";
 
 const { ipcRenderer } = window.require("electron")
 
-const renderPage = (page, orders, setOrder, stats, setStats, data, setData) => {
+const renderPage = (page, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData) => {
     let content = null;
 
     switch (String(page).toLowerCase()) {
@@ -41,7 +42,7 @@ const renderPage = (page, orders, setOrder, stats, setStats, data, setData) => {
             );
             break;
         };
-        case "orders": {
+        case "sales": {
             content = (
                 <Orders
                     orders={orders}
@@ -50,6 +51,15 @@ const renderPage = (page, orders, setOrder, stats, setStats, data, setData) => {
             );
             break;
         };
+        case "expenses":  {
+            content = (
+                <Expenses
+                    expenses={expenses}
+                    setExpenses={setExpenses}
+                />
+            )
+            break;
+        }
         case "analytics": {
             content = (
                 <Analytics 
@@ -90,9 +100,10 @@ const renderPage = (page, orders, setOrder, stats, setStats, data, setData) => {
 
 function App() {
     const [orders, setOrder] = useState([]);
+    const [expenses, setExpenses] = useState([]);
     const [stats, setStats] = useState([]);
     const [data, setData] = useState([]);
-    const [page, setPage] = useState("orders");
+    const [page, setPage] = useState("sales");
 
 
     useEffect(()=> {
@@ -104,6 +115,17 @@ function App() {
             ipcRenderer.once("ordersResponse", (event, arg) =>{
                 resp = arg;
                 setOrder(resp);
+            })  
+        }
+
+        const getExpenses = async () => {
+            ipcRenderer.send("retrieveExpenses");
+            
+            let resp = []; 
+            
+            ipcRenderer.once("expensesResponse", (event, arg) =>{
+                resp = arg;
+                setExpenses(resp);
             })  
         }
 
@@ -130,12 +152,13 @@ function App() {
         }
 
         getData();
+        getExpenses();
         getOrders();
         getStats();
     }, [])
 
     // generate the markdown
-    let content = renderPage(page, orders, setOrder, stats, setStats, data, setData);
+    let content = renderPage(page, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData);
 
     return (
         <React.Fragment>

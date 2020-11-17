@@ -213,7 +213,7 @@ body {
   letter-spacing: 0.05rem;
   line-height: 14px;
   font-weight: bold;
-  color: #b9bcc0;
+  color: white;
 }
 .menubar-container .controls {
   display: flex;
@@ -734,11 +734,15 @@ body {
   background: #21BF73;
 }
 
-.orders-container {
+.orders-container,
+.expenses-container {
   width: 100%;
   height: 100%;
 }
-.orders-container .orders {
+.orders-container .orders,
+.orders-container .expenses,
+.expenses-container .orders,
+.expenses-container .expenses {
   margin: 0 2REM;
   height: 100%;
   display: flex;
@@ -747,14 +751,23 @@ body {
   flex-direction: column;
   position: relative;
 }
-.orders-container .orders .header .tag {
+.orders-container .orders .header .tag,
+.orders-container .expenses .header .tag,
+.expenses-container .orders .header .tag,
+.expenses-container .expenses .header .tag {
   top: 25px;
 }
-.orders-container .orders .top {
+.orders-container .orders .top,
+.orders-container .expenses .top,
+.expenses-container .orders .top,
+.expenses-container .expenses .top {
   margin-top: 55px;
   width: 100%;
 }
-.orders-container .orders .top .menu {
+.orders-container .orders .top .menu,
+.orders-container .expenses .top .menu,
+.expenses-container .orders .top .menu,
+.expenses-container .expenses .top .menu {
   width: 100%;
   height: 80px;
   display: flex;
@@ -763,23 +776,35 @@ body {
   flex-direction: row;
   border-bottom: 2px solid #1F1F2E;
 }
-.orders-container .orders .top .menu ul {
+.orders-container .orders .top .menu ul,
+.orders-container .expenses .top .menu ul,
+.expenses-container .orders .top .menu ul,
+.expenses-container .expenses .top .menu ul {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-direction: row;
 }
-.orders-container .orders .top .menu .left {
+.orders-container .orders .top .menu .left,
+.orders-container .expenses .top .menu .left,
+.expenses-container .orders .top .menu .left,
+.expenses-container .expenses .top .menu .left {
   width: 30%;
 }
-.orders-container .orders .top .menu .left li {
+.orders-container .orders .top .menu .left li,
+.orders-container .expenses .top .menu .left li,
+.expenses-container .orders .top .menu .left li,
+.expenses-container .expenses .top .menu .left li {
   width: 25%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
 }
-.orders-container .orders .top .menu .left li button {
+.orders-container .orders .top .menu .left li button,
+.orders-container .expenses .top .menu .left li button,
+.expenses-container .orders .top .menu .left li button,
+.expenses-container .expenses .top .menu .left li button {
   width: 100%;
   height: 40px;
   display: flex;
@@ -787,7 +812,10 @@ body {
   align-items: center;
   flex-direction: row;
 }
-.orders-container .orders .top .menu .left li button p {
+.orders-container .orders .top .menu .left li button p,
+.orders-container .expenses .top .menu .left li button p,
+.expenses-container .orders .top .menu .left li button p,
+.expenses-container .expenses .top .menu .left li button p {
   font-size: 14px;
   letter-spacing: 0.56px;
   color: #9797AF;
@@ -796,29 +824,47 @@ body {
   width: 100%;
   cursor: pointer;
 }
-.orders-container .orders .top .menu .left li button:hover {
+.orders-container .orders .top .menu .left li button:hover,
+.orders-container .expenses .top .menu .left li button:hover,
+.expenses-container .orders .top .menu .left li button:hover,
+.expenses-container .expenses .top .menu .left li button:hover {
   cursor: pointer;
   filter: brightness(90%);
 }
-.orders-container .orders .top .menu .left li button:active {
+.orders-container .orders .top .menu .left li button:active,
+.orders-container .expenses .top .menu .left li button:active,
+.expenses-container .orders .top .menu .left li button:active,
+.expenses-container .expenses .top .menu .left li button:active {
   transform: translateY(1px);
   filter: brightness(110%);
 }
-.orders-container .orders .top .menu .left li .selected {
+.orders-container .orders .top .menu .left li .selected,
+.orders-container .expenses .top .menu .left li .selected,
+.expenses-container .orders .top .menu .left li .selected,
+.expenses-container .expenses .top .menu .left li .selected {
   background: #F06775;
   border-radius: 8px;
 }
-.orders-container .orders .top .menu .left li .selected p {
+.orders-container .orders .top .menu .left li .selected p,
+.orders-container .expenses .top .menu .left li .selected p,
+.expenses-container .orders .top .menu .left li .selected p,
+.expenses-container .expenses .top .menu .left li .selected p {
   color: white;
 }
-.orders-container .orders .top .menu .right {
+.orders-container .orders .top .menu .right,
+.orders-container .expenses .top .menu .right,
+.expenses-container .orders .top .menu .right,
+.expenses-container .expenses .top .menu .right {
   width: 60%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   flex-direction: row;
 }
-.orders-container .orders .top .menu .right .searchbar {
+.orders-container .orders .top .menu .right .searchbar,
+.orders-container .expenses .top .menu .right .searchbar,
+.expenses-container .orders .top .menu .right .searchbar,
+.expenses-container .expenses .top .menu .right .searchbar {
   width: 400px;
   height: 36px;
   display: flex;
@@ -831,56 +877,105 @@ body {
   margin-right: 169px;
   position: relative;
 }
-.orders-container .orders .top .menu .right .searchbar img {
+.orders-container .orders .top .menu .right .searchbar img,
+.orders-container .expenses .top .menu .right .searchbar img,
+.expenses-container .orders .top .menu .right .searchbar img,
+.expenses-container .expenses .top .menu .right .searchbar img {
   margin: 0 0.5REM;
   height: 16px;
   width: 16px;
 }
-.orders-container .orders .top .menu .right .searchbar input {
+.orders-container .orders .top .menu .right .searchbar input,
+.orders-container .expenses .top .menu .right .searchbar input,
+.expenses-container .orders .top .menu .right .searchbar input,
+.expenses-container .expenses .top .menu .right .searchbar input {
   margin-left: 0.2REM;
   color: white;
   width: 100%;
 }
-.orders-container .orders .top .menu .right .searchbar input::placeholder {
+.orders-container .orders .top .menu .right .searchbar input::placeholder,
+.orders-container .expenses .top .menu .right .searchbar input::placeholder,
+.expenses-container .orders .top .menu .right .searchbar input::placeholder,
+.expenses-container .expenses .top .menu .right .searchbar input::placeholder {
   color: #9797AF;
 }
-.orders-container .orders .top .menu .right .searchbar:hover {
+.orders-container .orders .top .menu .right .searchbar:hover,
+.orders-container .expenses .top .menu .right .searchbar:hover,
+.expenses-container .orders .top .menu .right .searchbar:hover,
+.expenses-container .expenses .top .menu .right .searchbar:hover {
   filter: none;
 }
-.orders-container .orders .top .menu .right .searchbar:active {
+.orders-container .orders .top .menu .right .searchbar:active,
+.orders-container .expenses .top .menu .right .searchbar:active,
+.expenses-container .orders .top .menu .right .searchbar:active,
+.expenses-container .expenses .top .menu .right .searchbar:active {
   transform: none;
   filter: none;
 }
-.orders-container .orders .top .menu .right .Filter {
+.orders-container .orders .top .menu .right .Filter,
+.orders-container .expenses .top .menu .right .Filter,
+.expenses-container .orders .top .menu .right .Filter,
+.expenses-container .expenses .top .menu .right .Filter {
   background: #892cdc;
 }
-.orders-container .orders .top .menu .right .Add {
+.orders-container .orders .top .menu .right .Add,
+.orders-container .expenses .top .menu .right .Add,
+.expenses-container .orders .top .menu .right .Add,
+.expenses-container .expenses .top .menu .right .Add {
   background: #21BF73;
 }
-.orders-container .orders .top .menu .right .reset {
+.orders-container .orders .top .menu .right .reset,
+.orders-container .expenses .top .menu .right .reset,
+.expenses-container .orders .top .menu .right .reset,
+.expenses-container .expenses .top .menu .right .reset {
   position: absolute;
   width: 100px;
 }
-.orders-container .orders .bot table {
+.orders-container .orders .bot table,
+.orders-container .expenses .bot table,
+.expenses-container .orders .bot table,
+.expenses-container .expenses .bot table {
   margin-top: 1REM;
   height: 650px;
-  width: 1282px;
+  width: 1286px;
   border-spacing: 0;
   border-collapse: collapse;
 }
-.orders-container .orders .bot table thead {
+.orders-container .orders .bot table thead,
+.orders-container .expenses .bot table thead,
+.expenses-container .orders .bot table thead,
+.expenses-container .expenses .bot table thead {
   display: block;
-  width: 100%;
+  width: 1278px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+  left: -0.25%;
 }
-.orders-container .orders .bot table thead tr {
-  width: 100%;
+.orders-container .orders .bot table thead tr,
+.orders-container .expenses .bot table thead tr,
+.expenses-container .orders .bot table thead tr,
+.expenses-container .expenses .bot table thead tr {
+  width: 1278px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-direction: row;
 }
-.orders-container .orders .bot table thead tr th {
-  width: 213px;
+.orders-container .orders .bot table thead tr .id,
+.orders-container .expenses .bot table thead tr .id,
+.expenses-container .orders .bot table thead tr .id,
+.expenses-container .expenses .bot table thead tr .id {
+  position: relative;
+  left: 0.4%;
+}
+.orders-container .orders .bot table thead tr th,
+.orders-container .expenses .bot table thead tr th,
+.expenses-container .orders .bot table thead tr th,
+.expenses-container .expenses .bot table thead tr th {
+  width: 209px;
   height: 40px;
   font-size: 14px;
   line-height: 40px;
@@ -888,35 +983,48 @@ body {
   color: #9797AF;
   font-weight: bold;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.orders-container .orders .bot table thead tr .id {
-  padding-left: 4px;
+.orders-container .orders .bot table thead tr th p,
+.orders-container .expenses .bot table thead tr th p,
+.expenses-container .orders .bot table thead tr th p,
+.expenses-container .expenses .bot table thead tr th p {
+  width: 100%;
 }
-.orders-container .orders .bot table thead tr .status {
-  padding-right: 4px;
-}
-.orders-container .orders .bot table thead tr .actions {
-  padding-right: 4px;
-}
-.orders-container .orders .bot table tbody {
+.orders-container .orders .bot table tbody,
+.orders-container .expenses .bot table tbody,
+.expenses-container .orders .bot table tbody,
+.expenses-container .expenses .bot table tbody {
   border: 4px solid #1F1F2E;
   border-radius: 8px;
   display: block;
-  width: 1282px;
+  box-sizing: border-box;
+  width: 1278px;
   height: 610px;
-  overflow-y: auto;
+  overflow-y: visible;
   overflow-x: hidden;
 }
-.orders-container .orders .bot table tbody tr {
+.orders-container .orders .bot table tbody tr,
+.orders-container .expenses .bot table tbody tr,
+.expenses-container .orders .bot table tbody tr,
+.expenses-container .expenses .bot table tbody tr {
   height: 30px;
-  width: 1290px;
+  width: 1274px;
   margin: 0.5REM;
 }
-.orders-container .orders .bot table tbody tr td {
+.orders-container .orders .bot table tbody tr td,
+.orders-container .expenses .bot table tbody tr td,
+.expenses-container .orders .bot table tbody tr td,
+.expenses-container .expenses .bot table tbody tr td {
   width: 213px;
   height: 30px;
 }
-.orders-container .orders .bot table tbody tr td p {
+.orders-container .orders .bot table tbody tr td p,
+.orders-container .expenses .bot table tbody tr td p,
+.expenses-container .orders .bot table tbody tr td p,
+.expenses-container .expenses .bot table tbody tr td p {
   width: 100%;
   text-align: center;
   white-space: nowrap;
@@ -926,7 +1034,10 @@ body {
   font-size: 14px;
   line-height: 40px;
 }
-.orders-container .orders .bot table tbody tr td button {
+.orders-container .orders .bot table tbody tr td button,
+.orders-container .expenses .bot table tbody tr td button,
+.expenses-container .orders .bot table tbody tr td button,
+.expenses-container .expenses .bot table tbody tr td button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -934,23 +1045,41 @@ body {
   width: 100%;
   height: 100%;
 }
-.orders-container .orders .bot table tbody tr td button img {
+.orders-container .orders .bot table tbody tr td button img,
+.orders-container .expenses .bot table tbody tr td button img,
+.expenses-container .orders .bot table tbody tr td button img,
+.expenses-container .expenses .bot table tbody tr td button img {
   height: 20px;
   width: auto;
 }
-.orders-container .orders .bot table tbody tr td button img:hover {
+.orders-container .orders .bot table tbody tr td button img:hover,
+.orders-container .expenses .bot table tbody tr td button img:hover,
+.expenses-container .orders .bot table tbody tr td button img:hover,
+.expenses-container .expenses .bot table tbody tr td button img:hover {
   cursor: pointer;
 }
-.orders-container .orders .bot table tbody tr .actions button {
+.orders-container .orders .bot table tbody tr .actions button,
+.orders-container .expenses .bot table tbody tr .actions button,
+.expenses-container .orders .bot table tbody tr .actions button,
+.expenses-container .expenses .bot table tbody tr .actions button {
   position: relative;
 }
-.orders-container .orders .bot table tbody .even {
+.orders-container .orders .bot table tbody .even,
+.orders-container .expenses .bot table tbody .even,
+.expenses-container .orders .bot table tbody .even,
+.expenses-container .expenses .bot table tbody .even {
   background: #15151F;
 }
-.orders-container .orders .bot table tbody .odd {
+.orders-container .orders .bot table tbody .odd,
+.orders-container .expenses .bot table tbody .odd,
+.expenses-container .orders .bot table tbody .odd,
+.expenses-container .expenses .bot table tbody .odd {
   background: #181825;
 }
-.orders-container .orders .bot table .empty-table {
+.orders-container .orders .bot table .empty-table,
+.orders-container .expenses .bot table .empty-table,
+.expenses-container .orders .bot table .empty-table,
+.expenses-container .expenses .bot table .empty-table {
   height: 300px;
   width: 1282px;
   display: flex;
@@ -958,15 +1087,28 @@ body {
   align-items: center;
   flex-direction: column;
 }
-.orders-container .orders .bot table .empty-table img {
+.orders-container .orders .bot table .empty-table img,
+.orders-container .expenses .bot table .empty-table img,
+.expenses-container .orders .bot table .empty-table img,
+.expenses-container .expenses .bot table .empty-table img {
   height: 86px;
   width: auto;
 }
-.orders-container .orders .bot table .empty-table h4 {
+.orders-container .orders .bot table .empty-table h4,
+.orders-container .expenses .bot table .empty-table h4,
+.expenses-container .orders .bot table .empty-table h4,
+.expenses-container .expenses .bot table .empty-table h4 {
   font-size: 16px;
   color: white;
   letter-spacing: 0.56px;
   margin-top: 1REM;
+}
+
+.expenses-container .left {
+  justify-content: flex-start !important;
+}
+.expenses-container .left li {
+  margin-left: 24px;
 }
 
 /*# sourceMappingURL=theme.css.map */

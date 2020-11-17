@@ -24,6 +24,27 @@ let orders = [
   {id: 13, date: "08/12/20", name: "Isabel", amount: "$63", status: "Not Shipped"},
   {id: 14, date: "08/12/20", name: "Isabel", amount: "$63", status: "Not Shipped"},
   {id: 15, date: "08/12/20", name: "Isabel", amount: "$63", status: "Not Shipped"},
+  {id: 16, date: "08/12/20", name: "Isabel", amount: "$63", status: "Not Shipped"},
+  {id: 17, date: "08/12/20", name: "Isabel", amount: "$63", status: "Not Shipped"},
+]
+
+let expenses = [
+  {id: 1, date: "08/01/20", description: "CFKEEF", amount: "$150", category: "Advertising"},
+  {id: 2, date: "08/01/20", description: "CFKEEF", amount: "$150", category: "Car and Truck"},
+  {id: 3, date: "08/01/20", description: "CFKEEF", amount: "$150", category: "Commissions and Fees"},
+  {id: 4, date: "08/01/20", description: "CFKEEF", amount: "$150", category: "Contract Labor"},
+  {id: 5, date: "08/01/20", description: "CFKEEF", amount: "$150", category: "Meals"},
+  {id: 6, date: "08/01/20", description: "CFKEEF", amount: "$150", category: "Depreciation"},
+  {id: 7, date: "08/01/20", description: "CFKEEF", amount: "$150", category: "Insurance"},
+  {id: 8, date: "08/01/20", description: "CFKEEF", amount: "$150", category: "Travel"},
+  {id: 9, date: "08/01/20", description: "CFKEEF", amount: "$150", category: "Other"},
+  {id: 10, date: "08/01/20", description: "CFKEEF", amount: "$150", category: "Professional Services"},
+  {id: 11, date: "08/05/20", description: "Isabel", amount: "$63", category: "Office Expenses"},
+  {id: 12, date: "08/12/20", description: "Isabel", amount: "$63", category: "Rent or lease"},
+  {id: 13, date: "08/12/20", description: "Isabel", amount: "$63", category: "Repairs and maintenance"},
+  {id: 14, date: "08/12/20", description: "Isabel", amount: "$63", category: "Taxes and licenses"},
+  {id: 15, date: "08/12/20", description: "Isabel", amount: "$63", category: "Wages"},
+  {id: 16, date: "08/12/20", description: "Isabel", amount: "$63", category: "Utility"},
 ]
 
 let chartData = [
@@ -86,6 +107,11 @@ app.on('ready', init);
 // Returns orders list for dashboard page
 ipcMain.on("retrieveOrders", (event, arg) => {
   event.reply("ordersResponse", orders);
+})
+
+// Returns orders list for dashboard page
+ipcMain.on("retrieveExpenses", (event, arg) => {
+  event.reply("expensesResponse", expenses);
 })
 
 // Returns stats list for dashboard page

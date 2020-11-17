@@ -5,10 +5,10 @@ import Plus from '../../assets/plus.svg';
 import ShowMore from '../../assets/options.svg';
 import Logo from '../../assets/expensieLogo.png';
 
-const Orders = (props) => {
+const Expenses = (props) => {
     const [selectedView, setSelectedView] = useState("All");
-    const [orders, setOrder] = useState(props.orders);
-    const [selectedOrders, setSelectedOrders] = useState(orders);
+    const [expenses, setExpenses] = useState(props.expenses);
+    const [selectedExpenses, setSelectedExpenses] = useState(expenses);
     const [filterFlag, setFilterFlag] = useState(false);
     const [actionsShowing, setActionsShowing] = useState(false);
     const [searchTarget, setSearchTarget] = useState(null);
@@ -17,34 +17,34 @@ const Orders = (props) => {
         setFilterFlag(true);
         setSearchTarget(search);
         
-        let results = orders.filter((data) =>  
+        let results = expenses.filter((data) =>  
             JSON.stringify(data).toLowerCase().indexOf(search.toLowerCase()) !== -1);
 
-        setSelectedOrders(results);
+        setSelectedExpenses(results);
     }
 
     // Generators
     const generateViewButtons = () => {
         const handleTabClick = (option) => {
-            const getOrdersByStatus = (status, equal) => {
+            const getExpensesByCategory = (category, equal) => {
                 if(equal) {
-                    return orders.filter(order => order.status === status);
+                    return expenses.filter(expense => expense.category === category);
                 }
-                return orders.filter(order => order.status != status);
+                return expenses.filter(expense => expense.category != category);
             }
             const handleDataChange = (option) => {
                 switch(option) {
-                    case "Completed":
+                    case "General":
                         setFilterFlag(true);
-                        setSelectedOrders(getOrdersByStatus("Completed", true));
+                        setSelectedExpenses(getExpensesByCategory("Completed", true));
                         break;
-                    case "Open":
+                    case "Sale Related":
                         setFilterFlag(true);
-                        setSelectedOrders(getOrdersByStatus("Completed", false));
+                        setSelectedExpenses(getExpensesByCategory("Completed", false));
                         break;
                     default:
                         setFilterFlag(false);
-                        setSelectedOrders(props.orders);
+                        setSelectedExpenses(props.expenses);
                         break;
                 }
             }
@@ -58,7 +58,7 @@ const Orders = (props) => {
         }
         
         let options = [
-            "All", "Open", "Completed"
+            "All"
         ]
 
         return (
@@ -108,7 +108,7 @@ const Orders = (props) => {
     }
 
     const generateTable = () => {
-        // Handles clicking the action button on an order
+        // Handles clicking the action button on an expense
         const handleActionsClick = (key) => {
             setActionsShowing(!actionsShowing);
             if(actionsShowing) {
@@ -122,47 +122,47 @@ const Orders = (props) => {
             else return "odd";
         }
 
-        // Handles interacting with the order the user pressed on
+        // Handles interacting with the expense the user pressed on
         const handleActionsShown = (key) => {
-            const orderToEdit = orders.find(order => order.id == key);
+            const expenseToEdit = expenses.find(expense => expense.id == key);
 
             if(actionsShowing) {
                 return (
                     <div className="actioncontent">
                         <p>
-                            console.log(orderToEdit)
+                            console.log(expenseToEdit)
                         </p>
                     </div>  
                 )
             }
         }
 
-        let temp = orders;
-        if(filterFlag) temp = selectedOrders;
+        let temp = expenses;
+        if(filterFlag) temp = selectedExpenses;
 
         if(temp.length > 0) {
             return (
                 <tbody>
-                    {temp.map( (order, index) => {
+                    {temp.map( (expense, index) => {
                         return(
-                            <tr key={"orders" + index} className={determineRowStyling(index)}>
+                            <tr key={"expenses" + index} className={determineRowStyling(index)}>
                                 <td className="id">
-                                    <p>{order.id}</p>
+                                    <p>{expense.id}</p>
                                 </td>
                                 <td className="date">
-                                    <p>{order.date}</p>
+                                    <p>{expense.date}</p>
                                 </td>
                                 <td className="name">
-                                    <p>{order.name}</p>
+                                    <p>{expense.description}</p>
                                 </td>
                                 <td className="amount">
-                                    <p>{order.amount}</p>
+                                    <p>{expense.amount}</p>
                                 </td>
                                 <td className="status">
-                                    <p>{order.status}</p>
+                                    <p>{expense.category}</p>
                                 </td>
                                 <td className="actions">
-                                    <button onClick={() => handleActionsClick(order.id)}>
+                                    <button onClick={() => handleActionsClick(expense.id)}>
                                         <img src={ShowMore} />
                                     </button>
                                 </td>
@@ -176,7 +176,7 @@ const Orders = (props) => {
                 <tr>
                     <td className="empty-table">
                         <img src={Logo}/>
-                        <h4>Add a sale to get started!</h4>
+                        <h4>Add an expense to get started!</h4>
                     </td>
                 </tr>
             </tbody>
@@ -184,17 +184,17 @@ const Orders = (props) => {
     }
 
     useEffect(() => {
-        setOrder(props.orders);
+        setExpenses(props.expenses);
     }, [props])
 
 
     return (
-        <div className="orders-container">
-            <div className="orders">
+        <div className="expenses-container">
+            <div className="expenses">
                 <div className="defaultHeader header">
                     <div className="pos">
                         <div className="tag">
-                            <h1>Sales</h1>
+                            <h1>Expenses</h1>
                         </div>
                     </div>
                 </div>
@@ -208,12 +208,24 @@ const Orders = (props) => {
                     <table>
                         <thead>
                             <tr>
-                                <th className="id" >ID</th>
-                                <th className="date">DATE</th>
-                                <th className="name">CUSTOMER</th>
-                                <th className="amount">AMOUNT</th>
-                                <th className="status">STATUS</th>
-                                <th className="actions">ACTIONS</th>
+                                <th className="id" >
+                                    <p>ID</p>
+                                </th>
+                                <th className="date">
+                                    <p>DATE</p>
+                                </th>
+                                <th className="name">
+                                    <p>DESCRIPTION</p>
+                                </th>
+                                <th className="amount">
+                                    <p>AMOUNT</p>
+                                </th>
+                                <th className="status">
+                                    <p>CATEGORY</p>
+                                </th>
+                                <th className="actions">
+                                    <p>ACTIONS</p>
+                                </th>
                             </tr>
                         </thead>
                         {generateTable()}
@@ -224,4 +236,4 @@ const Orders = (props) => {
     )
 }
 
-export default Orders;
+export default Expenses;
