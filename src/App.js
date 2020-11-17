@@ -14,8 +14,6 @@ import Dashboard from './components/Dashboard';
 import Analytics from './components/Analytics';
 import Orders from './components/Orders';
 import Expenses from './components/Expenses';
-import Export from './components/Export';
-import Settings from './components/Settings';
 
 
 // import stylesheet
@@ -24,7 +22,7 @@ import "./styles/theme.css";
 
 const { ipcRenderer } = window.require("electron")
 
-const renderPage = (page, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData) => {
+const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData) => {
     let content = null;
 
     switch (String(page).toLowerCase()) {
@@ -37,6 +35,7 @@ const renderPage = (page, orders, setOrder, expenses, setExpenses, stats, setSta
                     setData={setData}
                     stats={stats}
                     setStats={setStats}
+                    setPage={setPage}
                 />
             );
             break;
@@ -70,25 +69,6 @@ const renderPage = (page, orders, setOrder, expenses, setExpenses, stats, setSta
             );
             break;
         };
-        case "export": {
-            content = (
-                <Export
-                    orders={orders}
-                    setOrder={setOrder}
-                    data={data}
-                    setData={setData}
-                    stats={stats}
-                    setStats={setStats}
-                />
-            );
-            break;
-        };
-        case "settings": {
-            content = (
-                <p>settings</p>
-            );
-            break;
-        };
     };
 
     return content;
@@ -100,7 +80,7 @@ function App() {
     const [expenses, setExpenses] = useState([]);
     const [stats, setStats] = useState([]);
     const [data, setData] = useState([]);
-    const [page, setPage] = useState("analytics");
+    const [page, setPage] = useState("Dashboard");
 
 
     useEffect(()=> {
@@ -155,7 +135,7 @@ function App() {
     }, [])
 
     // generate the markdown
-    let content = renderPage(page, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData);
+    let content = renderPage(page,setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData);
 
     return (
         <React.Fragment>
@@ -163,6 +143,7 @@ function App() {
             <div className="app-container">
                 <Sidebar 
                     changeView={setPage}
+                    page={page}
                 />
                 <div className="content-container">
                     {content}

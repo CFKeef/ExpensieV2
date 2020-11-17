@@ -82,15 +82,15 @@ const Analytics = (props) => {
                 />
                 <div className="bot">
                 <table>
-                                <thead>
-                                    <tr>
-                                        <th>PERIOD</th>
-                                        <th>GROSS</th>
-                                        <th>EXPENSES</th>
-                                        <th>PROFIT</th>
-                                        <th>SALES COUNT</th>
-                                    </tr>
-                                </thead>
+                    <thead>
+                        <tr>
+                            <th>PERIOD</th>
+                            <th>GROSS</th>
+                            <th>EXPENSES</th>
+                            <th>PROFIT</th>
+                            <th>SALES COUNT</th>
+                        </tr>
+                    </thead>
                     {generateStats()}
                 </table>
                 </div>

@@ -307,12 +307,12 @@ body {
     }
 
     .nav-container {
+        margin-top: .8REM;
         display: flex;
         justify-content: flex-start;
         align-items: center;
         flex-direction: column;
         width: 100%;
-        border-bottom: 1px solid $background-border;
 
         .header {
             margin: .5REM 0 0 0;
@@ -415,6 +415,22 @@ body {
             &:last-child {
                 padding-bottom: 5px;
             }
+        }
+    }
+
+    .buttons {
+        margin-top: 29REM;
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+
+        .import {
+            background: #21BF73;
+        }
+        .export {
+            background: #6775F0;
         }
     }
 }

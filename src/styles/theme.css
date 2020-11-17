@@ -275,12 +275,12 @@ body {
   font-weight: bold;
 }
 .sidebar-container .nav-container {
+  margin-top: 0.8REM;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   width: 100%;
-  border-bottom: 1px solid #1F1F2E;
 }
 .sidebar-container .nav-container .header {
   margin: 0.5REM 0 0 0;
@@ -366,6 +366,20 @@ body {
 }
 .sidebar-container .nav-container ul:last-child {
   padding-bottom: 5px;
+}
+.sidebar-container .buttons {
+  margin-top: 29REM;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.sidebar-container .buttons .import {
+  background: #21BF73;
+}
+.sidebar-container .buttons .export {
+  background: #6775F0;
 }
 
 .dashboard-container {

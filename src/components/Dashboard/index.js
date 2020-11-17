@@ -234,7 +234,7 @@ const Dashboard = (props) => {
                                 {generateStats()}
                             </table>
                             <div className="button">
-                                <button className="defaultbtn" >
+                                <button className="defaultbtn" onClick={() => {props.setPage("Analytics")}} >
                                     <img src={Arrow} />
                                     <p>View More</p>
                                 </button>
@@ -277,7 +277,7 @@ const Dashboard = (props) => {
                     </div>
                     <div className="buttons">
                         <div className="viewall">
-                            <button className="defaultbtn">
+                            <button className="defaultbtn" onClick={() => {props.setPage("Sales")}}>
                                 <img src={Arrow} />
                                 <p>View More</p>
                             </button>
