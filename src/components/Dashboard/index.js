@@ -10,56 +10,13 @@ import Plus from '../../assets/plus.svg';
 import Arrow from '../../assets/right-arrow.svg';
 import DownChevron from '../../assets/down-chevron.svg';
 
-const { ipcRenderer } = window.require("electron");
-
-const Dashboard = () => {
+const Dashboard = (props) => {
     const [dropDownSelection, setDropDownSelection] = useState("Lifetime");
     const [dropDownShowing, setDropDownShowing] = useState(false);
     const [actionsShowing, setActionsShowing] = useState(false);
     const [orders, setOrder] = useState([]);
     const [stats, setStats] = useState([]);
     const [data, setData] = useState([]);
-
-
-    useEffect(()=> {
-        const getOrders = async () => {
-            ipcRenderer.send("retrieveOrders");
-            
-            let resp = []; 
-            
-            ipcRenderer.once("ordersResponse", (event, arg) =>{
-                resp = arg;
-                setOrder(resp);
-            })  
-        }
-
-        const getStats = async () => {
-            ipcRenderer.send("retrieveStats");
-
-            let resp = [];
-
-            ipcRenderer.once("statsResponse", (event, arg) => {
-                resp = arg;
-                setStats(resp);
-            })
-        }
-
-        const getData = async () => {
-            ipcRenderer.send("retrieveChartData");
-
-            let resp = [];
-
-            ipcRenderer.once("chartDataResponse", (event, arg) => {
-                resp = arg;
-                setData(resp);
-            })
-        }
-
-        getData();
-        getOrders();
-        getStats();
-    }, [])
-
 
     // Determines if the row is odd or even and applies the correct class for the row's color
     const determineRowStyling = (index) => {
@@ -74,7 +31,7 @@ const Dashboard = () => {
             setDropDownShowing(!dropDownShowing);
         }
         const setLast = (index) => {
-            if(index == options.length - 1) return "last";
+            if(index == options.length - 1 || index == 1 && dropDownSelection == "Past Year") return "last";
             else return "";
         }
 
@@ -177,10 +134,12 @@ const Dashboard = () => {
         }
         else return (
             <tbody>
-                <div className="empty-table">
-                    <img src={Logo}/>
-                    <h4>Add a sale to get started!</h4>
-                </div>
+                <tr>
+                    <td className="empty-table">
+                        <img src={Logo}/>
+                        <h4>Add a sale to get started!</h4>
+                    </td>
+                </tr>
             </tbody>
         )
     }
@@ -243,6 +202,13 @@ const Dashboard = () => {
             </tbody>
         )
     }
+
+    useEffect(() => {
+        setOrder(props.orders);
+        setStats(props.stats);
+        setData(props.data);
+    }, [props.order, props.stats, props.data])
+
 
     return (
         <div className="dashboard-container">

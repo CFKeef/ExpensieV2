@@ -19,6 +19,11 @@ let orders = [
   {id: 8, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
   {id: 9, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
   {id: 10, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Shipped"},
+  {id: 11, date: "08/01/20", name: "CFKEEF", amount: "$150", status: "Completed"},
+  {id: 12, date: "08/05/20", name: "Isabel", amount: "$63", status: "Not Shipped"},
+  {id: 13, date: "08/12/20", name: "Isabel", amount: "$63", status: "Not Shipped"},
+  {id: 14, date: "08/12/20", name: "Isabel", amount: "$63", status: "Not Shipped"},
+  {id: 15, date: "08/12/20", name: "Isabel", amount: "$63", status: "Not Shipped"},
 ]
 
 let chartData = [
