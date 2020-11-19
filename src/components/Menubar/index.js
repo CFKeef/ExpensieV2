@@ -4,7 +4,17 @@ import logo from '../../assets/expensieLogo.png';
 import close from '../../assets/close.svg';
 import minimize from '../../assets/minimize.svg';
 
+const { ipcRenderer, remote } = window.require("electron")
+
 const Menubar = () => {
+    const handleClose = () => {
+        ipcRenderer.send("close", () => { })
+    }
+
+    const handleMinimize = () => {
+        remote.BrowserWindow.getFocusedWindow().minimize()
+    }
+
     return (
         <div className="menubar-container">
             <div className="logo">
@@ -13,10 +23,10 @@ const Menubar = () => {
             </div>
             <div className="controls">
                 <div>
-                    <button className="minimize">
+                    <button className="minimize" onClick={() => {handleMinimize()}}>
                         <img src={minimize} />
                     </button>
-                    <button className="close">
+                    <button className="close" onClick={() => {handleClose()}}>
                         <img src={close} />
                     </button>
                 </div>

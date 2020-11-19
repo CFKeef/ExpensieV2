@@ -385,5 +385,6 @@ ipcMain.on("retrieveChartData", (event, arg) => {
 
 // Close program
 ipcMain.on("close", (event,arg) => {
-	
+	app.quit();
+	process.exit(0);
 })
