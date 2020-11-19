@@ -507,6 +507,17 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.dashboard-container .dashboard .top .overview .left table tbody tr .empty-table {
+  width: 100%;
+}
+.dashboard-container .dashboard .top .overview .left table tbody tr .empty-table h4 {
+  margin-top: 2.5REM;
+  height: 10%;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
 .dashboard-container .dashboard .top .overview .left table tbody .even {
   background: #15151F;
 }
@@ -541,6 +552,21 @@ body {
   z-index: 5;
   background: red;
   color: white;
+}
+.dashboard-container .dashboard .top .overview .right .chart-container .empty-chart {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+.dashboard-container .dashboard .top .overview .right .chart-container .empty-chart p {
+  height: 10%;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 .dashboard-container .dashboard .top .overview .right .button {
   position: absolute;
@@ -580,6 +606,9 @@ body {
 }
 .dashboard-container .dashboard .top .overview .right .button .dropdown ul li:active {
   filter: brightness(110%);
+}
+.dashboard-container .dashboard .top .overview .right .hide {
+  display: none;
 }
 .dashboard-container .dashboard .bot {
   height: 450px;
@@ -694,22 +723,18 @@ body {
   background: #181825;
 }
 .dashboard-container .dashboard .bot .order-list table .empty-table {
-  height: 300px;
-  width: 1282px;
+  height: 40%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-.dashboard-container .dashboard .bot .order-list table .empty-table img {
-  height: 86px;
-  width: auto;
-}
 .dashboard-container .dashboard .bot .order-list table .empty-table h4 {
+  margin-top: 16REM;
+  text-align: center;
   font-size: 16px;
-  color: white;
-  letter-spacing: 0.56px;
-  margin-top: 1REM;
+  letter-spacing: 1px;
 }
 .dashboard-container .dashboard .bot .buttons {
   display: flex;
@@ -1085,21 +1110,14 @@ body {
   align-items: center;
   flex-direction: column;
 }
-.orders-container .orders .bot table .empty-table img,
-.orders-container .expenses .bot table .empty-table img,
-.expenses-container .orders .bot table .empty-table img,
-.expenses-container .expenses .bot table .empty-table img {
-  height: 86px;
-  width: auto;
-}
 .orders-container .orders .bot table .empty-table h4,
 .orders-container .expenses .bot table .empty-table h4,
 .expenses-container .orders .bot table .empty-table h4,
 .expenses-container .expenses .bot table .empty-table h4 {
+  margin-top: 15REM;
+  text-align: center;
   font-size: 16px;
-  color: white;
-  letter-spacing: 0.56px;
-  margin-top: 1REM;
+  letter-spacing: 1px;
 }
 
 .expenses-container .left {
@@ -1272,6 +1290,16 @@ body {
 .analytics-container .analytics .bot table tbody tr td .value {
   width: 100%;
   text-align: center;
+}
+.analytics-container .analytics .bot table tbody tr .empty-table {
+  height: 100%;
+  width: 100%;
+}
+.analytics-container .analytics .bot table tbody tr .empty-table h4 {
+  margin-top: 5REM;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 .analytics-container .analytics .bot table tbody .even {
   background: #15151F;

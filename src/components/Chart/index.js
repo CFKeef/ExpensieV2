@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const Chart = (props) => {
@@ -6,7 +6,7 @@ const Chart = (props) => {
     const colors= ['#FD5E53', '#21BF73'];
 
     const generateChart = () => {
-        if(props.salesSummary != null) {
+        if(props.salesSummary.length != 0) {
             return (
                 <ResponsiveContainer >
                     <PieChart width={500} height={500} >
@@ -30,7 +30,7 @@ const Chart = (props) => {
         }
         else return (
             <div className="empty-chart">
-                <p>Sorry! Need more data, why not start adding some sales?</p>
+                <p>Sorry! Need more data</p>
             </div>
         )
     }

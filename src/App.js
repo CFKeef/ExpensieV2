@@ -82,7 +82,6 @@ function App() {
     const [data, setData] = useState([]);
     const [page, setPage] = useState("Dashboard");
 
-
     useEffect(()=> {
         const getOrders = async () => {
             ipcRenderer.send("retrieveOrders");

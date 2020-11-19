@@ -24,6 +24,11 @@ const Dashboard = (props) => {
         else return "odd";
     }
 
+    const handleNoData = (orders) => {
+        if(orders.length == 0) return "hide";
+        return "";
+    }
+
     // Will handle the actions of interacting with the drop down
     const handleDropDown = () => {
         const handleClick = (option) => {
@@ -108,7 +113,7 @@ const Dashboard = (props) => {
                         return(
                             <tr key={"orders" + index} className={determineRowStyling(index)}>
                                 <td className="id">
-                                    <p>{order.id}</p>
+                                    <p>{index + 1}</p>
                                 </td>
                                 <td className="date">
                                     <p>{order.date}</p>
@@ -136,7 +141,6 @@ const Dashboard = (props) => {
             <tbody>
                 <tr>
                     <td className="empty-table">
-                        <img src={Logo}/>
                         <h4>Add a sale to get started!</h4>
                     </td>
                 </tr>
@@ -146,57 +150,69 @@ const Dashboard = (props) => {
 
     // Generates the stats table
     const generateStats = () => {
+
+        if(stats.length > 0) {
+            return (
+                <tbody>
+                    <tr className={determineRowStyling(0)}>
+                        <td>
+                            <p className="title">Past 30 Days</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                    </tr>
+                    <tr className={determineRowStyling(1)}>
+                        <td>
+                        <p className="title">Past Year</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                    </tr>
+                        <tr className={determineRowStyling(2)}>
+                        <td>
+                        <p className="title">Lifetime</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                        <td>
+                            <p className="value">25555</p>
+                        </td>
+                    </tr>
+                </tbody>
+            )
+        }
         return (
             <tbody>
-                <tr className={determineRowStyling(0)}>
-                    <td>
-                        <p className="title">Past 30 Days</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
-                    </td>
-                </tr>
-                <tr className={determineRowStyling(1)}>
-                    <td>
-                    <p className="title">Past Year</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
-                    </td>
-                </tr>
-                    <tr className={determineRowStyling(2)}>
-                    <td>
-                    <p className="title">Lifetime</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
-                    </td>
-                    <td>
-                        <p className="value">25555</p>
+                <tr>
+                    <td className="empty-table">
+                        <h4>Sorry! Need more data</h4>
                     </td>
                 </tr>
             </tbody>
@@ -244,8 +260,8 @@ const Dashboard = (props) => {
                             <Chart 
                                 salesSummary={data}
                             />
-                            <div className="button">
-                                <button onClick={() => {setDropDownShowing(!dropDownShowing)}} className={"defaultDropdown " + handleDropDownRestyling()}>
+                            <div className={"button " + handleNoData(orders)}>
+                                <button onClick={() => {setDropDownShowing(!dropDownShowing)}} className={" defaultDropdown " + handleDropDownRestyling()}>
                                     <img src={DownChevron} />
                                     <p>{dropDownSelection}</p>
                                 </button>
@@ -261,7 +277,7 @@ const Dashboard = (props) => {
                         </div>
                     </div>
                     <div className="order-list">
-                        <table className="thefuckedone">
+                        <table>
                             <thead>
                                 <tr>
                                     <th className="id">ID</th>

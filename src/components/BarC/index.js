@@ -15,6 +15,7 @@ const BarC = (props) => {
               
               return <span style={{ color, fontSize: 16, letterSpacing: 1, fontWeight: "bold"}}>{value}</span>;
             } 
+
             let dailyData = [
                 {date: "Aug. 1", Gross: 54000, Expenses: 12000, Profit: 42000},
                 {date: "Aug. 2", Gross: 54000, Expenses: 12000, Profit: 42000},
@@ -45,10 +46,10 @@ const BarC = (props) => {
             ]
             let testData = [];
             
-            if(barPeriod === "Monthly") testData = monthlyData;
-            else testData = dailyData;
-            
             if(testData.length > 0) {
+                if(barPeriod === "Monthly") testData = monthlyData;
+                else testData = dailyData;
+
                 return (
                     <ResponsiveContainer >
                         <BarChart data={testData} >

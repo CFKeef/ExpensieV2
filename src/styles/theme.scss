@@ -570,6 +570,18 @@ body {
                                         text-overflow: ellipsis;
                                     }
                                 }
+
+                                .empty-table {
+                                    width: 100%;
+                                    h4 {
+                                        margin-top: 2.5REM;
+                                        height: 10%;
+                                        width: 100%;
+                                        text-align: center;
+                                        font-size: 16px;
+                                        letter-spacing: 1px;
+                                    }
+                                }
                             }
 
                             .even {
@@ -614,6 +626,24 @@ body {
                             z-index: 5;
                             background: red;
                             color: white;
+                        }
+
+                        .empty-chart {
+                            height: 100%;
+                            width: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-content: center;
+                            flex-direction: column;
+
+
+                            p {
+                                height: 10%;
+                                width: 100%;
+                                text-align: center;
+                                font-size: 16px;
+                                letter-spacing: 1px;
+                            }
                         }
                     }
 
@@ -665,6 +695,10 @@ body {
                                 }
                             }
                         }
+
+                    }
+                    .hide {
+                        display: none;
                     }
                 }
             }
@@ -803,23 +837,18 @@ body {
                     }
 
                     .empty-table {
-                        height: 300px;
-                        width: 1282px;
+                        height: 40%;
+                        width: 100%;
                         display: flex;
                         justify-content: center;
                         align-items: center;
                         flex-direction: column;
 
-                        img {
-                            height: 86px;
-                            width: auto;
-                        }
-
                         h4 {
+                            margin-top: 16REM;
+                            text-align: center;
                             font-size: 16px;
-                            color: white;
-                            letter-spacing: .56px;
-                            margin-top: 1REM;
+                            letter-spacing: 1px;
                         }
                     }
                 }
@@ -1136,16 +1165,11 @@ body {
                     align-items: center;
                     flex-direction: column;
 
-                    img {
-                        height: 86px;
-                        width: auto;
-                    }
-
                     h4 {
+                        margin-top: 15REM;
+                        text-align: center;
                         font-size: 16px;
-                        color: white;
-                        letter-spacing: .56px;
-                        margin-top: 1REM;
+                        letter-spacing: 1px;
                     }
                 }
             }
@@ -1344,6 +1368,18 @@ body {
                             .value {
                                 width: 100%;
                                 text-align: center;
+                            }
+                        }
+
+                        .empty-table {
+                            height: 100%;
+                            width: 100%;
+
+                            h4 {
+                                margin-top: 5REM;
+                                text-align: center;
+                                font-size: 16px;
+                                letter-spacing: 1px;
                             }
                         }
                     }

@@ -147,7 +147,7 @@ const Expenses = (props) => {
                         return(
                             <tr key={"expenses" + index} className={determineRowStyling(index)}>
                                 <td className="id">
-                                    <p>{expense.id}</p>
+                                    <p>{index + 1}</p>
                                 </td>
                                 <td className="date">
                                     <p>{expense.date}</p>
@@ -175,8 +175,7 @@ const Expenses = (props) => {
             <tbody>
                 <tr>
                     <td className="empty-table">
-                        <img src={Logo}/>
-                        <h4>Add an expense to get started!</h4>
+                        <h4>Add a sale to get started!</h4>
                     </td>
                 </tr>
             </tbody>
