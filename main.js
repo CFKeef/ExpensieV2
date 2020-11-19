@@ -364,27 +364,52 @@ app.on('ready', init);
 // IPC STUFF
 
 // Returns orders list for dashboard page
-ipcMain.on("retrieveOrders", (event, arg) => {
+ipcMain.on("retrieveOrders", (event) => {
 	event.reply("ordersResponse", orders);
 })
 
 // Returns orders list for dashboard page
-ipcMain.on("retrieveExpenses", (event, arg) => {
+ipcMain.on("retrieveExpenses", (event) => {
 	event.reply("expensesResponse", expenses);
 })
 
 // Returns stats list for dashboard page
-ipcMain.on("retrieveStats", (event, arg) => {
+ipcMain.on("retrieveStats", (event) => {
 	event.reply("statsResponse", stats);
 })
 
 // Returns chart data for chart on dashboard page
-ipcMain.on("retrieveChartData", (event, arg) => {
+ipcMain.on("retrieveChartData", (event) => {
 	event.reply("chartDataResponse", chartData);
 })
 
 // Close program
-ipcMain.on("close", (event,arg) => {
+ipcMain.on("close", () => {
 	app.quit();
 	process.exit(0);
+})
+
+// Minimizes Program
+ipcMain.on("minimize", () => {
+	mainWindow.minimize();
+})
+
+// Opens a new window for adding a sale
+ipcMain.on("openAddSaleWindow", (event, arg) => {
+	console.log(arg);
+})
+
+// Opens a new window to edit the sale the user selects
+ipcMain.on("openEditSaleWindow", (event, arg) => {
+	console.log(arg);
+})
+
+// Opens a new window for adding a expense
+ipcMain.on("openAddExpenseWindow", (event, arg) => {
+	console.log(arg);
+})
+
+// Opens a new window to edit the expense the user selects
+ipcMain.on("openEditExpenseWindow", (event, arg) => {
+	console.log(arg);
 })

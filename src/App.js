@@ -22,6 +22,10 @@ import "./styles/theme.css";
 
 const { ipcRenderer } = window.require("electron")
 
+const handleAddingSale = (orders) => {
+
+}
+
 const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData) => {
     let content = null;
 

@@ -4,7 +4,7 @@ import logo from '../../assets/expensieLogo.png';
 import close from '../../assets/close.svg';
 import minimize from '../../assets/minimize.svg';
 
-const { ipcRenderer, remote } = window.require("electron")
+const { ipcRenderer } = window.require("electron")
 
 const Menubar = () => {
     const handleClose = () => {
@@ -12,7 +12,7 @@ const Menubar = () => {
     }
 
     const handleMinimize = () => {
-        remote.BrowserWindow.getFocusedWindow().minimize()
+        ipcRenderer.send("minimize", () => { })
     }
 
     return (
