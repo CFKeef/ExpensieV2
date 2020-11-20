@@ -13,10 +13,15 @@ const Orders = (props) => {
     const [actionsShowing, setActionsShowing] = useState(false);
     const [searchTarget, setSearchTarget] = useState(null);
 
+    // Handles adding a sale to our orders
+    const handleAdd = () => {
+        props.addOrder(orders)
+    }
+
     const handleSearchBar = (search) => {
         setFilterFlag(true);
         setSearchTarget(search);
-        
+
         let results = orders.filter((data) =>  
             JSON.stringify(data).toLowerCase().indexOf(search.toLowerCase()) !== -1);
 
@@ -96,9 +101,9 @@ const Orders = (props) => {
                     )
                     return (
                         <li key={"menubutton" + index}>
-                            <button className={"defaultbtn " + button.text}>
-                                <img src={button.image} />
-                                <p>{button.text}</p>
+                            <button className={"defaultbtn " + button.text} onClick={() => {handleAdd()}}>
+                                <img src={Plus} />
+                                <p>Add</p>
                             </button>
                         </li>
                     )
@@ -184,7 +189,7 @@ const Orders = (props) => {
 
     useEffect(() => {
         setOrder(props.orders);
-    }, [props])
+    }, [props.orders])
 
 
     return (

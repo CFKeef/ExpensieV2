@@ -18,12 +18,18 @@ const Dashboard = (props) => {
     const [stats, setStats] = useState([]);
     const [data, setData] = useState([]);
 
+    // Handles adding a sale to our orders
+    const handleAdd = () => {
+        props.setVisible(!props.visible)
+    }
+
     // Determines if the row is odd or even and applies the correct class for the row's color
     const determineRowStyling = (index) => {
         if( (index + 1) % 2 == 0 ) return "even";
         else return "odd";
     }
 
+    // Handles how the dropw down should render if theres no data
     const handleNoData = (orders) => {
         if(orders.length == 0) return "hide";
         return "";
@@ -223,7 +229,7 @@ const Dashboard = (props) => {
         setOrder(props.orders);
         setStats(props.stats);
         setData(props.data);
-    }, [props.order, props.stats, props.data])
+    }, [props.orders, props.stats, props.data])
 
 
     return (
@@ -299,7 +305,7 @@ const Dashboard = (props) => {
                             </button>
                         </div>
                         <div className="addsale">
-                            <button className="defaultbtn">
+                            <button className="defaultbtn" onClick={() => {handleAdd()}} >
                                 <img src={Plus} />
                                 <p>Add Sale</p>
                             </button>
