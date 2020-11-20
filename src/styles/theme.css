@@ -1308,4 +1308,179 @@ body {
   background: #181825;
 }
 
+.hidden {
+  display: none !important;
+}
+
+.popupform-container {
+  position: absolute;
+  height: 700px;
+  width: 500px;
+  left: 35%;
+  top: 100px;
+}
+.popupform-container .content-container {
+  height: 700px;
+  width: 500px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  background: #15151F;
+}
+.popupform-container .content-container .defaultHeader {
+  width: 100%;
+}
+.popupform-container .content-container .defaultHeader .pos {
+  position: static;
+  width: 100%;
+}
+.popupform-container .content-container .defaultHeader .pos .tag {
+  position: static;
+  margin: 1REM 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.popupform-container .content-container .defaultHeader .pos .tag h1 {
+  text-align: center;
+}
+.popupform-container .content-container .selection {
+  width: 100%;
+}
+.popupform-container .content-container .selection h6 {
+  width: 100%;
+  color: #9797AF;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 0.56px;
+  text-align: center;
+}
+.popupform-container .content-container .selection .buttons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+}
+.popupform-container .content-container .selection .buttons div {
+  height: 80px;
+  width: 96px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.popupform-container .content-container .selection .buttons div button {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.popupform-container .content-container .selection .buttons div button p {
+  font-size: 14px;
+  letter-spacing: 0.56px;
+  color: #9797AF;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
+}
+.popupform-container .content-container .selection .buttons div button:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+.popupform-container .content-container .selection .buttons div button:active {
+  transform: translateY(1px);
+  filter: brightness(110%);
+}
+.popupform-container .content-container .selection .buttons div .selected {
+  border-radius: 8px;
+  background: #F06775;
+}
+.popupform-container .content-container .selection .buttons div .selected p {
+  color: white;
+}
+.popupform-container .content-container .form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 20px;
+  width: 100%;
+}
+.popupform-container .content-container .form .userinput {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 1REM 0;
+}
+.popupform-container .content-container .form .userinput label {
+  width: 70%;
+  text-align: left;
+  margin-bottom: 10px;
+  letter-spacing: 0.56px;
+  color: white;
+  font-weight: bold;
+}
+.popupform-container .content-container .form .userinput input {
+  border-radius: 8px;
+  border: 4px solid #1F1F2E;
+  background: #15151F;
+  height: 40px;
+  width: 70%;
+  color: white;
+  padding-left: 0.2REM;
+}
+.popupform-container .content-container .form .userinput input::placeholder {
+  color: #9797AF;
+  padding-left: 0.2REM;
+}
+.popupform-container .content-container .form .userinput input:hover {
+  filter: none;
+}
+.popupform-container .content-container .form .userinput input:active {
+  transform: none;
+  filter: none;
+}
+.popupform-container .content-container .form .dropdown {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin: 1REM 20px 0 20px;
+}
+.popupform-container .content-container .form .dropdown label {
+  width: 30%;
+  text-align: left;
+  letter-spacing: 0.56px;
+  color: white;
+  font-weight: bold;
+}
+.popupform-container .content-container .form .dropdown button {
+  background-color: #6775F0;
+}
+.popupform-container .content-container .submit {
+  margin: 2REM 20px 0 20px;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.popupform-container .content-container .submit button {
+  background-color: #21BF73;
+}
+.popupform-container .content-container .submit button p {
+  margin-left: 0;
+}
+
 /*# sourceMappingURL=theme.css.map */
