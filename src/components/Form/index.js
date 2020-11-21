@@ -10,6 +10,10 @@ const Form = (props) => {
 	const [saleSelection, setSaleSelection] = useState("Not Shipped");
 	const [expSelection, setExpSelection] = useState("Other");
 	const [dropDownShown, setDropDownShown] = useState(false);
+	const [entryTime, setEntryTime] = useState("");
+	const [entryDate, setEntryDate] = useState("");
+	const [entryName, setEntryName] = useState("");
+	const [entryAmount, setEntryAmount] = useState("");
 
 	const saleStatus = [ "Completed", "Shipped", "Not Shipped"]
 	const expenseCategory = [
@@ -22,6 +26,31 @@ const Form = (props) => {
 		"Taxes/Licenses",
 		"Other"
 	]
+	const handleSubmit = async () => {
+		const createOrder = () => {
+			let order = {
+				type: sale ? "sale" : "expense",
+				id: new Date().getTime(),
+				date: entryDate,
+				name: entryName,
+				amount: entryAmount,
+				category: sale ? saleSelection : expenseCategory
+			}
+			return order;
+		}
+		const resetPopUp = () => {
+			props.setVisible(false);
+			setVisible(false);
+			setDropDownShown(false);
+			setSaleSelection("Not Shipped");
+			setExpSelection("Other");
+			setEntryDate("");
+		}
+		
+		let order = await createOrder();
+		props.addOrder(order);
+		resetPopUp();
+	}
 
 	// Sets the last option in the select with a specific styling to make it prettier
     const handleDropDownRestyling = () => {
@@ -90,23 +119,20 @@ const Form = (props) => {
 
 	// Generates the form in the pop up for adding expenses or sales
     const generateForm = () => {
-		// ID DATE NAME AMT STATUS
-		let dataArr = [new Date().getTime(), "", "", ""];
-
         if(sale) {
             return (
 				<div className="form">
 					<div className="userinput">
 						<label htmlFor="date">Date of Sale</label>
-						<input id="date" placeholder="MM/DD/YYYY" onChange={e => {dataArr[1] = e.target.value}} type="text"/>
+						<input id="date" placeholder="MM/DD/YYYY" value={entryDate} onChange={e => {setEntryDate(e.target.value)}} type="text"/>
 					</div>
 					<div className="userinput">
 						<label htmlFor="name">Customer Name</label>
-						<input id="name" placeholder="Customer Name" onChange={e => {dataArr[2] = e.target.value}} type="text"/>
+						<input id="name" placeholder="Customer Name" value={entryName} onChange={e => {setEntryName(e.target.value)}} type="text"/>
 					</div>
 					<div className="userinput">
 						<label htmlFor="amount">Sale Amount</label>
-						<input id="amount" placeholder="Sale Amount" onChange={e => {dataArr[3] = e.target.value}} type="text"/>
+						<input id="amount" placeholder="Sale Amount" value={entryAmount} onChange={e => {setEntryAmount(e.target.value)}} type="text"/>
 					</div>	
 					<div className="dropdown">
 						<label htmlFor="status">Order Status</label>
@@ -115,6 +141,11 @@ const Form = (props) => {
 							<p>{saleSelection}</p>
 						</button>
 						{handleDropDown()}
+					</div>
+					<div className="submit">
+						<button className="defaultbtn" onClick={() => {handleSubmit()}}>
+							<p>Submit</p>
+						</button>
 					</div>				
                 </div>
             )
@@ -125,15 +156,15 @@ const Form = (props) => {
 					<div className="form">
 						<div className="userinput">
 							<label htmlFor="date">Date of Expenditure</label>
-							<input id="date" placeholder="MM/DD/YYYY" onChange={e => {dataArr[1] = e.target.value}} type="text"/>
+							<input id="date" placeholder="MM/DD/YYYY" value={entryDate} onChange={e => {setEntryDate(e.target.value)}} type="text"/>
 						</div>
 						<div className="userinput">
 							<label htmlFor="name">Description</label>
-							<input id="name" placeholder="Description" onChange={e => {dataArr[2] = e.target.value}} type="text"/>
+							<input id="name" placeholder="Description" value={entryName} onChange={e => {setEntryName(e.target.value)}} type="text"/>
 						</div>
 						<div className="userinput">
 							<label htmlFor="amount">Expensed Amount</label>
-							<input id="amount" placeholder="Expensed Amount" onChange={e => {dataArr[3] = e.target.value}} type="text"/>
+							<input id="amount" placeholder="Expensed Amount" value={entryAmount} onChange={e => {setEntryAmount(e.target.value)}} type="text"/>
 						</div>	
 						<div className="dropdown">
 							<label htmlFor="status">Category</label>
@@ -142,7 +173,12 @@ const Form = (props) => {
 								<p>{expSelection}</p>
 							</button>
 							{handleDropDown()}
-						</div>				
+						</div>
+						<div className="submit">
+							<button className="defaultbtn" onClick={() => {handleSubmit()}}>
+								<p>Submit</p>
+							</button>
+						</div>						
 					</div>
                 </div>
             )
@@ -228,11 +264,6 @@ const Form = (props) => {
 					{generateOptions()}
 				</div>
 				{generateForm()}
-				<div className="submit">
-					<button className="defaultbtn">
-						<p>Submit</p>
-					</button>
-				</div>
 			</div>
 		</div>
     )

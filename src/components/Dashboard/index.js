@@ -19,7 +19,7 @@ const Dashboard = (props) => {
 
     // Handles adding a sale to our orders
     const handleAdd = () => {
-        props.setVisible(!props.visible)
+        props.setVisible(!props.visible);
     }
 
     // Determines if the row is odd or even and applies the correct class for the row's color

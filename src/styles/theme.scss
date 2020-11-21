@@ -1586,7 +1586,7 @@ body {
 				align-items: center;
 				flex-direction: row;
 				margin: 1REM 20px 0 20px;
-
+				z-index: 15;
 				label {
 					width: 30%;
 					text-align: left;
@@ -1643,9 +1643,6 @@ body {
 			}
 			.showing {
 				border-radius: 8px 8px 0 0;
-			}
-			.showingExpense {
-				border-radius: 0 0 8px 8px;
 			}
 		}
 

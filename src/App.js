@@ -115,14 +115,26 @@ function App() {
     const [page, setPage] = useState("Dashboard");
     const [popUpVisible, setPopUpVisible] = useState(false);
 
-    const handleAddingSale = (orders) => {
-        let temp = Object.values(orders);
-        temp.push(({id: "TEST", date: "08/12/20",
-        name: "Isabel",
-       amount: "$63",
-        status: "Not Shipped"}))
-        setOrder(temp);
-        ipcRenderer.send("updateOrdersStored", temp);
+    const handleAddingSale = (order) => {
+        let temp;
+        
+        if(order.type=== "sale") temp = {
+            id: order.id,
+            date: order.date,
+            name: order.name,
+            amount: order.amount,
+            status: order.category
+        }
+        else temp = {
+            id: order.id,
+            date: order.date,
+            description: order.name,
+            amount: order.amount,
+            category: order.category 
+        }
+
+        setOrder([...orders, temp]);
+        ipcRenderer.send("updateOrdersStored", orders);
     }
     
     const handleEditingSale = (orders, orderID) => {
@@ -204,6 +216,8 @@ function App() {
                     <Form 
                         visible = {popUpVisible}
                         setVisible = {setPopUpVisible}
+                        addOrder = {handleAddingSale}
+                        addExpense = {handleAddingExpense}
                     />
                 </div>
             </div>
