@@ -1,11 +1,9 @@
 // # App
 // handles the redux and router setup
 
-// use strict
-"use strict";
 
 // import dependencies
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 
 // import components
 import Menubar from './components/Menubar';
@@ -27,7 +25,7 @@ const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stat
     let content = null;
 
     switch (String(page).toLowerCase()) {
-        case "dashboard": {
+        case "dashboard": 
             content = (
                 <Dashboard
                     orders={orders}
@@ -46,8 +44,8 @@ const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stat
                 />
             );
             break;
-        };
-        case "sales": {
+
+        case "sales": 
             content = (
                 <Orders
                     orders={orders}
@@ -59,8 +57,8 @@ const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stat
                 />
             );
             break;
-        };
-        case "expenses":  {
+
+        case "expenses":  
             content = (
                 <Expenses
                     expenses={expenses}
@@ -72,8 +70,8 @@ const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stat
                 />
             )
             break;
-        }
-        case "analytics": {
+ 
+        case "analytics": 
             content = (
                 <Analytics 
                     data={data}
@@ -83,7 +81,26 @@ const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stat
                 />
             );
             break;
-        };
+
+        default: 
+           content = (
+            <Dashboard
+                orders={orders}
+                setOrder={setOrder}
+                addOrder={handleAddingSale}
+                editOrder={handleEditingSale}
+                addExpense={handleAddingExpense}
+                editExpense={handleEditingExpense}
+                data={data}
+                setData={setData}
+                stats={stats}
+                setStats={setStats}
+                setPage={setPage}
+                visible = {popUpVisible}
+                setVisible = {setPopUpVisible}
+            />
+            )
+            break;
     };
 
     return content;

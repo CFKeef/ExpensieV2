@@ -14,9 +14,9 @@ const Form = (props) => {
 	const saleStatus = [ "Completed", "Shipped", "Not Shipped"]
 	const expenseCategory = [
 		"Vehicle Expense",
-		"Commissions and Fees",
+		"Commissions/Fees",
 		"Labor", 
-		"Professional Services",
+		"Services",
 		"Office Expense",
 		"Rent/Lease",
 		"Taxes/Licenses",
@@ -31,7 +31,6 @@ const Form = (props) => {
         else return "";
 	}
 	
-
 	// Will handle the actions of interacting with the drop down
 	const handleDropDown = () => {
 		const handleClick = (option) => {
@@ -89,6 +88,7 @@ const Form = (props) => {
 		}
 	}
 
+	// Generates the form in the pop up for adding expenses or sales
     const generateForm = () => {
 		// ID DATE NAME AMT STATUS
 		let dataArr = [new Date().getTime(), "", "", ""];
@@ -147,8 +147,9 @@ const Form = (props) => {
                 </div>
             )
         }
-    }
-    
+	}
+	
+	// Generates the menubar for the pop up window
     const generateMenuBar = () => {
         return (
             <div className="menubar-container">
@@ -168,6 +169,7 @@ const Form = (props) => {
 
 	}
 	
+	// Generates the options for the user to create new entries for sales or expenses
 	const generateOptions = () => {
 		const handleStyling = (option) => {
 			if(option === "Sale" && sale) {

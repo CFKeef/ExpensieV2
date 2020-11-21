@@ -23,7 +23,6 @@ let stats = [];
 let chartData = [];
 
 let mainWindow;
-let saleWindow;
 
 process.env.NODE_ENV = 'dev';
 

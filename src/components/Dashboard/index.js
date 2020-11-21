@@ -5,7 +5,6 @@ import Chart from '../Chart';
 
 // Assets
 import ShowMore from '../../assets/options.svg';
-import Logo from '../../assets/expensieLogo.png';
 import Plus from '../../assets/plus.svg';
 import Arrow from '../../assets/right-arrow.svg';
 import DownChevron from '../../assets/down-chevron.svg';
@@ -25,13 +24,13 @@ const Dashboard = (props) => {
 
     // Determines if the row is odd or even and applies the correct class for the row's color
     const determineRowStyling = (index) => {
-        if( (index + 1) % 2 == 0 ) return "even";
+        if( (index + 1) % 2 === 0 ) return "even";
         else return "odd";
     }
 
     // Handles how the dropw down should render if theres no data
     const handleNoData = (orders) => {
-        if(orders.length == 0) return "hide";
+        if(orders.length === 0) return "hide";
         return "";
     }
 
@@ -42,7 +41,7 @@ const Dashboard = (props) => {
             setDropDownShowing(!dropDownShowing);
         }
         const setLast = (index) => {
-            if(index == options.length - 1 || index == 1 && dropDownSelection == "Past Year") return "last";
+            if( (index === options.length - 1 || index === 1) && dropDownSelection === "Past Year") return "last";
             else return "";
         }
 
@@ -58,7 +57,7 @@ const Dashboard = (props) => {
                 <div className="dropdown">
                     <ul>
                         {options.map( (option, index) => {
-                            if(option != dropDownSelection) {
+                            if(option !== dropDownSelection) {
                                 return (
                                     <li key={"dropdown" + index}>
                                         <button onClick={()=>handleClick(option) } className={setLast(index)}>{option}</button>
@@ -90,7 +89,7 @@ const Dashboard = (props) => {
 
     // Handles interacting with the order the user pressed on
     const handleActionsShown = (key) => {
-        const orderToEdit = orders.find(order => order.id == key);
+        const orderToEdit = orders.find(order => order.id === key);
 
         console.log(orderToEdit)
 
@@ -107,11 +106,6 @@ const Dashboard = (props) => {
 
     // Generates the orders table
     const generateTable = () => {
-        const styleId = (id) => {
-            if(id < 10) return "0" + id;
-            else return id;
-        }
-
         if(orders.length > 0) {
             return (
                 <tbody>
