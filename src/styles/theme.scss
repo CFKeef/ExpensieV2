@@ -1408,14 +1408,20 @@ body {
 }
 
 .popupform-container {
-	position: absolute;
-	height: 700px;
-	width: 500px;
 
-	left: 35%;
-	top: 100px;
+	display: block;
+	width: 100%;
+	height: calc(100vh - 0px);
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	z-index: 9;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 100000;
+
 
 	.content-container {
+		position: absolute;
 		height: 700px;
 		width: 500px;
 		display: flex;
@@ -1423,7 +1429,8 @@ body {
 		align-items: flex-start;
 		flex-direction: column;
 		background: $background-primary;
-
+		left: 35%;
+		top: 100px;
 
 		.defaultHeader {
 			width: 100%;
@@ -1534,12 +1541,12 @@ body {
 				align-items: center;
 				flex-direction: column;
 				margin: 1REM 0;
-				
+
 
 				label {
 					width: 70%;
 					text-align: left;
-					margin-bottom: 10px; 
+					margin-bottom: 10px;
 					letter-spacing: .56px;
 					color: white;
 					font-weight: bold;
@@ -1585,7 +1592,7 @@ body {
 					text-align: left;
 					letter-spacing: .56px;
 					color: white;
-					font-weight: bold; 
+					font-weight: bold;
 				}
 
 				button {
@@ -1593,6 +1600,53 @@ body {
 				}
 			}
 
+			.ddcontent {
+				width: 30%;
+				position: absolute;
+				right: 55px;
+				bottom: 60px;
+				ul {
+					width: 100%;
+
+					li {
+						width: 100%;
+
+						button {
+							height: 30px;
+							width: 100%;
+							font-size: 14px;
+							font-weight: bold;
+							letter-spacing: .56px;
+							color: white;
+							cursor: pointer;
+						}
+
+						.last {
+							border-radius: 0 0 8px 8px;
+						}
+
+						&:hover {
+							cursor: pointer;
+							filter: brightness(90%);
+						}
+
+						&:active {
+							filter: brightness(110%);
+						}
+
+					}
+				}
+				
+			}
+			.ddexpense {
+				bottom: -90px;
+			}
+			.showing {
+				border-radius: 8px 8px 0 0;
+			}
+			.showingExpense {
+				border-radius: 0 0 8px 8px;
+			}
 		}
 
 		.submit {

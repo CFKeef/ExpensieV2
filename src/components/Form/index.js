@@ -7,47 +7,114 @@ import close from '../../assets/close.svg';
 const Form = (props) => {
     const [visible, setVisible] = useState(false);
 	const [sale,setSale] = useState(true);
-	const [catStat, setCatStat] = useState(0);
+	const [saleSelection, setSaleSelection] = useState("Not Shipped");
+	const [expSelection, setExpSelection] = useState("Other");
 	const [dropDownShown, setDropDownShown] = useState(false);
+
+	const saleStatus = [ "Completed", "Shipped", "Not Shipped"]
+	const expenseCategory = [
+		"Vehicle Expense",
+		"Commissions and Fees",
+		"Labor", 
+		"Professional Services",
+		"Office Expense",
+		"Rent/Lease",
+		"Taxes/Licenses",
+		"Other"
+	]
 
 	// Sets the last option in the select with a specific styling to make it prettier
     const handleDropDownRestyling = () => {
-        if(dropDownShown) {
+		if(dropDownShown) {
             return "showing";
         }
         else return "";
-    }
+	}
+	
+
+	// Will handle the actions of interacting with the drop down
+	const handleDropDown = () => {
+		const handleClick = (option) => {
+			if(sale) setSaleSelection(option);
+			else setExpSelection(option);
+			setDropDownShown(!dropDownShown);
+		}
+		const setLast = (index) => {
+			if(sale) {
+				if(saleSelection === "Not Shipped" && saleStatus[index] === "Shipped") return "last";
+				else if(index === saleStatus.length - 1) return "last";
+			}
+			else if(!sale) {
+				if(expSelection === "Other" && expenseCategory[index] === "Taxes/Licenses") return "last";
+				else if(index === expenseCategory.length - 1) return "last";
+			}
+			else return "";
+		}
+
+		if(dropDownShown) {
+			if(sale) {
+				return (
+					<div className="ddcontent">
+						<ul>
+							{saleStatus.map( (option, index) => {
+								if(option != saleSelection) {
+									return (
+										<li key={"dropdown" + index}>
+											<button onClick={()=>handleClick(option) } className={setLast(index)}>{option}</button>
+										</li>
+									)
+								}
+							})}
+						</ul>
+					</div>
+				)
+			}
+			else {
+				return (
+					<div className="ddcontent ddexpense">
+						<ul>
+							{expenseCategory.map( (option, index) => {
+								if(option != expSelection) {
+									return (
+										<li key={"dropdown" + index}>
+											<button onClick={()=>handleClick(option) } className={setLast(index)}>{option}</button>
+										</li>
+									)
+								}
+							})}
+						</ul>
+					</div>
+				)
+			}
+		}
+	}
 
     const generateForm = () => {
-		let data = {
-			id: "",
-			date: "",
-			name: "",
-			amount: "",
-			status: ""
-		}
+		// ID DATE NAME AMT STATUS
+		let dataArr = [new Date().getTime(), "", "", ""];
 
         if(sale) {
             return (
 				<div className="form">
 					<div className="userinput">
-						<label for="date">Date of Sale</label>
-						<input id="date" placeholder="MM/DD/YYYY" onChange={e => {data["date"] = e.target.value}} type="text"/>
+						<label htmlFor="date">Date of Sale</label>
+						<input id="date" placeholder="MM/DD/YYYY" onChange={e => {dataArr[1] = e.target.value}} type="text"/>
 					</div>
 					<div className="userinput">
-						<label for="name">Customer Name</label>
-						<input id="name" placeholder="Customer Name" onChange={e => {data["name"] = e.target.value}} type="text"/>
+						<label htmlFor="name">Customer Name</label>
+						<input id="name" placeholder="Customer Name" onChange={e => {dataArr[2] = e.target.value}} type="text"/>
 					</div>
 					<div className="userinput">
-						<label for="amount">Sale Amount</label>
-						<input id="amount" placeholder="Sale Amount" onChange={e => {data["sale"] = e.target.value}} type="text"/>
+						<label htmlFor="amount">Sale Amount</label>
+						<input id="amount" placeholder="Sale Amount" onChange={e => {dataArr[3] = e.target.value}} type="text"/>
 					</div>	
 					<div className="dropdown">
-						<label for="status">Order Status</label>
+						<label htmlFor="status">Order Status</label>
 						<button id="status" onClick={() => {setDropDownShown(!dropDownShown)}} className={" defaultDropdown " + handleDropDownRestyling()}>
 							<img src={DownChevron} />
-							<p>drop</p>
+							<p>{saleSelection}</p>
 						</button>
+						{handleDropDown()}
 					</div>				
                 </div>
             )
@@ -57,23 +124,24 @@ const Form = (props) => {
                 <div className="form">
 					<div className="form">
 						<div className="userinput">
-							<label for="date">Date of Expenditure</label>
-							<input id="date" placeholder="MM/DD/YYYY" onChange={e => {data["date"] = e.target.value}} type="text"/>
+							<label htmlFor="date">Date of Expenditure</label>
+							<input id="date" placeholder="MM/DD/YYYY" onChange={e => {dataArr[1] = e.target.value}} type="text"/>
 						</div>
 						<div className="userinput">
-							<label for="name">Description</label>
-							<input id="name" placeholder="Description" onChange={e => {data["name"] = e.target.value}} type="text"/>
+							<label htmlFor="name">Description</label>
+							<input id="name" placeholder="Description" onChange={e => {dataArr[2] = e.target.value}} type="text"/>
 						</div>
 						<div className="userinput">
-							<label for="amount">Expensed Amount</label>
-							<input id="amount" placeholder="Expensed Amount" onChange={e => {data["sale"] = e.target.value}} type="text"/>
+							<label htmlFor="amount">Expensed Amount</label>
+							<input id="amount" placeholder="Expensed Amount" onChange={e => {dataArr[3] = e.target.value}} type="text"/>
 						</div>	
 						<div className="dropdown">
-							<label for="status">Category</label>
+							<label htmlFor="status">Category</label>
 							<button id="status" onClick={() => {setDropDownShown(!dropDownShown)}} className={" defaultDropdown " + handleDropDownRestyling()}>
 								<img src={DownChevron} />
-								<p>drop</p>
+								<p>{expSelection}</p>
 							</button>
+							{handleDropDown()}
 						</div>				
 					</div>
                 </div>
@@ -110,8 +178,14 @@ const Form = (props) => {
 		}
 
 		const handleClick = (option) => {
-			if(option === "Sale") setSale(true);
-			else setSale(false);
+			if(option === "Sale")  {
+				setSale(true);
+				setDropDownShown(false);
+			}
+			else {
+				setSale(false);
+				setDropDownShown(false);
+			}
 		}
 
 		let buttons = ["Sale", "Expense"]

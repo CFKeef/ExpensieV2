@@ -1313,13 +1313,18 @@ body {
 }
 
 .popupform-container {
-  position: absolute;
-  height: 700px;
-  width: 500px;
-  left: 35%;
-  top: 100px;
+  display: block;
+  width: 100%;
+  height: calc(100vh - 0px);
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 9;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100000;
 }
 .popupform-container .content-container {
+  position: absolute;
   height: 700px;
   width: 500px;
   display: flex;
@@ -1327,6 +1332,8 @@ body {
   align-items: flex-start;
   flex-direction: column;
   background: #15151F;
+  left: 35%;
+  top: 100px;
 }
 .popupform-container .content-container .defaultHeader {
   width: 100%;
@@ -1466,6 +1473,46 @@ body {
 }
 .popupform-container .content-container .form .dropdown button {
   background-color: #6775F0;
+}
+.popupform-container .content-container .form .ddcontent {
+  width: 30%;
+  position: absolute;
+  right: 55px;
+  bottom: 60px;
+}
+.popupform-container .content-container .form .ddcontent ul {
+  width: 100%;
+}
+.popupform-container .content-container .form .ddcontent ul li {
+  width: 100%;
+}
+.popupform-container .content-container .form .ddcontent ul li button {
+  height: 30px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.56px;
+  color: white;
+  cursor: pointer;
+}
+.popupform-container .content-container .form .ddcontent ul li .last {
+  border-radius: 0 0 8px 8px;
+}
+.popupform-container .content-container .form .ddcontent ul li:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+.popupform-container .content-container .form .ddcontent ul li:active {
+  filter: brightness(110%);
+}
+.popupform-container .content-container .form .ddexpense {
+  bottom: -90px;
+}
+.popupform-container .content-container .form .showing {
+  border-radius: 8px 8px 0 0;
+}
+.popupform-container .content-container .form .showingExpense {
+  border-radius: 0 0 8px 8px;
 }
 .popupform-container .content-container .submit {
   margin: 2REM 20px 0 20px;
