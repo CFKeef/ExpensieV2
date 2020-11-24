@@ -3,7 +3,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const Chart = (props) => {
 
-    const colors= ['#FD5E53', '#21BF73'];
+    const colors= ['#21BF73','#FD5E53'];
 
     const generateChart = () => {
         if(props.salesSummary.length != 0) {

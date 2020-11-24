@@ -119,6 +119,14 @@ function App() {
         data[0].value += parseInt(amount);
     }
 
+    const addToExpense = (amount) => {
+        data[2].value += parseInt(amount);
+    }
+
+    const balanceProfit = () => {
+        data[1].value = Math.abs(data[0].value) - Math.abs(data[2].value);
+    }
+
     const handleAddingSale = (order) => {
         let temp;
         
@@ -131,6 +139,7 @@ function App() {
         }
 
         addToTotal(temp.amount);
+        balanceProfit();
 
         setOrder([...orders, temp]);
         ipcRenderer.send("updateOrdersStored", orders);
@@ -150,6 +159,10 @@ function App() {
             category: expense.category
         }
 
+        addToTotal(-(+temp.amount));
+        addToExpense(temp.amount)
+        balanceProfit();
+        
         setExpenses([...expenses, temp]);
         ipcRenderer.send("updateExpensesStored", expenses);
     }

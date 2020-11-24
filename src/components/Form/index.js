@@ -10,11 +10,10 @@ const Form = (props) => {
 	const [saleSelection, setSaleSelection] = useState("Not Shipped");
 	const [expSelection, setExpSelection] = useState("Other");
 	const [dropDownShown, setDropDownShown] = useState(false);
-	const [entryTime, setEntryTime] = useState("");
 	const [entryDate, setEntryDate] = useState("");
 	const [entryName, setEntryName] = useState("");
 	const [entryAmount, setEntryAmount] = useState("");
-	const [entryCOGS, setEntryCOGS] = useState("");
+	const [entryCOGS, setEntryCOGS] = useState(0);
 
 	const saleStatus = [ "Completed", "Shipped", "Not Shipped"]
 	const expenseCategory = [
@@ -47,7 +46,7 @@ const Form = (props) => {
 			}
 
 			// Validate date
-			var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+			let date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
 			if (!(date_regex.test(entryDate))) {
 				return false;
 			}
