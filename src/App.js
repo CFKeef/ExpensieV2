@@ -115,6 +115,10 @@ function App() {
     const [page, setPage] = useState("Dashboard");
     const [popUpVisible, setPopUpVisible] = useState(false);
 
+    const addToTotal = (amount) => {
+        data[0].value += parseInt(amount);
+    }
+
     const handleAddingSale = (order) => {
         let temp;
         
@@ -125,6 +129,8 @@ function App() {
             amount: order.amount,
             status: order.category
         }
+
+        addToTotal(temp.amount);
 
         setOrder([...orders, temp]);
         ipcRenderer.send("updateOrdersStored", orders);

@@ -20,7 +20,19 @@ let expenses = [];
 
 let stats = [];
 
-let chartData = [];
+let chartData = [{
+		name: "Total",
+		value: 0
+	},
+	{
+		name: "Profit",
+		value: 0
+	},
+	{
+		name: "Expenses",
+		value: 0
+	}
+];
 
 let mainWindow;
 
@@ -125,5 +137,5 @@ ipcMain.on("minimize", () => {
 
 // Will update the user's stored order information information
 ipcMain.on("updateOrdersStored", (event, args) => {
-	
+
 })

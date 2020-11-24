@@ -28,8 +28,39 @@ const Form = (props) => {
 		"Other"
 	]
 
+	// Will reset all fields
+	const reset = () => {
+		setSaleSelection("Not Shipped");
+		setExpSelection("Other");
+		setEntryDate("");
+		setEntryAmount("");
+		setEntryCOGS("");
+		setEntryName("");
+	}
+
 	// Handles the submit for both sales and expenses
 	const handleSubmit = async () => {
+		const valid = () => {
+			// check if required field are blank
+			if(entryDate === "" || entryName === "" || entryAmount === "") {
+				return false;
+			}
+
+			// Validate date
+			var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+			if (!(date_regex.test(entryDate))) {
+				return false;
+			}
+
+			// Amount has to be realistic
+			if(entryCOGS < 0 || entryAmount < 0) {
+				return false;
+			}
+
+
+			return true;
+		}
+
 		const createOrder = () => {
 			let order = {
 				type: sale ? "sale" : "expense",
@@ -69,24 +100,31 @@ const Form = (props) => {
 			props.setVisible(false);
 			setVisible(false);
 			setDropDownShown(false);
-			setSaleSelection("Not Shipped");
-			setExpSelection("Other");
-			setEntryDate("");
-			setEntryCOGS("");
+			reset();
 		}
 
 		let expense;
 		
 		if(sale) {
-			let order = await createOrder();
-			expense = await createExpenseFromSale();
-			props.addOrder(order);
+			let order;
+
+			if(valid()) {
+				order = await createOrder();
+				props.addOrder(order);
+			}
+			
+			if(valid()) {
+				expense = await createExpenseFromSale();
+				props.addExpense(expense);
+			}
+
 		}
 		else {
-			expense = await createExpense();
-			props.addExpense(expense);
+			if(valid()) {
+				expense = await createExpense();
+				props.addExpense(expense);
+			}
 		}
-		props.addExpense(expense);
 		resetPopUp();
 	}
 
@@ -258,14 +296,6 @@ const Form = (props) => {
 		}
 
 		const handleClick = (option) => {
-			const reset = () => {
-				setSaleSelection("Not Shipped");
-				setExpSelection("Other");
-				setEntryDate("");
-				setEntryAmount("");
-				setEntryCOGS("");
-				setEntryName("");
-			}
 			if(option === "Sale")  {
 				setSale(true);
 				setDropDownShown(false);
