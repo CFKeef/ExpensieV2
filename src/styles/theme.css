@@ -1325,7 +1325,7 @@ body {
 }
 .popupform-container .content-container {
   position: absolute;
-  height: 700px;
+  height: 800px;
   width: 500px;
   display: flex;
   justify-content: flex-start;
@@ -1333,7 +1333,7 @@ body {
   flex-direction: column;
   background: #15151F;
   left: 35%;
-  top: 100px;
+  top: 50px;
 }
 .popupform-container .content-container .defaultHeader {
   width: 100%;
@@ -1479,7 +1479,7 @@ body {
   width: 30%;
   position: absolute;
   right: 55px;
-  bottom: 60px;
+  bottom: 45px;
 }
 .popupform-container .content-container .form .ddcontent ul {
   width: 100%;
@@ -1507,7 +1507,7 @@ body {
   filter: brightness(110%);
 }
 .popupform-container .content-container .form .ddexpense {
-  bottom: -90px;
+  bottom: 9px;
 }
 .popupform-container .content-container .form .showing {
   border-radius: 8px 8px 0 0;

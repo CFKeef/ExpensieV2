@@ -1422,7 +1422,7 @@ body {
 
 	.content-container {
 		position: absolute;
-		height: 700px;
+		height: 800px;
 		width: 500px;
 		display: flex;
 		justify-content: flex-start;
@@ -1430,7 +1430,7 @@ body {
 		flex-direction: column;
 		background: $background-primary;
 		left: 35%;
-		top: 100px;
+		top: 50px;
 
 		.defaultHeader {
 			width: 100%;
@@ -1604,7 +1604,7 @@ body {
 				width: 30%;
 				position: absolute;
 				right: 55px;
-				bottom: 60px;
+				bottom: 45px;
 				ul {
 					width: 100%;
 
@@ -1639,7 +1639,7 @@ body {
 				
 			}
 			.ddexpense {
-				bottom: -90px;
+				bottom: 9px;
 			}
 			.showing {
 				border-radius: 8px 8px 0 0;

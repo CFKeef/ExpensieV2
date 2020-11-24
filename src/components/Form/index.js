@@ -18,16 +18,17 @@ const Form = (props) => {
 
 	const saleStatus = [ "Completed", "Shipped", "Not Shipped"]
 	const expenseCategory = [
-		"Cost Of Goods",
 		"Vehicle Expense",
 		"Commissions/Fees",
 		"Labor", 
 		"Services",
-		"Office Expense",
+		"Cost Of Goods",
 		"Rent/Lease",
 		"Taxes/Licenses",
 		"Other"
 	]
+
+	// Handles the submit for both sales and expenses
 	const handleSubmit = async () => {
 		const createOrder = () => {
 			let order = {
@@ -52,6 +53,18 @@ const Form = (props) => {
 
 			return expense;
 		}
+		const createExpense = () => {
+			let expense = {
+				type: "expense",
+				id: new Date().getTime(),
+				date: entryDate,
+				name: entryName,
+				amount: entryAmount,
+				category:expSelection
+			}
+
+			return expense;
+		}
 		const resetPopUp = () => {
 			props.setVisible(false);
 			setVisible(false);
@@ -61,10 +74,18 @@ const Form = (props) => {
 			setEntryDate("");
 			setEntryCOGS("");
 		}
+
+		let expense;
 		
-		let order = await createOrder();
-		let expense = await createExpenseFromSale();
-		props.addOrder(order);
+		if(sale) {
+			let order = await createOrder();
+			expense = await createExpenseFromSale();
+			props.addOrder(order);
+		}
+		else {
+			expense = await createExpense();
+			props.addExpense(expense);
+		}
 		props.addExpense(expense);
 		resetPopUp();
 	}
@@ -237,13 +258,23 @@ const Form = (props) => {
 		}
 
 		const handleClick = (option) => {
+			const reset = () => {
+				setSaleSelection("Not Shipped");
+				setExpSelection("Other");
+				setEntryDate("");
+				setEntryAmount("");
+				setEntryCOGS("");
+				setEntryName("");
+			}
 			if(option === "Sale")  {
 				setSale(true);
 				setDropDownShown(false);
+				reset();
 			}
 			else {
 				setSale(false);
 				setDropDownShown(false);
+				reset();
 			}
 		}
 
