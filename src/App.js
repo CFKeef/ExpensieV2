@@ -125,24 +125,27 @@ function App() {
             amount: order.amount,
             status: order.category
         }
-        else temp = {
-            id: order.id,
-            date: order.date,
-            description: order.name,
-            amount: order.amount,
-            category: order.category 
-        }
 
         setOrder([...orders, temp]);
         ipcRenderer.send("updateOrdersStored", orders);
     }
     
-    const handleEditingSale = (orders, orderID) => {
-        ipcRenderer.send("openEditSaleWindow", orders, orderID);
+    const handleEditingSale = (expense) => {
     }
     
-    const handleAddingExpense = (expenses) => {
-        ipcRenderer.send("openAddSaleWindow", expenses);
+    const handleAddingExpense = (expense) => {
+        let temp;
+
+        if(expense.type === "expense") temp = {
+            id: expense.id,
+            date: expense.date,
+            description: expense.name,
+            amount: expense.amount,
+            category: expense.category
+        }
+
+        setExpenses([...expenses, temp]);
+        ipcRenderer.send("updateExpensesStored", expenses);
     }
     
     const handleEditingExpense = (expenses, expenseID) => {

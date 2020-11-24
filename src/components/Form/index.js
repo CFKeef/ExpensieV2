@@ -14,9 +14,11 @@ const Form = (props) => {
 	const [entryDate, setEntryDate] = useState("");
 	const [entryName, setEntryName] = useState("");
 	const [entryAmount, setEntryAmount] = useState("");
+	const [entryCOGS, setEntryCOGS] = useState("");
 
 	const saleStatus = [ "Completed", "Shipped", "Not Shipped"]
 	const expenseCategory = [
+		"Cost Of Goods",
 		"Vehicle Expense",
 		"Commissions/Fees",
 		"Labor", 
@@ -38,6 +40,18 @@ const Form = (props) => {
 			}
 			return order;
 		}
+		const createExpenseFromSale = () => {
+			let expense = {
+				type: "expense",
+				id: new Date().getTime(),
+				date: entryDate,
+				name: String(entryName + " COGS"),
+				amount: entryCOGS,
+				category: "Cost Of Goods"
+			}
+
+			return expense;
+		}
 		const resetPopUp = () => {
 			props.setVisible(false);
 			setVisible(false);
@@ -45,10 +59,13 @@ const Form = (props) => {
 			setSaleSelection("Not Shipped");
 			setExpSelection("Other");
 			setEntryDate("");
+			setEntryCOGS("");
 		}
 		
 		let order = await createOrder();
+		let expense = await createExpenseFromSale();
 		props.addOrder(order);
+		props.addExpense(expense);
 		resetPopUp();
 	}
 
@@ -134,6 +151,10 @@ const Form = (props) => {
 						<label htmlFor="amount">Sale Amount</label>
 						<input id="amount" placeholder="Sale Amount" value={entryAmount} onChange={e => {setEntryAmount(e.target.value)}} type="text"/>
 					</div>	
+					<div className="userinput">
+						<label htmlFor="cogs">Cost Of Goods Sold</label>
+						<input id="cogs" placeholder="Cost Of Goods Sold" value={entryCOGS} onChange={e => {setEntryCOGS(e.target.value)}} type="text"/>
+					</div>
 					<div className="dropdown">
 						<label htmlFor="status">Order Status</label>
 						<button id="status" onClick={() => {setDropDownShown(!dropDownShown)}} className={" defaultDropdown " + handleDropDownRestyling()}>
