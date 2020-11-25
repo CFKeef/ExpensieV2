@@ -274,7 +274,7 @@ const Form = (props) => {
            	 	</div>
             	<div className="controls">
                 	<div>
-                    	<button className="close" onClick={() => {setVisible(false)}}>
+                    	<button className="close" onClick={() => {props.setVisible(false)}}>
                         	<img src={close} />
                     	</button>
                 	</div>

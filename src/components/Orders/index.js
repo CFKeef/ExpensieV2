@@ -15,7 +15,7 @@ const Orders = (props) => {
 
     // Handles adding a sale to our orders
     const handleAdd = () => {
-        props.addOrder(orders)
+        props.setVisible(!props.visible);
     }
 
     const handleSearchBar = (search) => {
