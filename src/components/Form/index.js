@@ -33,7 +33,7 @@ const Form = (props) => {
 		setExpSelection("Other");
 		setEntryDate("");
 		setEntryAmount("");
-		setEntryCOGS("");
+		setEntryCOGS("0");
 		setEntryName("");
 	}
 
@@ -177,7 +177,7 @@ const Form = (props) => {
 					<div className="ddcontent ddexpense">
 						<ul>
 							{expenseCategory.map( (option, index) => {
-								if(option != expSelection) {
+								if(option !== expSelection) {
 									return (
 										<li key={"dropdown" + index}>
 											<button onClick={()=>handleClick(option) } className={setLast(index)}>{option}</button>

@@ -127,6 +127,64 @@ function App() {
         data[1].value = Math.abs(data[0].value) - Math.abs(data[2].value);
     }
 
+    const balanceStats = (order, type) => {
+		const calculateDaysSinceOrder = (date) => {
+			return Math.floor((Date.now() - date) / (1000 * 3600 * 24));
+		}
+		let temp = stats;
+		let dateOfOrder = Date.parse(order.date);	
+		let daysSince = calculateDaysSinceOrder(dateOfOrder);
+
+       if(type === "sale") {
+
+		switch(true) {
+			case (daysSince <= 31):
+				for(let i = 0; i < temp.length; i++) {
+					temp[i].gross += parseInt(order.amount);
+					temp[i].sales++;
+					temp[i].profit = temp[i].gross - temp[i].expenses; 
+				}
+				break;	
+			case (daysSince <= 365 && daysSince > 31):
+				for(let i = 1; i < temp.length; i++) {
+					temp[i].gross += parseInt(order.amount);
+					temp[i].sales++;
+					temp[i].profit = temp[i].gross - temp[i].expenses; 
+				}
+				break;
+
+			default:
+				temp[2].gross += parseInt(order.amount);
+				temp[2].sales++;
+				temp[2].profit = temp[2].gross - temp[2].expenses; 
+				break;
+		}
+       }
+       else {
+		switch(true) {
+			case (daysSince <= 31):
+				for(let i = 0; i < temp.length; i++) {
+					temp[i].expenses += parseInt(order.amount);
+					temp[i].profit = temp[i].gross - temp[i].expenses; 
+				}
+				break;	
+			case (daysSince <= 365 && daysSince > 31):
+				for(let i = 1; i < temp.length; i++) {
+					temp[i].expenses = parseInt(order.amount);
+					temp[i].profit = temp[i].gross - temp[i].expenses; 
+				}
+				break;
+
+			default:
+				temp[2].expenses += parseInt(order.amount);
+				temp[2].profit = temp[2].gross - temp[2].expense; 
+				break;
+		}
+	   }
+	   
+       setStats(temp);
+    }
+
     const handleAddingSale = (order) => {
         let temp;
         
@@ -140,7 +198,7 @@ function App() {
 
         addToTotal(temp.amount);
         balanceProfit();
-
+		balanceStats(temp, "sale");
         setOrder([...orders, temp]);
         ipcRenderer.send("updateOrdersStored", orders);
     }
@@ -159,10 +217,9 @@ function App() {
             category: expense.category
         }
 
-        addToTotal(-(+temp.amount));
         addToExpense(temp.amount)
         balanceProfit();
-        
+        balanceStats(temp, "expense");
         setExpenses([...expenses, temp]);
         ipcRenderer.send("updateExpensesStored", expenses);
     }

@@ -6,7 +6,7 @@ const Chart = (props) => {
     const colors= ['#21BF73','#FD5E53'];
 
     const generateChart = () => {
-        if(props.salesSummary.length != 0) {
+        if(props.salesSummary.length !== 0) {
             return (
                 <ResponsiveContainer >
                     <PieChart width={500} height={500} >

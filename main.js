@@ -18,7 +18,11 @@ let orders = [];
 // Contains objects of format : ID (int), DATE (date), DESCRIPTION (string), AMOUNT (INT), STATUS(INT)
 let expenses = [];
 
-let stats = [];
+let stats = [
+	{period: "Past 30 Days", gross: 0, expenses: 0, profit: 0, sales: 0},
+	{period: "Past Year", gross: 0, expenses: 0, profit: 0, sales: 0},
+	{period: "Lifetime", gross: 0, expenses: 0, profit: 0, sales: 0},
+];
 
 let chartData = [{
 		name: "Total",
