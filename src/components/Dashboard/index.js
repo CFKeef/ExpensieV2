@@ -16,6 +16,7 @@ const Dashboard = (props) => {
     const [orders, setOrder] = useState([]);
     const [stats, setStats] = useState([]);
     const [data, setData] = useState([]);
+    const [editOrder, setEditOrder] = useState([]);
 
     // Handles adding a sale to our orders
     const handleAdd = () => {
@@ -81,23 +82,19 @@ const Dashboard = (props) => {
 
     // Handles clicking the action button on an order
     const handleActionsClick = (key) => {
+        setEditOrder(key);
         setActionsShowing(!actionsShowing);
-        if(actionsShowing) {
-            handleActionsShown(key);
-        }
     }
 
     // Handles interacting with the order the user pressed on
     const handleActionsShown = (key) => {
-        const orderToEdit = orders.find(order => order.id === key);
-
-        console.log(orderToEdit)
+        const orderToEdit = orders.find(order => order.id == key);
 
         if(actionsShowing) {
             return (
                 <div className="actioncontent">
                     <p>
-                        console.log(orderToEdit)
+                        test
                     </p>
                 </div>  
             )
@@ -131,6 +128,7 @@ const Dashboard = (props) => {
                                     <button onClick={() => handleActionsClick(order.id)}>
                                         <img src={ShowMore} />
                                     </button>
+                                    {handleActionsShown()}
                                 </td>
                             </tr>
                     )})}

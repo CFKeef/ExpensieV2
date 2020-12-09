@@ -163,6 +163,12 @@ body {
   letter-spacing: 0.1REM;
 }
 
+.actioncontent {
+  position: absolute;
+  background: red;
+  top: 50px;
+}
+
 .menubar-container {
   height: 40px;
   width: 100%;

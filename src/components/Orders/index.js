@@ -135,7 +135,7 @@ const Orders = (props) => {
                 return (
                     <div className="actioncontent">
                         <p>
-                            console.log(orderToEdit)
+                            test
                         </p>
                     </div>  
                 )

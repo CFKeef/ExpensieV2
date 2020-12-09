@@ -179,12 +179,17 @@ body {
 		}
 	}
 }
-
+.actioncontent {
+	position: absolute;
+	background: red;
+	top: 50px;
+}
 .menubar-container {
 	height: 40px;
 	width: 100%;
 	-webkit-app-region: drag;
 }
+
 
 .app-container {
 	height: calc(900px - 40px);
@@ -206,7 +211,6 @@ body {
 }
 
 // Component styling
-
 .menubar-container {
 	background: $background-secondary;
 	border-bottom: 1px solid $background-border;
