@@ -102,6 +102,7 @@ const Analytics = (props) => {
                     data={props.data}
                     orders={orders}
                     expenses={expenses}
+                    stats={stats}
                 />
                 <div className="bot">
                 <table>

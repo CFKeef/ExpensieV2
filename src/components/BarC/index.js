@@ -3,31 +3,44 @@ import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Toolti
 
 const BarC = (props) => {
     const [barPeriod, setBarPeriod] = useState("Monthly");
-    const [data, setData] = useState([]);
+    const [stats, setStats] = useState([]);
+    const [orders, setOrders] = useState([]);
+    const [expenses, setExpenses] = useState([]);
+    const [currentDataSet, setCurrentDataSet] = useState([]);
+    const [monthlyData, setMonthlyData] = useState([
+        {num: 1, date: "Jan", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 2, date: "Feb", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 3, date: "April", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 4, date: "Mar", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 5, date: "May", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 6, date: "June", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 7, date: "July", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 8, date: "Aug", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 9, date: "Sept", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 10, date: "Oct", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 11, date: "Nov", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 12, date: "Dec", Gross: 0, Expenses: 0, Profit: 0},
+    ]);
+    const [loaded, setLoaded] = useState(false);
+    const [dailyData, setDailyData] = useState([]);
 
+    // Handles the styling of the buttons that determine daily/monthy
     const handleSelectionStyling = (option) => {
-        if(option == barPeriod) return "selected";
+        if(option === barPeriod) return "selected";
         return "";
     }
 
+    // Generates the chart displaying user's sales history
     const generateChart = () => {
-        const getGross = (time) => {
-
-        }
-        const getExpenses = (time) => {
-
-        }
-        const getProfit = (time) => {
-            
-        }
+        // Will Change the current data set to the option selected
         const setData = (option) => {
             if("Monthly") {
                 // Set it to monthly data
-                return [];
+                return monthlyData;
             }
             else {
                 // Set it to daily data
-                return [];
+                return dailyData;
             }
         }
         const renderCustomLegend = (value, entry) => {
@@ -36,42 +49,14 @@ const BarC = (props) => {
             return <span style={{ color, fontSize: 16, letterSpacing: 1, fontWeight: "bold"}}>{value}</span>;
         } 
 
-        let dailyData = [
-            {date: "Aug. 1", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Aug. 2", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Aug. 3", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Aug. 4", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Aug. 5", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Aug. 6", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Aug. 7", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Aug. 8", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Aug. 9", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Aug. 10", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Aug. 11", Gross: 54000, Expenses: 12000, Profit: 42000},
-        ]
-
-        let monthlyData = [
-            {date: "Jan", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Febr", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "April", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Mar", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "May", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "June", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "July", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Aug", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Sept", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Oct", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Nov", Gross: 54000, Expenses: 12000, Profit: 42000},
-            {date: "Dec", Gross: 54000, Expenses: 12000, Profit: 42000},
-        ]
         let testData = setData(barPeriod);
         
-        if(testData.length > 0) {
+        if(testData.length > 0 && loaded) {
             if(barPeriod === "Monthly") testData = monthlyData;
             else testData = dailyData;
 
             return (
-                <ResponsiveContainer >
+                <ResponsiveContainer    >
                     <BarChart data={testData} >
                         <CartesianGrid strokeDasharray="6 6"/>
                         <XAxis dataKey="date" stroke="#4e4f6f"  style={{
@@ -107,8 +92,11 @@ const BarC = (props) => {
         }
     }
     useEffect(() => {
-        setData(props.data);
-    }, [props.data])
+        setOrders(props.orders);
+        setStats(props.stats);
+        setExpenses(props.expenses);
+        setLoaded(true);
+    }, [props.orders, props.stats, props.expenses])
 
     return (
         <div className="top">
