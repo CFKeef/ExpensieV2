@@ -17,53 +17,53 @@ const Analytics = (props) => {
                 <tbody>
                     <tr className={determineRowStyling(0)}>
                         <td>
-                            <p className="title">Past 30 Days</p>
+                            <p className="title">{stats[0].period}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[0].gross}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[0].expenses}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[0].profit}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[0].sales}</p>
                         </td>
                     </tr>
                     <tr className={determineRowStyling(1)}>
                         <td>
-                        <p className="title">Past Year</p>
+                            <p className="title">{stats[1].period}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[1].gross}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[1].expenses}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[1].profit}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[1].sales}</p>
                         </td>
                     </tr>
                         <tr className={determineRowStyling(2)}>
                         <td>
-                        <p className="title">Lifetime</p>
+                            <p className="title">{stats[2].period}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[2].gross}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[2].expenses}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[2].profit}</p>
                         </td>
                         <td>
-                            <p className="value">25555</p>
+                            <p className="value">{stats[2].sales}</p>
                         </td>
                     </tr>
                 </tbody>
@@ -80,6 +80,7 @@ const Analytics = (props) => {
         )
 
     }
+
     useEffect(() => {
         setOrders(props.orders);
         setStats(props.stats);

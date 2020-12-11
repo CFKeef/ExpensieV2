@@ -171,7 +171,7 @@ const Dashboard = (props) => {
                     </tr>
                     <tr className={determineRowStyling(1)}>
                         <td>
-                        <p className="title">{stats[1].period}</p>
+                            <p className="title">{stats[1].period}</p>
                         </td>
                         <td>
                             <p className="value">{stats[1].gross}</p>
@@ -186,7 +186,7 @@ const Dashboard = (props) => {
                             <p className="value">{stats[1].sales}</p>
                         </td>
                     </tr>
-                        <tr className={determineRowStyling(2)}>
+                    <tr className={determineRowStyling(2)}>
                         <td>
                             <p className="title">{stats[2].period}</p>
                         </td>
