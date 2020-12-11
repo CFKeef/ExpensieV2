@@ -78,6 +78,8 @@ const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stat
                     setData={setData}
                     stats={stats}
                     setStats={setStats}
+                    expenses={expenses}
+                    orders={orders}
                 />
             );
             break;
@@ -133,30 +135,35 @@ function App() {
 		}
 		let temp = stats;
 		let dateOfOrder = Date.parse(order.date);	
-		let daysSince = calculateDaysSinceOrder(dateOfOrder);
+        let daysSince = calculateDaysSinceOrder(dateOfOrder);
+        console.log(temp)
 
        if(type === "sale") {
 
 		switch(true) {
 			case (daysSince <= 31):
 				for(let i = 0; i < temp.length; i++) {
-					temp[i].gross += parseInt(order.amount);
+					temp[i].gross = parseInt(order.amount);
 					temp[i].sales++;
-					temp[i].profit = temp[i].gross - temp[i].expenses; 
+					temp[i].profit = parseInt(temp[i].gross) - parseInt(temp[i].expenses); 
 				}
 				break;	
 			case (daysSince <= 365 && daysSince > 31):
 				for(let i = 1; i < temp.length; i++) {
 					temp[i].gross += parseInt(order.amount);
 					temp[i].sales++;
-					temp[i].profit = temp[i].gross - temp[i].expenses; 
+					temp[i].profit = parseInt(temp[i].gross) - parseInt(temp[i].expenses); 
 				}
 				break;
 
 			default:
 				temp[2].gross += parseInt(order.amount);
 				temp[2].sales++;
-				temp[2].profit = temp[2].gross - temp[2].expenses; 
+                temp[2].profit = parseInt(temp[2].gross) - parseInt(temp[2].expenses); 
+                console.log(temp[2].gross)
+                console.log(parseInt(temp[2].gross))
+                console.log(parseInt(temp[2].expenses))
+                console.log(temp[2].expenses)
 				break;
 		}
        }
@@ -165,24 +172,24 @@ function App() {
 			case (daysSince <= 31):
 				for(let i = 0; i < temp.length; i++) {
 					temp[i].expenses += parseInt(order.amount);
-					temp[i].profit = temp[i].gross - temp[i].expenses; 
+					temp[i].profit = parseInt(temp[i].gross) - parseInt(temp[i].expenses); 
 				}
 				break;	
 			case (daysSince <= 365 && daysSince > 31):
 				for(let i = 1; i < temp.length; i++) {
 					temp[i].expenses = parseInt(order.amount);
-					temp[i].profit = temp[i].gross - temp[i].expenses; 
+					temp[i].profit = parseInt(temp[i].gross) - parseInt(temp[i].expenses); 
 				}
 				break;
 
 			default:
 				temp[2].expenses += parseInt(order.amount);
-				temp[2].profit = temp[2].gross - temp[2].expense; 
+				temp[2].profit = parseInt(temp[2].gross) - parseInt(temp[2].expenses); 
 				break;
 		}
 	   }
 	   
-       setStats(temp);
+       setStats([...temp]);
     }
 
     const handleAddingSale = (order) => {

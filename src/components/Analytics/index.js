@@ -3,9 +3,11 @@ import BarC from '../BarC';
 
 const Analytics = (props) => {
     const [stats, setStats] = useState([]);
+    const [orders, setOrders] = useState([]);
+    const [expenses, setExpenses] = useState([]);
 
     const determineRowStyling = (index) => {
-        if( (index + 1) % 2 == 0 ) return "even";
+        if( (index + 1) % 2 === 0 ) return "even";
         else return "odd";
     }
 
@@ -78,6 +80,11 @@ const Analytics = (props) => {
         )
 
     }
+    useEffect(() => {
+        setOrders(props.orders);
+        setStats(props.stats);
+        setExpenses(props.expenses);
+    }, [props.orders, props.stats, props.expenses])
 
 
     return (
@@ -92,6 +99,8 @@ const Analytics = (props) => {
                 </div>
                 <BarC 
                     data={props.data}
+                    orders={orders}
+                    expenses={expenses}
                 />
                 <div className="bot">
                 <table>
