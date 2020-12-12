@@ -103,6 +103,8 @@ const Analytics = (props) => {
                     orders={orders}
                     expenses={expenses}
                     stats={stats}
+                    monthlyData={props.monthlyData}
+                    thirtyDayData={props.thirtyDayData}
                 />
                 <div className="bot">
                 <table>

@@ -7,29 +7,39 @@ const BarC = (props) => {
     const [orders, setOrders] = useState([]);
     const [expenses, setExpenses] = useState([]);
     const [currentDataSet, setCurrentDataSet] = useState([]);
-    const [monthlyData, setMonthlyData] = useState([]);
     const [loaded, setLoaded] = useState(false);
-    const [dailyData, setDailyData] = useState([]);
+    const [monthlyData, setMonthlyData] = useState([
+        {num: 0, date: "Jan", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 1, date: "Feb", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 2, date: "April", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 3, date: "Mar", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 4, date: "May", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 5, date: "June", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 6, date: "July", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 7, date: "Aug", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 8, date: "Sept", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 9, date: "Oct", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 10, date: "Nov", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 11, date: "Dec", Gross: 0, Expenses: 0, Profit: 0},
+    ]);
+    const [thirtyDayData, setThirtyDayData] = useState([]);
 
     // Handles the styling of the buttons that determine daily/monthy
     const handleSelectionStyling = (option) => {
         if(option === barPeriod) return "selected";
         return "";
     }
-    const UpdateMonthly = () => {
-        
-    }
     // Generates the chart displaying user's sales history
     const generateChart = () => {
         // Will Change the current data set to the option selected
         const setData = (option) => {
-            if("Monthly") {
+            if(option === "Monthly") {
                 // Set it to monthly data
                 return monthlyData;
             }
             else {
                 // Set it to daily data
-                return dailyData;
+                return thirtyDayData;
             }
         }
         const renderCustomLegend = (value, entry) => {
@@ -41,13 +51,6 @@ const BarC = (props) => {
         let testData = setData(barPeriod);
         
         if(testData.length > 0 && loaded) {
-            if(barPeriod === "Monthly") {
-                testData = monthlyData;
-            }
-            else {
-                testData = dailyData;
-            }
-
             return (
                 <ResponsiveContainer    >
                     <BarChart data={testData} >
@@ -88,9 +91,10 @@ const BarC = (props) => {
         setOrders(props.orders);
         setStats(props.stats);
         setExpenses(props.expenses);
+        setThirtyDayData(props.thirtyDayData);
+        setMonthlyData(props.monthlyData);
         setLoaded(true);
-        UpdateMonthly();
-    }, [props.orders, props.stats, props.expenses])
+    }, [props])
 
     return (
         <div className="top">

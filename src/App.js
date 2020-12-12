@@ -21,7 +21,7 @@ import "./styles/theme.css";
 
 const { ipcRenderer } = window.require("electron")
 
-const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData, handleAddingSale, handleEditingSale, handleAddingExpense, handleEditingExpense, popUpVisible, setPopUpVisible, monthlyData ) => {
+const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData, handleAddingSale, handleEditingSale, handleAddingExpense, handleEditingExpense, popUpVisible, setPopUpVisible, monthlyData, thirtyDayData ) => {
     let content = null;
 
     switch (String(page).toLowerCase()) {
@@ -80,6 +80,8 @@ const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stat
                     setStats={setStats}
                     expenses={expenses}
                     orders={orders}
+                    monthlyData={monthlyData}
+                    thirtyDayData={thirtyDayData}
                 />
             );
             break;
@@ -151,6 +153,22 @@ function App() {
         setMonthlyData(temp);
     }
 
+    // Adds to the daily entry based on the order's date
+    const addToDaily = (order, type) => {
+        let temp = [...thirtyDayData];
+        let index = temp.findIndex(entry => entry.date === new Date(order.date).toISOString().slice(0,10));
+        if(type === "expense" && index !== -1) {
+            temp[index].Expenses += parseInt(order.amount);
+            temp[index].Profit =  parseInt(temp[index].Gross) -  parseInt(temp[index].Expenses);
+        }
+        else if(index !== -1){
+            temp[index].Gross += parseInt(order.amount);
+            temp[index].Profit =  temp[index].Gross - temp[index].Expenses        
+        }
+        
+        setThirtyDayData(temp);
+    }
+
     // Adds to Gross
     const addToTotal = (amount) => {
         data[0].value += parseInt(amount);
@@ -178,12 +196,13 @@ function App() {
        if(type === "sale") {
 
 		switch(true) {
-			case (daysSince <= 31):
+			case (daysSince < 31):
 				for(let i = 0; i < temp.length; i++) {
 					temp[i].gross = parseInt(order.amount);
 					temp[i].sales++;
 					temp[i].profit = parseInt(temp[i].gross) - parseInt(temp[i].expenses); 
-				}
+                }
+                addToDaily(order, type);
 				break;	
 			case (daysSince <= 365 && daysSince > 31):
 				for(let i = 1; i < temp.length; i++) {
@@ -202,11 +221,12 @@ function App() {
        }
        else {
 		switch(true) {
-			case (daysSince <= 31):
+			case (daysSince < 31):
 				for(let i = 0; i < temp.length; i++) {
 					temp[i].expenses += parseInt(order.amount);
 					temp[i].profit = parseInt(temp[i].gross) - parseInt(temp[i].expenses); 
-				}
+                }
+                addToDaily(order, type);
 				break;	
 			case (daysSince <= 365 && daysSince > 31):
 				for(let i = 1; i < temp.length; i++) {
@@ -333,10 +353,10 @@ function App() {
                 date.setDate(date.getDate() - i);
                 let entry = {
                     id: new Date().getTime(),
-                    date: date.toString(),
+                    date: date.toISOString().slice(0,10),
                     Gross: 0,
                     Expenses: 0,
-                    Profits: 0 
+                    Profit: 0 
                 }
                 
                 temp.push(entry);
@@ -353,7 +373,7 @@ function App() {
     }, [])
  
     // generate the markdown
-    let content = renderPage(page,setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData, handleAddingSale, handleEditingSale, handleAddingExpense, handleEditingExpense, popUpVisible, setPopUpVisible, monthlyData);
+    let content = renderPage(page,setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData, handleAddingSale, handleEditingSale, handleAddingExpense, handleEditingExpense, popUpVisible, setPopUpVisible, monthlyData, thirtyDayData);
 
     return (
         <React.Fragment>
