@@ -13,6 +13,10 @@ const Expenses = (props) => {
     const [actionsShowing, setActionsShowing] = useState(false);
     const [searchTarget, setSearchTarget] = useState(null);
 
+    const handleAdd = () => {
+        props.setVisible(!props.visible);
+    }
+
     const handleSearchBar = (search) => {
         setFilterFlag(true);
         setSearchTarget(search);
@@ -96,7 +100,7 @@ const Expenses = (props) => {
                     )
                     return (
                         <li key={"menubutton" + index}>
-                            <button className={"defaultbtn " + button.text}>
+                            <button className={"defaultbtn " + button.text} onClick={() => {handleAdd()}}>
                                 <img src={button.image} />
                                 <p>{button.text}</p>
                             </button>
@@ -118,7 +122,7 @@ const Expenses = (props) => {
 
         // Determines if the row is odd or even and applies the correct class for the row's color
         const determineRowStyling = (index) => {
-            if( (index + 1) % 2 == 0 ) return "even";
+            if( (index + 1) % 2 === 0 ) return "even";
             else return "odd";
         }
 
