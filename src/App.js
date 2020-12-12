@@ -13,6 +13,8 @@ import Analytics from './components/Analytics';
 import Orders from './components/Orders';
 import Expenses from './components/Expenses';
 import Form from './components/Form';
+import Import from './components/Import';
+import Export from './components/Export';
 
 
 // import stylesheet
@@ -21,7 +23,13 @@ import "./styles/theme.css";
 
 const { ipcRenderer } = window.require("electron")
 
-const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData, handleAddingSale, handleEditingSale, handleAddingExpense, handleEditingExpense, popUpVisible, setPopUpVisible, monthlyData, thirtyDayData ) => {
+const renderPage = (page, setPage, orders, 
+                    setOrder, expenses, setExpenses, 
+                    stats, setStats, data, setData, 
+                    handleAddingSale, handleEditingSale, 
+                    handleAddingExpense, handleEditingExpense, 
+                    popUpVisible, setPopUpVisible, monthlyData, 
+                    thirtyDayData ) => {
     let content = null;
 
     switch (String(page).toLowerCase()) {
@@ -133,6 +141,8 @@ function App() {
         {num: 11, date: "Dec", Gross: 0, Expenses: 0, Profit: 0},
     ]);
     const [thirtyDayData, setThirtyDayData] = useState([]);
+    const [importShown, setImportShown] = useState(false);
+    const [exportShown, setExportShown] = useState(false);
 
     // Will update the month's info when the action occured
     const updateMonthly = (order, type) => {
@@ -290,6 +300,14 @@ function App() {
         ipcRenderer.send("openEditSaleWindow", expenses, expenseID);
     }
 
+    const handleImport = () => {
+
+    }
+
+    const handleExport = () => {
+
+    }
+
     useEffect(()=> {
         const getOrders = async () => {
             ipcRenderer.send("retrieveOrders");
@@ -373,8 +391,22 @@ function App() {
     }, [])
  
     // generate the markdown
-    let content = renderPage(page,setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData, handleAddingSale, handleEditingSale, handleAddingExpense, handleEditingExpense, popUpVisible, setPopUpVisible, monthlyData, thirtyDayData);
+    let content = renderPage(page,setPage, 
+                            orders, setOrder, 
+                            expenses, setExpenses, 
+                            stats, setStats, data, 
+                            setData, handleAddingSale, 
+                            handleEditingSale, 
+                            handleAddingExpense, 
+                            handleEditingExpense, 
+                            popUpVisible, 
+                            setPopUpVisible, 
+                            monthlyData, 
+                            thirtyDayData,
+                            importShown, setImportShown,
+                            exportShown, setExportShown);
 
+                            
     return (
         <React.Fragment>
             <Menubar />
@@ -382,6 +414,10 @@ function App() {
                 <Sidebar 
                     changeView={setPage}
                     page={page}
+                    importVisible={importShown}
+                    setImportVisible={setImportShown}
+                    exportVisible={exportShown}
+                    setExportVisible={setExportShown}
                 />
                 <div className="content-container">
                     {content}
@@ -390,6 +426,16 @@ function App() {
                         setVisible = {setPopUpVisible}
                         addOrder = {handleAddingSale}
                         addExpense = {handleAddingExpense}
+                    />
+                    <Import 
+                        visible={importShown}
+                        setVisible={setImportShown}
+                        handleImport={handleImport}
+                    />
+                    <Export 
+                        visible={exportShown}
+                        setVisible={setExportShown}
+                        handleExport={handleExport}
                     />
                 </div>
             </div>

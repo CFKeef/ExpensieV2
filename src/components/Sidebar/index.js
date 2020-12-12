@@ -4,12 +4,13 @@ import Dash from '../../assets/home.svg';
 import Analytics from '../../assets/pie-chart.svg';
 import Orders from '../../assets/history.svg';
 import Expenses from '../../assets/expensive.svg';
-import Settings from '../../assets/settings.svg';
 import Import from '../../assets/import.svg';
 import Export from '../../assets/export.svg';
 
 const Sidebar = (props) => {
     const [selected, setSelected] = useState("");
+    const [importVisible, setImportVisible] = useState(false);
+    const [exportVisible, setExportVisible] = useState(true);
 
     const generateList = (list) => {
         return (
@@ -18,7 +19,7 @@ const Sidebar = (props) => {
                    return (
                         <li key={"sideBar" + index} className={"entry " + handleSelected(element.name)}>
                             <button onClick={() => handleClick(element.key, element.name)}>
-                                <img src={element.image} />
+                                <img src={element.image} alt="element"/>
                                 <h2>{element.name}</h2>
                             </button>
                         </li>
@@ -51,7 +52,9 @@ const Sidebar = (props) => {
 
     useEffect(() => {
         setSelected(props.page)
-    }, [props.page])
+        setImportVisible(props.importVisible)
+        setExportVisible(props.exportVisible)
+    }, [props])
 
     return (
         <div className="sidebar-container">
@@ -62,11 +65,11 @@ const Sidebar = (props) => {
                 {generateList(generalList)}
             </div>
             <div className="nav-container buttons">
-                <button className="defaultbtn import">
+                <button className="defaultbtn import" onClick={() => props.setImportVisible(!importVisible)}>
                     <img src={Import} />
                     <p>Import</p>
                 </button>
-                <button className="defaultbtn export">
+                <button className="defaultbtn export" onClick={() => props.setExportVisible(!exportVisible)}>
                     <img src={Export} />
                     <p>Export</p>
                 </button>

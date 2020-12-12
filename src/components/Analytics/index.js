@@ -10,7 +10,7 @@ const Analytics = (props) => {
         if( (index + 1) % 2 === 0 ) return "even";
         else return "odd";
     }
-
+ 
     const generateStats = () => {
         if(stats.length > 0) {
             return (
