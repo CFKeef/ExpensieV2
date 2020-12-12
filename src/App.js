@@ -130,6 +130,7 @@ function App() {
         {num: 10, date: "Nov", Gross: 0, Expenses: 0, Profit: 0},
         {num: 11, date: "Dec", Gross: 0, Expenses: 0, Profit: 0},
     ]);
+    const [thirtyDayData, setThirtyDayData] = useState([]);
 
     // Will update the month's info when the action occured
     const updateMonthly = (order, type) => {
@@ -278,6 +279,7 @@ function App() {
             ipcRenderer.once("ordersResponse", (event, arg) =>{
                 resp = arg;
                 setOrder(resp);
+                setLast30Days();
             })  
         }
 
@@ -322,6 +324,25 @@ function App() {
                 resp = arg;
                 setMonthlyData(resp);
             })  
+        }
+        const setLast30Days = () => {
+            let temp = [];
+
+            for(let i = 29; i >= 0; i--) {
+                let date = new Date()
+                date.setDate(date.getDate() - i);
+                let entry = {
+                    id: new Date().getTime(),
+                    date: date.toString(),
+                    Gross: 0,
+                    Expenses: 0,
+                    Profits: 0 
+                }
+                
+                temp.push(entry);
+            }
+                
+            setThirtyDayData([...temp]);
         }
 
         getData();
