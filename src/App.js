@@ -21,7 +21,7 @@ import "./styles/theme.css";
 
 const { ipcRenderer } = window.require("electron")
 
-const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData, handleAddingSale, handleEditingSale, handleAddingExpense, handleEditingExpense, popUpVisible, setPopUpVisible ) => {
+const renderPage = (page, setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData, handleAddingSale, handleEditingSale, handleAddingExpense, handleEditingExpense, popUpVisible, setPopUpVisible, monthlyData ) => {
     let content = null;
 
     switch (String(page).toLowerCase()) {
@@ -116,19 +116,56 @@ function App() {
     const [data, setData] = useState([]);
     const [page, setPage] = useState("Dashboard");
     const [popUpVisible, setPopUpVisible] = useState(false);
+    const [monthlyData, setMonthlyData] = useState([
+        {num: 0, date: "Jan", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 1, date: "Feb", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 2, date: "April", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 3, date: "Mar", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 4, date: "May", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 5, date: "June", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 6, date: "July", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 7, date: "Aug", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 8, date: "Sept", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 9, date: "Oct", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 10, date: "Nov", Gross: 0, Expenses: 0, Profit: 0},
+        {num: 11, date: "Dec", Gross: 0, Expenses: 0, Profit: 0},
+    ]);
 
+    // Will update the month's info when the action occured
+    const updateMonthly = (order, type) => {
+        // Find Month it occured in
+        let month = new Date(order.date).getMonth();
+
+        let temp = [...monthlyData];
+        let index = temp.findIndex(x => x.num === month);
+        if(type === "expense") {
+            temp[index].Expenses += parseInt(order.amount);
+            temp[index].Profit = temp[index].Gross - temp[index].Expenses
+        }
+        else {
+            temp[index].Gross += parseInt(order.amount);
+            temp[index].Profit = temp[index].Gross - temp[index].Expenses
+        }
+
+        setMonthlyData(temp);
+    }
+
+    // Adds to Gross
     const addToTotal = (amount) => {
         data[0].value += parseInt(amount);
     }
 
+    // Adds to expense
     const addToExpense = (amount) => {
         data[2].value += parseInt(amount);
     }
 
+    // Updates profit
     const balanceProfit = () => {
         data[1].value = Math.abs(data[0].value) - Math.abs(data[2].value);
     }
 
+    // Handles where to add based on days since event
     const balanceStats = (order, type) => {
 		const calculateDaysSinceOrder = (date) => {
 			return Math.floor((Date.now() - date) / (1000 * 3600 * 24));
@@ -136,7 +173,6 @@ function App() {
 		let temp = stats;
 		let dateOfOrder = Date.parse(order.date);	
         let daysSince = calculateDaysSinceOrder(dateOfOrder);
-        console.log(temp)
 
        if(type === "sale") {
 
@@ -160,10 +196,6 @@ function App() {
 				temp[2].gross += parseInt(order.amount);
 				temp[2].sales++;
                 temp[2].profit = parseInt(temp[2].gross) - parseInt(temp[2].expenses); 
-                console.log(temp[2].gross)
-                console.log(parseInt(temp[2].gross))
-                console.log(parseInt(temp[2].expenses))
-                console.log(temp[2].expenses)
 				break;
 		}
        }
@@ -205,6 +237,7 @@ function App() {
 
         addToTotal(temp.amount);
         balanceProfit();
+        updateMonthly(temp, "sale");
 		balanceStats(temp, "sale");
         setOrder([...orders, temp]);
         ipcRenderer.send("updateOrdersStored", orders);
@@ -226,6 +259,7 @@ function App() {
 
         addToExpense(temp.amount)
         balanceProfit();
+        updateMonthly(temp, "expense");
         balanceStats(temp, "expense");
         setExpenses([...expenses, temp]);
         ipcRenderer.send("updateExpensesStored", expenses);
@@ -279,15 +313,26 @@ function App() {
                 setData(resp);
             })
         }
+        const getMonthly = async () => {
+            ipcRenderer.send("retrieveMonthlyData");
+            
+            let resp = []; 
+            
+            ipcRenderer.once("monthlyResponse", (event, arg) =>{
+                resp = arg;
+                setMonthlyData(resp);
+            })  
+        }
 
         getData();
         getExpenses();
         getOrders();
         getStats();
+        getMonthly();
     }, [])
  
     // generate the markdown
-    let content = renderPage(page,setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData, handleAddingSale, handleEditingSale, handleAddingExpense, handleEditingExpense, popUpVisible, setPopUpVisible);
+    let content = renderPage(page,setPage, orders, setOrder, expenses, setExpenses, stats, setStats, data, setData, handleAddingSale, handleEditingSale, handleAddingExpense, handleEditingExpense, popUpVisible, setPopUpVisible, monthlyData);
 
     return (
         <React.Fragment>

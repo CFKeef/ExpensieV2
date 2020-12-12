@@ -7,20 +7,7 @@ const BarC = (props) => {
     const [orders, setOrders] = useState([]);
     const [expenses, setExpenses] = useState([]);
     const [currentDataSet, setCurrentDataSet] = useState([]);
-    const [monthlyData, setMonthlyData] = useState([
-        {num: 1, date: "Jan", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 2, date: "Feb", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 3, date: "April", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 4, date: "Mar", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 5, date: "May", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 6, date: "June", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 7, date: "July", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 8, date: "Aug", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 9, date: "Sept", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 10, date: "Oct", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 11, date: "Nov", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 12, date: "Dec", Gross: 0, Expenses: 0, Profit: 0},
-    ]);
+    const [monthlyData, setMonthlyData] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [dailyData, setDailyData] = useState([]);
 
@@ -29,7 +16,9 @@ const BarC = (props) => {
         if(option === barPeriod) return "selected";
         return "";
     }
-
+    const UpdateMonthly = () => {
+        
+    }
     // Generates the chart displaying user's sales history
     const generateChart = () => {
         // Will Change the current data set to the option selected
@@ -52,8 +41,12 @@ const BarC = (props) => {
         let testData = setData(barPeriod);
         
         if(testData.length > 0 && loaded) {
-            if(barPeriod === "Monthly") testData = monthlyData;
-            else testData = dailyData;
+            if(barPeriod === "Monthly") {
+                testData = monthlyData;
+            }
+            else {
+                testData = dailyData;
+            }
 
             return (
                 <ResponsiveContainer    >
@@ -96,6 +89,7 @@ const BarC = (props) => {
         setStats(props.stats);
         setExpenses(props.expenses);
         setLoaded(true);
+        UpdateMonthly();
     }, [props.orders, props.stats, props.expenses])
 
     return (
