@@ -197,7 +197,6 @@ function App() {
 					temp[i].gross += parseInt(order.amount);
 					temp[i].sales++;
                     temp[i].profit = parseInt(temp[i].gross) - parseInt(temp[i].expenses); 
-                    console.log(temp[i]);
                 }
                 addToDaily(order, type);
 				break;	
@@ -244,7 +243,7 @@ function App() {
     // Adds sale to our orders list and update stats, monthly stats and balances profit
     const handleAddingSale = async (order) => {
         let temp;
-
+        
         if(order.type=== "sale") temp = {
             id: order.id,
             date: order.date,
@@ -305,7 +304,7 @@ function App() {
                          }).replace(/ /g, '/'),
                         name: row[2],
                         amount:  parseInt(row[3]),
-                        category: row[4]
+                        status: String(row[4])
                     }
                     newOrders.push(temp);
                     
