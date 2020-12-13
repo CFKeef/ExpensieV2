@@ -298,7 +298,7 @@ function App() {
                 let temp;
                 if(row[0] === "SALE") {
                     temp = {
-                        id: new Date(),
+                        id: new Date().getTime(),
                         date: new Date(row[1]).toLocaleDateString('en-US', {
                             day: 'numeric',month: 'numeric', year: 'numeric'
                          }).replace(/ /g, '/'),

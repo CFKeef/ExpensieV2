@@ -17,6 +17,8 @@ const Dashboard = (props) => {
     const [stats, setStats] = useState([]);
     const [data, setData] = useState([]);
     const [editOrder, setEditOrder] = useState([]);
+    const [loaded, setLoaded] = useState(false);
+
 
     // Handles adding a sale to our orders
     const handleAdd = () => {
@@ -42,7 +44,8 @@ const Dashboard = (props) => {
             setDropDownShowing(!dropDownShowing);
         }
         const setLast = (index) => {
-            if( (index === options.length - 1 || index === 1) && dropDownSelection === "Past Year") return "last";
+            if(index === options.length - 1) return "last";
+            else if(options[index] === "Past 30 Days" && dropDownSelection === "Past Year") return "last";
             else return "";
         }
 
@@ -88,7 +91,7 @@ const Dashboard = (props) => {
 
     // Handles interacting with the order the user pressed on
     const handleActionsShown = (key) => {
-        const orderToEdit = orders.find(order => order.id == key);
+        const orderToEdit = orders.find(order => order.id === key);
 
         if(actionsShowing) {
             return (
@@ -126,7 +129,7 @@ const Dashboard = (props) => {
                                 </td>
                                 <td className="actions">
                                     <button onClick={() => handleActionsClick(order.id)}>
-                                        <img src={ShowMore} />
+                                        <img src={ShowMore} alt="button" />
                                     </button>
                                     {handleActionsShown()}
                                 </td>
@@ -217,6 +220,35 @@ const Dashboard = (props) => {
         )
     }
 
+    const handleStatsPass = (selection) => {
+        const processIntoCorrectForm = (object) => {
+            if(stats.length === 0) return [];
+
+            return [
+                {name: "Total", value: object.gross},
+                {name: "Profit", value: object.profit},
+                {name: "Expenses", value: object.expenses}
+            ]
+
+        }
+        switch(selection) {
+            case "Lifetime":
+                return processIntoCorrectForm(stats[2])
+            case "Past 30 Days":
+                return processIntoCorrectForm(stats[0])
+            case "Past Year":
+                return processIntoCorrectForm(stats[1])
+            default:
+                return data;
+        }
+    } 
+    useEffect(() => {
+        setOrder(props.orders);
+        setStats(props.stats);
+        setData(props.data);
+        setLoaded(true);
+    }, [])
+
     useEffect(() => {
         setOrder(props.orders);
         setStats(props.stats);
@@ -256,11 +288,11 @@ const Dashboard = (props) => {
                         </div>
                         <div className="right">
                             <Chart 
-                                salesSummary={data}
+                                salesSummary={handleStatsPass(dropDownSelection)}
                             />
                             <div className={"button " + handleNoData(orders)}>
                                 <button onClick={() => {setDropDownShowing(!dropDownShowing)}} className={" defaultDropdown " + handleDropDownRestyling()}>
-                                    <img src={DownChevron} />
+                                    <img src={DownChevron} alt="button" />
                                     <p>{dropDownSelection}</p>
                                 </button>
                                 {handleDropDown()}
@@ -292,13 +324,13 @@ const Dashboard = (props) => {
                     <div className="buttons">
                         <div className="viewall">
                             <button className="defaultbtn" onClick={() => {props.setPage("Sales")}}>
-                                <img src={Arrow} />
+                                <img src={Arrow} alt="button" />
                                 <p>View More</p>
                             </button>
                         </div>
                         <div className="addsale">
                             <button className="defaultbtn" onClick={() => {handleAdd()}} >
-                                <img src={Plus} />
+                                <img src={Plus} alt="button" />
                                 <p>Add Sale</p>
                             </button>
                         </div>
