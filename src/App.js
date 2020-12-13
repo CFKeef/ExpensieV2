@@ -136,11 +136,12 @@ function App() {
     const updateMonthly = (order, type) => {
         // Find Month it occured in
         let month = new Date(order.date).getMonth();
+        console.log(month)
 
         let temp = monthlyData;
- 
+        console.log(temp)
         let index = temp.findIndex(x => x.num === month);
-
+        console.log(index)
         if(type === "expense") {
             temp[index].Expenses += parseInt(order.amount);
         }
@@ -326,7 +327,6 @@ function App() {
             if(newOrders.length > 0) (
                 newOrders.map((async temp => {
                     await addToTotal(temp.amount);
-                    await balanceProfit();
                     await updateMonthly(temp, "sale");
                     await balanceStats(temp, "sale");
                 }))
@@ -335,11 +335,11 @@ function App() {
             if(newExpenses.length > 0)  {
                 newExpenses.map((async temp => {
                     await addToExpense(temp.amount)
-                    await balanceProfit();
                     await updateMonthly(temp, "expense");
                     await balanceStats(temp, "expense");
                 }))
             }
+            await balanceProfit();
             setOrder([...orders, ...newOrders]);
             setExpenses([...expenses, ...newExpenses]);
         }
@@ -350,8 +350,26 @@ function App() {
         })
     }
 
-    const handleExport = () => {
+    const saveAllData = () => {
+        let save = {
+            orders: [...orders],
+            expenses: [...expenses],
+            stats: stats,
+            data: data,
+            monthlyData: monthlyData
+        }
+        ipcRenderer.send("saveData", save);
+    }
 
+    const handleExport = () => {
+        let save = {
+            orders: [...orders],
+            expenses: [...expenses],
+            stats: stats,
+            data: data,
+            monthlyData: monthlyData
+        }
+        ipcRenderer.send("handleExport", save);
     }
 
     useEffect(()=> {
@@ -436,8 +454,7 @@ function App() {
                             thirtyDayData,
                             importShown, setImportShown,
                             exportShown, setExportShown);
-
-                            
+                         
     return (
         <React.Fragment>
             <Menubar />

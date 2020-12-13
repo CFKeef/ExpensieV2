@@ -222,7 +222,7 @@ const Dashboard = (props) => {
 
     const handleStatsPass = (selection) => {
         const processIntoCorrectForm = (object) => {
-            if(stats.length === 0) return [];
+            if(stats === undefined || object === undefined) return [];
 
             return [
                 {name: "Total", value: object.gross},
@@ -242,6 +242,7 @@ const Dashboard = (props) => {
                 return data;
         }
     } 
+    
     useEffect(() => {
         setOrder(props.orders);
         setStats(props.stats);
@@ -253,8 +254,8 @@ const Dashboard = (props) => {
         setOrder(props.orders);
         setStats(props.stats);
         setData(props.data);
+        setLoaded(true);
     }, [props.orders, props.stats, props.data])
-
 
     return (
         <div className="dashboard-container">

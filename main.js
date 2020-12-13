@@ -7,7 +7,9 @@ const {
 } = electron;
 const path = require('path');
 const fs = require("fs");
-
+const storage = require("electron-json-storage");
+const os = require("os");
+console.log(storage.getDataPath())
 const {
 	default: installExtension,
 	REDUX_DEVTOOLS,
@@ -15,6 +17,7 @@ const {
 } = require('electron-devtools-installer');
 
 // Contains objects of format : ID (int), DATE (date), CUSTOMER (string), AMOUNT (INT). STATUS(INT)
+storage.set()
 let orders = [];
 
 // Contains objects of format : ID (int), DATE (date), DESCRIPTION (string), AMOUNT (INT), STATUS(INT)
@@ -125,26 +128,71 @@ app.on('ready', init);
 
 // Returns orders list for dashboard page
 ipcMain.on("retrieveOrders", (event) => {
-	event.reply("ordersResponse", orders);
+	storage.has("orders", (err, hasKey) => {
+		if(err) event.reply("ordersResponse", orders);
+
+		if(hasKey) {
+			storage.get("orders", (err, data) => {
+				event.reply("ordersResponse", data.orders);
+			})
+		}
+		else event.reply("ordersResponse", orders);
+	})
 })
 
 // Returns orders list for dashboard page
 ipcMain.on("retrieveExpenses", (event) => {
-	event.reply("expensesResponse", expenses);
+	storage.has("expenses", (err, hasKey) => {
+		if(err) event.reply("expensesResponse", expenses);
+
+		if(hasKey) {
+			storage.get("expenses", (err, data) => {
+				event.reply("expensesResponse", data.expenses);
+			})
+		}
+		else event.reply("expensesResponse", expenses);
+	})
 })
 
 // Returns stats list for dashboard page
 ipcMain.on("retrieveStats", (event) => {
-	event.reply("statsResponse", stats);
+	storage.has("stats", (err, hasKey) => {
+		if(err) event.reply("statsResponse", stats);
+
+		if(hasKey) {
+			storage.get("stats", (err, data) => {
+				event.reply("statsResponse", data.stats);
+			})
+		}
+		else event.reply("statsResponse", stats);
+	})
 })
 
 // Returns chart data for chart on dashboard page
 ipcMain.on("retrieveChartData", (event) => {
-	event.reply("chartDataResponse", chartData);
+	storage.has("chartData", (err, hasKey) => {
+		if(err) event.reply("chartDataResponse", chartData);
+
+		if(hasKey) {
+			storage.get("chartData", (err, data) => {
+				event.reply("chartDataResponse", data.chartData);
+			})
+		}
+		else event.reply("chartDataResponse", chartData);
+	})
 })
 
 ipcMain.on("retrieveMonthlyData", (event) => {
-	event.reply("monthlyDataResponse", monthlyData);
+	storage.has("monthlyData", (err, hasKey) => {
+		if(err) event.reply("monthlyDataResponse", monthlyData);
+
+		if(hasKey) {
+			storage.get("monthlyData", (err, data) => {
+				event.reply("monthlyDataResponse", data.monthlyData);
+			})
+		}
+		else event.reply("monthlyDataResponse", monthlyData);
+	})
 })
 
 // Close program
@@ -160,7 +208,7 @@ ipcMain.on("minimize", () => {
 
 // Will update the user's stored order information information
 ipcMain.on("updateOrdersStored", (event, args) => {
-
+	saveOrders(args);
 })
 
 // Handles import process
@@ -178,3 +226,32 @@ ipcMain.on("handleImport", async (event,args)=> {
 	})
 	event.reply("importResponse", content)
 })
+
+
+ipcMain.on("saveData", async (event,args)=> {
+	saveOrders(args.orders);
+	saveExpenses(args.expenses);
+	saveData(args.data);
+	saveStats(args.stats);
+	saveMonthlyData(args.monthlyData)
+})
+
+ipcMain.on("handleExport", async (event,args)=> {
+	
+})
+
+const saveOrders = async (orders) => {
+	storage.set('orders', {orders: orders});
+}
+const saveExpenses = async (expenses) => {
+	storage.set('expenses', {expenses: expenses});
+}
+const saveStats = async (stats) => {
+	storage.set('stats', {stats: stats});
+}
+const saveData = async (data) => {
+	storage.set('data', {data: data});
+}
+const saveMonthlyData = async (data) => {
+	storage.set('monthlyData', {monthlyData: data});
+}
