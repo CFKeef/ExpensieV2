@@ -255,6 +255,7 @@ function App() {
        setStats([...temp]);
     }
 
+    // Adds sale to our orders list and update stats, monthly stats and balances profit
     const handleAddingSale = (order) => {
         let temp;
         
@@ -277,6 +278,7 @@ function App() {
     const handleEditingSale = (expense) => {
     }
     
+    // Adds expense to our list
     const handleAddingExpense = (expense) => {
         let temp;
 
@@ -300,8 +302,15 @@ function App() {
         ipcRenderer.send("openEditSaleWindow", expenses, expenseID);
     }
 
-    const handleImport = () => {
+    const handleImport = async () => {
+        ipcRenderer.send("handleImport");
 
+        let resp;
+
+        ipcRenderer.once("importResponse", (event, arg) =>{
+            resp = arg;
+            console.log(resp);
+        })
     }
 
     const handleExport = () => {

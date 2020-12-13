@@ -2,9 +2,11 @@ const electron = require('electron');
 const {
 	app,
 	BrowserWindow,
-	ipcMain
+	ipcMain,
+	dialog
 } = electron;
 const path = require('path');
+const fs = require("fs");
 
 const {
 	default: installExtension,
@@ -142,4 +144,20 @@ ipcMain.on("minimize", () => {
 // Will update the user's stored order information information
 ipcMain.on("updateOrdersStored", (event, args) => {
 
+})
+
+// Handles import process
+ipcMain.on("handleImport", async (event,args)=> {
+	let file = await dialog.showOpenDialog(mainWindow, {
+		properties: ["openFile"]
+	}).then(result => {
+		return result.filePaths[0]
+	});
+	let content = fs.readFileSync(file, 'utf8', (err,data) => {
+		if(err) {
+			return null;
+		}
+		else return data;
+	})
+	event.reply("importResponse", content)
 })
