@@ -60,7 +60,7 @@ const Form = (props) => {
 			return true;
 		}
 
-		const createOrder = () => {
+		const createOrder = async () => {
 			let order = {
 				type: sale ? "sale" : "expense",
 				id: new Date().getTime(),
@@ -71,7 +71,7 @@ const Form = (props) => {
 			}
 			return order;
 		}
-		const createExpenseFromSale = () => {
+		const createExpenseFromSale = async () => {
 			let expense = {
 				type: "expense",
 				id: new Date().getTime(),
@@ -83,7 +83,7 @@ const Form = (props) => {
 
 			return expense;
 		}
-		const createExpense = () => {
+		const createExpense = async () => {
 			let expense = {
 				type: "expense",
 				id: new Date().getTime(),
@@ -95,7 +95,7 @@ const Form = (props) => {
 
 			return expense;
 		}
-		const resetPopUp = () => {
+		const resetPopUp = async () => {
 			props.setVisible(false);
 			setVisible(false);
 			setDropDownShown(false);
@@ -124,7 +124,7 @@ const Form = (props) => {
 				props.addExpense(expense);
 			}
 		}
-		resetPopUp();
+		await resetPopUp();
 	}
 
 	// Sets the last option in the select with a specific styling to make it prettier
@@ -160,7 +160,7 @@ const Form = (props) => {
 					<div className="ddcontent">
 						<ul>
 							{saleStatus.map( (option, index) => {
-								if(option != saleSelection) {
+								if(option !== saleSelection) {
 									return (
 										<li key={"dropdown" + index}>
 											<button onClick={()=>handleClick(option) } className={setLast(index)}>{option}</button>
@@ -216,7 +216,7 @@ const Form = (props) => {
 					<div className="dropdown">
 						<label htmlFor="status">Order Status</label>
 						<button id="status" onClick={() => {setDropDownShown(!dropDownShown)}} className={" defaultDropdown " + handleDropDownRestyling()}>
-							<img src={DownChevron} />
+							<img src={DownChevron} alt="button"/>
 							<p>{saleSelection}</p>
 						</button>
 						{handleDropDown()}
@@ -248,7 +248,7 @@ const Form = (props) => {
 						<div className="dropdown">
 							<label htmlFor="status">Category</label>
 							<button id="status" onClick={() => {setDropDownShown(!dropDownShown)}} className={" defaultDropdown " + handleDropDownRestyling()}>
-								<img src={DownChevron} />
+								<img src={DownChevron} alt="button"/>
 								<p>{expSelection}</p>
 							</button>
 							{handleDropDown()}
@@ -269,13 +269,13 @@ const Form = (props) => {
         return (
             <div className="menubar-container">
                 <div className="logo">
-                	<img src={logo} />
+                	<img src={logo} alt="logo"/>
                 	<h1>Create an Entry</h1>
            	 	</div>
             	<div className="controls">
                 	<div>
                     	<button className="close" onClick={() => {props.setVisible(false)}}>
-                        	<img src={close} />
+                        	<img src={close} alt="button"/>
                     	</button>
                 	</div>
                 </div>

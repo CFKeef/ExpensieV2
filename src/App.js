@@ -126,45 +126,33 @@ function App() {
     const [data, setData] = useState([]);
     const [page, setPage] = useState("Dashboard");
     const [popUpVisible, setPopUpVisible] = useState(false);
-    const [monthlyData, setMonthlyData] = useState([
-        {num: 0, date: "Jan", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 1, date: "Feb", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 2, date: "April", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 3, date: "Mar", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 4, date: "May", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 5, date: "June", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 6, date: "July", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 7, date: "Aug", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 8, date: "Sept", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 9, date: "Oct", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 10, date: "Nov", Gross: 0, Expenses: 0, Profit: 0},
-        {num: 11, date: "Dec", Gross: 0, Expenses: 0, Profit: 0},
-    ]);
+    const [monthlyData, setMonthlyData] = useState([]);
     const [thirtyDayData, setThirtyDayData] = useState([]);
     const [importShown, setImportShown] = useState(false);
     const [exportShown, setExportShown] = useState(false);
+    const [loaded, setLoaded] = useState(false);
 
     // Will update the month's info when the action occured
     const updateMonthly = (order, type) => {
         // Find Month it occured in
         let month = new Date(order.date).getMonth();
 
-        let temp = [...monthlyData];
+        let temp = monthlyData;
+ 
         let index = temp.findIndex(x => x.num === month);
+
         if(type === "expense") {
             temp[index].Expenses += parseInt(order.amount);
-            temp[index].Profit = temp[index].Gross - temp[index].Expenses
         }
         else {
             temp[index].Gross += parseInt(order.amount);
-            temp[index].Profit = temp[index].Gross - temp[index].Expenses
         }
-
+        temp[index].Profit = parseInt(temp[index].Gross) - parseInt(temp[index].Expenses)
         setMonthlyData(temp);
     }
 
     // Adds to the daily entry based on the order's date
-    const addToDaily = (order, type) => {
+    const addToDaily = async (order, type) => {
         let temp = [...thirtyDayData];
         let index = temp.findIndex(entry => entry.date === new Date(order.date).toISOString().slice(0,10));
         if(type === "expense" && index !== -1) {
@@ -180,37 +168,36 @@ function App() {
     }
 
     // Adds to Gross
-    const addToTotal = (amount) => {
+    const addToTotal = async (amount) => {
         data[0].value += parseInt(amount);
     }
 
     // Adds to expense
-    const addToExpense = (amount) => {
+    const addToExpense = async (amount) => {
         data[2].value += parseInt(amount);
     }
 
     // Updates profit
-    const balanceProfit = () => {
+    const balanceProfit = async () => {
         data[1].value = Math.abs(data[0].value) - Math.abs(data[2].value);
     }
 
     // Handles where to add based on days since event
-    const balanceStats = (order, type) => {
+    const balanceStats = async (order, type) => {
 		const calculateDaysSinceOrder = (date) => {
 			return Math.floor((Date.now() - date) / (1000 * 3600 * 24));
 		}
 		let temp = stats;
 		let dateOfOrder = Date.parse(order.date);	
         let daysSince = calculateDaysSinceOrder(dateOfOrder);
-
        if(type === "sale") {
-
 		switch(true) {
 			case (daysSince < 31):
 				for(let i = 0; i < temp.length; i++) {
-					temp[i].gross = parseInt(order.amount);
+					temp[i].gross += parseInt(order.amount);
 					temp[i].sales++;
-					temp[i].profit = parseInt(temp[i].gross) - parseInt(temp[i].expenses); 
+                    temp[i].profit = parseInt(temp[i].gross) - parseInt(temp[i].expenses); 
+                    console.log(temp[i]);
                 }
                 addToDaily(order, type);
 				break;	
@@ -218,7 +205,7 @@ function App() {
 				for(let i = 1; i < temp.length; i++) {
 					temp[i].gross += parseInt(order.amount);
 					temp[i].sales++;
-					temp[i].profit = parseInt(temp[i].gross) - parseInt(temp[i].expenses); 
+                    temp[i].profit = parseInt(temp[i].gross) - parseInt(temp[i].expenses); 
 				}
 				break;
 
@@ -250,15 +237,14 @@ function App() {
 				temp[2].profit = parseInt(temp[2].gross) - parseInt(temp[2].expenses); 
 				break;
 		}
-	   }
-	   
-       setStats([...temp]);
+       }
+       setStats(temp);
     }
 
     // Adds sale to our orders list and update stats, monthly stats and balances profit
-    const handleAddingSale = (order) => {
+    const handleAddingSale = async (order) => {
         let temp;
-        
+
         if(order.type=== "sale") temp = {
             id: order.id,
             date: order.date,
@@ -267,11 +253,11 @@ function App() {
             status: order.category
         }
 
-        addToTotal(temp.amount);
-        balanceProfit();
-        updateMonthly(temp, "sale");
-		balanceStats(temp, "sale");
-        setOrder([...orders, temp]);
+        await addToTotal(temp.amount);
+        await balanceProfit();
+        await updateMonthly(temp, "sale");
+		await balanceStats(temp, "sale");
+        await setOrder([...orders, temp]);
         ipcRenderer.send("updateOrdersStored", orders);
     }
     
@@ -279,7 +265,7 @@ function App() {
     }
     
     // Adds expense to our list
-    const handleAddingExpense = (expense) => {
+    const handleAddingExpense = async (expense) => {
         let temp;
 
         if(expense.type === "expense") temp = {
@@ -290,11 +276,11 @@ function App() {
             category: expense.category
         }
 
-        addToExpense(temp.amount)
-        balanceProfit();
-        updateMonthly(temp, "expense");
-        balanceStats(temp, "expense");
-        setExpenses([...expenses, temp]);
+        await addToExpense(temp.amount)
+        await balanceProfit();
+        await updateMonthly(temp, "expense");
+        await balanceStats(temp, "expense");
+        await setExpenses([...expenses, temp]);
         ipcRenderer.send("updateExpensesStored", expenses);
     }
     
@@ -303,13 +289,65 @@ function App() {
     }
 
     const handleImport = async () => {
+        const processImport = async (data) => {
+            // Splits data set into rows
+            const rows = data.split("\n");
+            const newOrders = [];
+            const newExpenses = [];
+            for(let i = 1; i < rows.length - 1; i++) {
+                let row = rows[i].split(",");
+                let temp;
+                if(row[0] === "SALE") {
+                    temp = {
+                        id: new Date(),
+                        date: new Date(row[1]).toLocaleDateString('en-US', {
+                            day: 'numeric',month: 'numeric', year: 'numeric'
+                         }).replace(/ /g, '/'),
+                        name: row[2],
+                        amount:  parseInt(row[3]),
+                        category: row[4]
+                    }
+                    newOrders.push(temp);
+                    
+                }
+                else {
+                    temp = {
+                        id: new Date().getTime(),
+                        date: new Date(row[1]).toLocaleDateString('en-US', {
+                             day: 'numeric',month: 'numeric', year: 'numeric'
+                          }).replace(/ /g, '/'),
+                        description: row[2],
+                        amount: parseInt(row[3]),
+                        category: row[4]
+                    }
+                    newExpenses.push(temp);
+                }
+            }
+
+            if(newOrders.length > 0) (
+                newOrders.map((async temp => {
+                    await addToTotal(temp.amount);
+                    await balanceProfit();
+                    await updateMonthly(temp, "sale");
+                    await balanceStats(temp, "sale");
+                }))
+            )
+            
+            if(newExpenses.length > 0)  {
+                newExpenses.map((async temp => {
+                    await addToExpense(temp.amount)
+                    await balanceProfit();
+                    await updateMonthly(temp, "expense");
+                    await balanceStats(temp, "expense");
+                }))
+            }
+            setOrder([...orders, ...newOrders]);
+            setExpenses([...expenses, ...newExpenses]);
+        }
         ipcRenderer.send("handleImport");
 
-        let resp;
-
-        ipcRenderer.once("importResponse", (event, arg) =>{
-            resp = arg;
-            console.log(resp);
+        ipcRenderer.on("importResponse", async (event, arg) =>{
+            processImport(arg);
         })
     }
 
@@ -320,12 +358,9 @@ function App() {
     useEffect(()=> {
         const getOrders = async () => {
             ipcRenderer.send("retrieveOrders");
-            
-            let resp = []; 
-            
+                       
             ipcRenderer.once("ordersResponse", (event, arg) =>{
-                resp = arg;
-                setOrder(resp);
+                setOrder(arg);
                 setLast30Days();
             })  
         }
@@ -333,43 +368,31 @@ function App() {
         const getExpenses = async () => {
             ipcRenderer.send("retrieveExpenses");
             
-            let resp = []; 
-            
             ipcRenderer.once("expensesResponse", (event, arg) =>{
-                resp = arg;
-                setExpenses(resp);
+                setExpenses(arg);
             })  
         }
 
         const getStats = async () => {
             ipcRenderer.send("retrieveStats");
 
-            let resp = [];
-
             ipcRenderer.once("statsResponse", (event, arg) => {
-                resp = arg;
-                setStats(resp);
+                setStats(arg);
             })
         }
 
         const getData = async () => {
             ipcRenderer.send("retrieveChartData");
 
-            let resp = [];
-
             ipcRenderer.once("chartDataResponse", (event, arg) => {
-                resp = arg;
-                setData(resp);
+                setData(arg);
             })
         }
         const getMonthly = async () => {
             ipcRenderer.send("retrieveMonthlyData");
             
-            let resp = []; 
-            
-            ipcRenderer.once("monthlyResponse", (event, arg) =>{
-                resp = arg;
-                setMonthlyData(resp);
+            ipcRenderer.once("monthlyDataResponse", (event, arg) =>{
+                setMonthlyData(arg);
             })  
         }
         const setLast30Days = () => {
@@ -391,12 +414,12 @@ function App() {
                 
             setThirtyDayData([...temp]);
         }
-
+        getMonthly();
         getData();
         getExpenses();
         getOrders();
         getStats();
-        getMonthly();
+        setLoaded(true);
     }, [])
  
     // generate the markdown

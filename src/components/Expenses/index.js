@@ -34,7 +34,7 @@ const Expenses = (props) => {
                 if(equal) {
                     return expenses.filter(expense => expense.category === category);
                 }
-                return expenses.filter(expense => expense.category != category);
+                return expenses.filter(expense => expense.category !== category);
             }
             const handleDataChange = (option) => {
                 switch(option) {
@@ -57,7 +57,7 @@ const Expenses = (props) => {
         }
 
         const handleSelectionStyling = (option) => {
-            if(option == selectedView) return "selected";
+            if(option === selectedView) return "selected";
             return "";
         }
         
@@ -93,7 +93,7 @@ const Expenses = (props) => {
                     if(button.text === "Search") return (
                         <li key={"menubutton" + index}>
                         <div className={"searchbar " + button.text}>
-                            <img src={button.image} />
+                            <img src={button.image} alt="button"/>
                             <input placeholder="Search by any column" onChange={e => {handleSearchBar(e.target.value)}} type="text" search="Search"></input>
                         </div>
                     </li> 
@@ -101,7 +101,7 @@ const Expenses = (props) => {
                     return (
                         <li key={"menubutton" + index}>
                             <button className={"defaultbtn " + button.text} onClick={() => {handleAdd()}}>
-                                <img src={button.image} />
+                                <img src={button.image} alt="button" />
                                 <p>{button.text}</p>
                             </button>
                         </li>
@@ -167,7 +167,7 @@ const Expenses = (props) => {
                                 </td>
                                 <td className="actions">
                                     <button onClick={() => handleActionsClick(expense.id)}>
-                                        <img src={ShowMore} />
+                                        <img src={ShowMore} alt="button"/>
                                     </button>
                                 </td>
                             </tr>

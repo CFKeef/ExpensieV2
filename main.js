@@ -39,7 +39,20 @@ let chartData = [{
 		value: 0
 	}
 ];
-
+let monthlyData = [
+	{num: 0, date: "Jan", Gross: 0, Expenses: 0, Profit: 0},
+	{num: 1, date: "Feb", Gross: 0, Expenses: 0, Profit: 0},
+	{num: 2, date: "April", Gross: 0, Expenses: 0, Profit: 0},
+	{num: 3, date: "Mar", Gross: 0, Expenses: 0, Profit: 0},
+	{num: 4, date: "May", Gross: 0, Expenses: 0, Profit: 0},
+	{num: 5, date: "June", Gross: 0, Expenses: 0, Profit: 0},
+	{num: 6, date: "July", Gross: 0, Expenses: 0, Profit: 0},
+	{num: 7, date: "Aug", Gross: 0, Expenses: 0, Profit: 0},
+	{num: 8, date: "Sept", Gross: 0, Expenses: 0, Profit: 0},
+	{num: 9, date: "Oct", Gross: 0, Expenses: 0, Profit: 0},
+	{num: 10, date: "Nov", Gross: 0, Expenses: 0, Profit: 0},
+	{num: 11, date: "Dec", Gross: 0, Expenses: 0, Profit: 0},
+];
 let mainWindow;
 
 process.env.NODE_ENV = 'dev';
@@ -128,6 +141,10 @@ ipcMain.on("retrieveStats", (event) => {
 // Returns chart data for chart on dashboard page
 ipcMain.on("retrieveChartData", (event) => {
 	event.reply("chartDataResponse", chartData);
+})
+
+ipcMain.on("retrieveMonthlyData", (event) => {
+	event.reply("monthlyDataResponse", monthlyData);
 })
 
 // Close program
