@@ -131,6 +131,7 @@ function App() {
     const [importShown, setImportShown] = useState(false);
     const [exportShown, setExportShown] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [edit,setEdit] = useState(false);
 
     // Will update the month's info when the action occured
     const updateMonthly = (order, type) => {
@@ -250,7 +251,7 @@ function App() {
             id: order.id,
             date: order.date,
             name: order.name,
-            amount: order.amount,
+            amount: parseInt(order.amount),
             status: order.category
         }
 
@@ -262,9 +263,23 @@ function App() {
         ipcRenderer.send("updateOrdersStored", orders);
     }
     
-    const handleEditingSale = (expense) => {
+    const handleEditingSale = (sale) => {
+        let targetIndex = orders.findIndex(order => order.id === sale.id && order.date === sale.date);
+        let relatedExpense = expenses.findIndex(expense => expense.description.includes(sale.name));
+
+        // Update Orders list to reflect changes
+        
+        // See what property was changed
     }
-    
+
+    const handleDeletingSale = (sale) => {
+        let tempOrders = orders.filter(order => order.id !== sale.id || order.date !== sale.date);
+        let tempExpenses = expenses.filter(expense => !expense.description.includes(sale.name));
+        
+        setOrder(tempOrders);
+        setExpenses(tempExpenses);
+    }
+
     // Adds expense to our list
     const handleAddingExpense = async (expense) => {
         let temp;
@@ -273,7 +288,7 @@ function App() {
             id: expense.id,
             date: expense.date,
             description: expense.name,
-            amount: expense.amount,
+            amount: parseInt(expense.amount),
             category: expense.category
         }
 

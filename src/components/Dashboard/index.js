@@ -89,18 +89,18 @@ const Dashboard = (props) => {
     }
 
     // Handles interacting with the order the user pressed on
-    const handleActionsShown = (key, index) => {
+    const handleActionsShown = (orderPassed, index) => {
         const wrapper = () => {
             setActionsShowing(!actionsShowing);
             if(selectedRow === -1) setSelectedRow(index);
             else setSelectedRow(-1);
         }
-        const orderToEdit = orders.find(order => order.id === key);
+        const orderToEdit = orders.find(order => order.id === orderPassed.id && order.date === orderPassed.date);
 
         if(actionsShowing && selectedRow === index) {
             return (
                 <div className="actioncontent">
-                    <button>
+                    <button onClick={() => {props.editOrder(orderToEdit)}}>
                         <p>EDIT</p>
                     </button>
                     <button>
@@ -145,7 +145,7 @@ const Dashboard = (props) => {
                                     <p>{order.status}</p>
                                 </td>
                                 <td className={"actions num" + index}>
-                                    {handleActionsShown(order.id, index)}
+                                    {handleActionsShown(order, index)}
                                 </td>
                             </tr>
                     )})}
