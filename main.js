@@ -9,7 +9,7 @@ const path = require('path');
 const fs = require("fs");
 const storage = require("electron-json-storage");
 const os = require("os");
-console.log(storage.getDataPath())
+
 const {
 	default: installExtension,
 	REDUX_DEVTOOLS,
@@ -18,6 +18,29 @@ const {
 
 // Contains objects of format : ID (int), DATE (date), CUSTOMER (string), AMOUNT (INT). STATUS(INT)
 storage.set()
+
+const setLast30Days = () => {
+	let temp = [];
+
+	for(let i = 29; i >= 0; i--) {
+		let date = new Date()
+		date.setDate(date.getDate() - i);
+		let entry = {
+			id: new Date().getTime(),
+			date: date.toLocaleDateString('en-US', {
+				day: 'numeric',month: 'numeric', year: 'numeric'
+			 }).replace(/ /g, '/'),
+			Gross: 0,
+			Expenses: 0,
+			Profit: 0 
+		}
+		
+		temp.push(entry);
+	}
+
+	return temp;
+}
+
 let orders = [];
 
 // Contains objects of format : ID (int), DATE (date), DESCRIPTION (string), AMOUNT (INT), STATUS(INT)
@@ -56,6 +79,9 @@ let monthlyData = [
 	{num: 10, date: "Nov", Gross: 0, Expenses: 0, Profit: 0},
 	{num: 11, date: "Dec", Gross: 0, Expenses: 0, Profit: 0},
 ];
+
+let thirtyDayData = setLast30Days();
+
 let mainWindow;
 
 process.env.NODE_ENV = 'dev';
@@ -195,6 +221,20 @@ ipcMain.on("retrieveMonthlyData", (event) => {
 	})
 })
 
+ipcMain.on("retrieveThirtyDays", (event) => {
+	storage.has("thirtyDays", (err, hasKey) => {
+		if(err) event.reply("thirtyDaysResponse", thirtyDayData);
+
+		if(hasKey) {
+			storage.get("thirtyDays", (err, data) => {
+				event.reply("thirtyDaysResponse", data.thirtyDays.filter(entry => Math.ceil( (Math.abs(new Date().getTime() - new Date(entry.date).getTime())) / (1000 * 3600 * 24)) < 31));
+			})
+		}
+		else event.reply("thirtyDaysResponse", thirtyDayData);
+	})
+
+})
+
 // Close program
 ipcMain.on("close", () => {
 	app.quit();
@@ -233,7 +273,8 @@ ipcMain.on("saveData", async (event,args)=> {
 	saveExpenses(args.expenses);
 	saveData(args.data);
 	saveStats(args.stats);
-	saveMonthlyData(args.monthlyData)
+	saveMonthlyData(args.monthlyData);
+	saveThirtyDays(args.thirtyDays);
 })
 
 ipcMain.on("handleExport", async (event,args)=> {
@@ -254,4 +295,7 @@ const saveData = async (data) => {
 }
 const saveMonthlyData = async (data) => {
 	storage.set('monthlyData', {monthlyData: data});
+}
+const saveThirtyDays = async (data) => {
+	storage.set('thirtyDays', {thirtyDays: data});
 }

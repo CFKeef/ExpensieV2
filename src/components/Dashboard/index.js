@@ -242,7 +242,7 @@ const Dashboard = (props) => {
                 return data;
         }
     } 
-    
+
     useEffect(() => {
         setOrder(props.orders);
         setStats(props.stats);
@@ -282,7 +282,7 @@ const Dashboard = (props) => {
                             </table>
                             <div className="button">
                                 <button className="defaultbtn" onClick={() => {props.setPage("Analytics")}} >
-                                    <img src={Arrow} />
+                                    <img src={Arrow} alt="button" />
                                     <p>View More</p>
                                 </button>
                             </div>

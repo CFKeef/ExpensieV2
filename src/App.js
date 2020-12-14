@@ -136,12 +136,11 @@ function App() {
     const updateMonthly = (order, type) => {
         // Find Month it occured in
         let month = new Date(order.date).getMonth();
-        console.log(month)
 
         let temp = monthlyData;
-        console.log(temp)
+
         let index = temp.findIndex(x => x.num === month);
-        console.log(index)
+
         if(type === "expense") {
             temp[index].Expenses += parseInt(order.amount);
         }
@@ -155,7 +154,9 @@ function App() {
     // Adds to the daily entry based on the order's date
     const addToDaily = async (order, type) => {
         let temp = [...thirtyDayData];
-        let index = temp.findIndex(entry => entry.date === new Date(order.date).toISOString().slice(0,10));
+        let index = temp.findIndex(entry => entry.date === new Date(order.date).toLocaleDateString('en-US', {
+            day: 'numeric',month: 'numeric', year: 'numeric'
+         }).replace(/ /g, '/'));
         if(type === "expense" && index !== -1) {
             temp[index].Expenses += parseInt(order.amount);
             temp[index].Profit =  parseInt(temp[index].Gross) -  parseInt(temp[index].Expenses);
@@ -294,6 +295,8 @@ function App() {
             const rows = data.split("\n");
             const newOrders = [];
             const newExpenses = [];
+            let tempThirtyDayData = thirtyDayData;
+
             for(let i = 1; i < rows.length - 1; i++) {
                 let row = rows[i].split(",");
                 let temp;
@@ -305,10 +308,9 @@ function App() {
                          }).replace(/ /g, '/'),
                         name: row[2],
                         amount:  parseInt(row[3]),
-                        status: String(row[4])
+                        status: row[4].trim()
                     }
                     newOrders.push(temp);
-                    
                 }
                 else {
                     temp = {
@@ -318,7 +320,7 @@ function App() {
                           }).replace(/ /g, '/'),
                         description: row[2],
                         amount: parseInt(row[3]),
-                        category: row[4]
+                        category: row[4].trim()
                     }
                     newExpenses.push(temp);
                 }
@@ -327,6 +329,7 @@ function App() {
             if(newOrders.length > 0) (
                 newOrders.map((async temp => {
                     await addToTotal(temp.amount);
+                    await addToDaily(temp, "sale");
                     await updateMonthly(temp, "sale");
                     await balanceStats(temp, "sale");
                 }))
@@ -335,6 +338,7 @@ function App() {
             if(newExpenses.length > 0)  {
                 newExpenses.map((async temp => {
                     await addToExpense(temp.amount)
+                    await addToDaily(temp, "sale");
                     await updateMonthly(temp, "expense");
                     await balanceStats(temp, "expense");
                 }))
@@ -356,7 +360,8 @@ function App() {
             expenses: [...expenses],
             stats: stats,
             data: data,
-            monthlyData: monthlyData
+            monthlyData: monthlyData,
+            thirtyDays: thirtyDayData
         }
         ipcRenderer.send("saveData", save);
     }
@@ -367,8 +372,10 @@ function App() {
             expenses: [...expenses],
             stats: stats,
             data: data,
-            monthlyData: monthlyData
+            monthlyData: monthlyData,
+            thirtyDays: thirtyDayData
         }
+        saveAllData();
         ipcRenderer.send("handleExport", save);
     }
 
@@ -378,7 +385,6 @@ function App() {
                        
             ipcRenderer.once("ordersResponse", (event, arg) =>{
                 setOrder(arg);
-                setLast30Days();
             })  
         }
 
@@ -412,25 +418,15 @@ function App() {
                 setMonthlyData(arg);
             })  
         }
-        const setLast30Days = () => {
-            let temp = [];
-
-            for(let i = 29; i >= 0; i--) {
-                let date = new Date()
-                date.setDate(date.getDate() - i);
-                let entry = {
-                    id: new Date().getTime(),
-                    date: date.toISOString().slice(0,10),
-                    Gross: 0,
-                    Expenses: 0,
-                    Profit: 0 
-                }
-                
-                temp.push(entry);
-            }
-                
-            setThirtyDayData([...temp]);
+        const getLast30Days = async () => {
+            ipcRenderer.send("retrieveThirtyDays");
+            
+            ipcRenderer.once("thirtyDaysResponse", (event, arg) =>{
+                setThirtyDayData(arg);
+            })  
         }
+
+        getLast30Days();
         getMonthly();
         getData();
         getExpenses();
@@ -438,7 +434,7 @@ function App() {
         getStats();
         setLoaded(true);
     }, [])
- 
+
     // generate the markdown
     let content = renderPage(page,setPage, 
                             orders, setOrder, 
