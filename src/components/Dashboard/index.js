@@ -8,11 +8,15 @@ import ShowMore from '../../assets/options.svg';
 import Plus from '../../assets/plus.svg';
 import Arrow from '../../assets/right-arrow.svg';
 import DownChevron from '../../assets/down-chevron.svg';
+import close from '../../assets/closewhite.svg';
+import settings from '../../assets/settings.svg';
+import deleteEntry from '../../assets/delete.svg';
 
 const Dashboard = (props) => {
     const [dropDownSelection, setDropDownSelection] = useState("Lifetime");
     const [dropDownShowing, setDropDownShowing] = useState(false);
     const [actionsShowing, setActionsShowing] = useState(false);
+    const [selectedRow, setSelectedRow] = useState(-1);
     const [orders, setOrder] = useState([]);
     const [stats, setStats] = useState([]);
     const [data, setData] = useState([]);
@@ -43,6 +47,7 @@ const Dashboard = (props) => {
             setDropDownSelection(option);
             setDropDownShowing(!dropDownShowing);
         }
+
         const setLast = (index) => {
             if(index === options.length - 1) return "last";
             else if(options[index] === "Past 30 Days" && dropDownSelection === "Past Year") return "last";
@@ -83,23 +88,35 @@ const Dashboard = (props) => {
         else return "";
     }
 
-    // Handles clicking the action button on an order
-    const handleActionsClick = (key) => {
-        setEditOrder(key);
-        setActionsShowing(!actionsShowing);
-    }
-
     // Handles interacting with the order the user pressed on
-    const handleActionsShown = (key) => {
+    const handleActionsShown = (key, index) => {
+        const wrapper = () => {
+            setActionsShowing(!actionsShowing);
+            if(selectedRow === -1) setSelectedRow(index);
+            else setSelectedRow(-1);
+        }
         const orderToEdit = orders.find(order => order.id === key);
 
-        if(actionsShowing) {
+        if(actionsShowing && selectedRow === index) {
             return (
                 <div className="actioncontent">
-                    <p>
-                        test
-                    </p>
+                    <button>
+                        <p>EDIT</p>
+                    </button>
+                    <button>
+                        <p>DELETE</p>
+                    </button>
+                    <button onClick={() => wrapper()}>
+                        <p>CLOSE</p>
+                    </button>
                 </div>  
+            )
+        }
+        else {
+            return (
+                <button onClick={() => wrapper()}>
+                    <img src={ShowMore} alt="button" />
+                </button>
             )
         }
     }
@@ -127,11 +144,8 @@ const Dashboard = (props) => {
                                 <td className="status">
                                     <p>{order.status}</p>
                                 </td>
-                                <td className="actions">
-                                    <button onClick={() => handleActionsClick(order.id)}>
-                                        <img src={ShowMore} alt="button" />
-                                    </button>
-                                    {handleActionsShown()}
+                                <td className={"actions num" + index}>
+                                    {handleActionsShown(order.id, index)}
                                 </td>
                             </tr>
                     )})}
