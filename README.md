@@ -6,7 +6,7 @@ The goal of this application is to make tracking sales related to a business eas
 
 ## Gallery
 
-### Executing program
+## Executing program
 
 * How to run the program
 * Run npm start in a terminal
