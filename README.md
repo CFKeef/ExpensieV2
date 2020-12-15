@@ -2,9 +2,23 @@
 
 The goal of this application is to make tracking sales related to a business easier.
 
-
+![UI Preview](https://raw.githubusercontent.com/CFKeef/ExpensieV2/main/src/assets/readMeBanner.png)
 
 ## Gallery
+
+Here are some snippets of the UI
+
+#### Dashboard Screen with editting entry visible
+![Dashboard Screen with editting entry visible](https://raw.githubusercontent.com/CFKeef/ExpensieV2/main/src/assets/readMeImage1.png)
+
+#### Sales Dashboard 
+![Sales Dashboard](https://raw.githubusercontent.com/CFKeef/ExpensieV2/main/src/assets/readMeImage2.png)
+
+#### Expenses Dashboard 
+![Expenses Dashboard](https://raw.githubusercontent.com/CFKeef/ExpensieV2/main/src/assets/readMeImage3.png)
+
+#### Analytics Dashboard 
+![Analytics Dashboard](https://raw.githubusercontent.com/CFKeef/ExpensieV2/main/src/assets/readMeImage4.png)
 
 ## Executing program
 
