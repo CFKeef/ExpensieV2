@@ -2,6 +2,10 @@
 
 The goal of this application is to make tracking sales related to a business easier.
 
+
+
+## Gallery
+
 ### Executing program
 
 * How to run the program
